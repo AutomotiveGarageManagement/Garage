@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Admin Dashboard</title>
+    <link
+      rel="canonical"
+      href="https://www.wrappixel.com/templates/niceadmin-lite/"
+    />
+    <!-- Favicon icon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../../assets/images/favicon.png"
+    />
+    <!-- Custom CSS -->
+    <link
+      href="../../assets/libs/chartist/dist/chartist.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="../../dist/css/style.min.css" rel="stylesheet" />
+
+    <!-- jQuery Lib 3.6 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Thư viện DataTables -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"
+    ></script>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+      <div class="lds-ripple">
+        <div class="lds-pos"></div>
+        <div class="lds-pos"></div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper -->
+    <!-- ============================================================== -->
+    <div
+      id="main-wrapper"
+      data-navbarbg="skin6"
+      data-theme="light"
+      data-layout="vertical"
+      data-sidebartype="full"
+      data-boxed-layout="full"
+    >
+      <!-- ============================================================== -->
+      <!-- Topbar header -->
+      <!-- ============================================================== -->
+      <header class="topbar" data-navbarbg="skin6">
+        <nav class="navbar top-navbar navbar-expand-md navbar-light">
+          <div class="navbar-header" data-logobg="skin5">
+            <!-- ============================================================== -->
+            <!-- Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-brand">
+              <a href="index.html" class="logo">
+                <!-- Logo icon -->
+                <b class="logo-icon">
+                  <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                  <!-- Dark Logo icon -->
+                  <img
+                    src="../../assets/images/logo-icon.png"
+                    alt="homepage"
+                    class="dark-logo"
+                  />
+                  <!-- Light Logo icon -->
+                  <img
+                    src="../../assets/images/logo-light-icon.png"
+                    alt="homepage"
+                    class="light-logo"
+                  />
+                </b>
+                <!--End Logo icon -->
+                <!-- Logo text -->
+                <span class="logo-text">
+                  <!-- Light Logo text -->
+                  <img
+                    src="../../assets/images/logo-light-text.png"
+                    class="light-logo"
+                    alt="homepage"
+                  />
+                </span>
+              </a>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Logo -->
+            <!-- ============================================================== -->
+          </div>
+          <!-- ============================================================== -->
+          <!-- End Logo -->
+          <!-- ============================================================== -->
+          <div
+            class="navbar-collapse collapse"
+            id="navbarSupportedContent"
+            data-navbarbg="skin6"
+          >
+            <!-- ============================================================== -->
+            <!-- toggle and nav items -->
+            <!-- ============================================================== -->
+            <ul class="navbar-nav float-start me-auto">
+              <!-- ============================================================== -->
+              <!-- Search -->
+              <!-- ============================================================== -->
+              <li class="nav-item search-box">
+                <a
+                  class="nav-link waves-effect waves-dark"
+                  href="javascript:void(0)"
+                >
+                  <div class="d-flex align-items-center">
+                    <i class="mdi mdi-magnify font-20 me-1"></i>
+                    <div class="ms-1 d-none d-sm-block">
+                      <span>Search</span>
+                    </div>
+                  </div>
+                </a>
+                <form class="app-search position-absolute">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search &amp; enter"
+                  />
+                  <a class="srh-btn">
+                    <i class="ti-close"></i>
+                  </a>
+                </form>
+              </li>
+            </ul>
+            <!-- ============================================================== -->
+            <!-- Search -->
+            <!-- ============================================================== -->
+          </div>
+        </nav>
+      </header>
+      <!-- ============================================================== -->
+      <!-- End Topbar header -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- Left Sidebar - style you can find in sidebar.scss  -->
+      <!-- ============================================================== -->
+      <aside class="left-sidebar" data-sidebarbg="skin5">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+          <!-- Sidebar navigation-->
+          <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="index.html"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-av-timer"></i>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="service.html"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-car-wash"></i>
+                  <span class="hide-menu">Dịch Vụ</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="warehouse.html"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-car-battery"></i>
+                  <span class="hide-menu">Kho Hàng</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="#"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-account-circle"></i>
+                  <span class="hide-menu">Nhân Viên</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="#"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-chart-line"></i>
+                  <span class="hide-menu">Thống Kê</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="#"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-settings"></i>
+                  <span class="hide-menu">Tuỳ Chọn</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link waves-effect waves-dark sidebar-link"
+                  href="#"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-power"></i>
+                  <span class="hide-menu">Đăng Xuất</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+      </aside>
+      <!-- ============================================================== -->
+      <!-- End Left Sidebar -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- Page wrapper  -->
+      <!-- ============================================================== -->
+      <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb-->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+          <h4 class="page-title">Dịch vụ</h4>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb-->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+          <!-- ============================================================== -->
+          <!-- Start Page Content -->
+          <!-- ============================================================== -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <!-- card body -->
+                <div class="card-body">
+                  <h4 class="card-title">Tiếp nhận dịch vụ</h4>
+                  <h5 class="card-subtitle">Số xe đã nhận hôm nay: 15/30</h5>
+                  <form class="form-horizontal mt-4">
+                    <!-- Input field -->
+                    <div class="row">
+                      <div class="form-group col-lg-6">
+                        <label>Chủ xe</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="...Trần Văn A"
+                          autofocus
+                          id="TenChuXe"
+                        />
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label>Số điện thoại</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="...0123456789"
+                          id="SoDienThoaiChuXe"
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-lg-6">
+                        <label>Địa chỉ</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Thủ Đức, Hồ Chí Minh"
+                          id="DiaChiChuXe"
+                        />
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label>Ngày tiếp nhận</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="NgayTiepNhan"
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-lg-6">
+                        <label>Hiệu xe</label>
+                        <select
+                          class="form-select shadow-none col-12"
+                          id="HieuXe"
+                        >
+                          <option selected>Hiệu xe</option>
+                          <option value="Honda">Honda</option>
+                          <option value="Toyota">Toyota</option>
+                          <option value="Ford">Ford</option>
+                          <option value="Chevrolet">ThChevroletree</option>
+                          <option value="BMW">BMW</option>
+                          <option value="Mercedes-Benz">Mercedes</option>
+                          <option value="Audi">Audi</option>
+                          <option value="Nissan">Nissan</option>
+                          <option value="Hyundai">Hyundai</option>
+                          <option value="Volkswagen">Volkswagen</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label>Biển số xe</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="...22A-222.22"
+                          id="BienSoXe"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Input field -->
+                    <!-- button -->
+                    <div class="row justify-content-center text-center">
+                      <div class="col">
+                        <button
+                          id="BtnDieuChinh"
+                          class="btn btn-warning text-white w-100"
+                        >
+                          Điều chỉnh
+                        </button>
+                      </div>
+
+                      <div class="col">
+                        <button
+                          id="BtnAdd"
+                          class="btn btn-primary text-white w-100"
+                        >
+                          Thêm xe
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- button -->
+                  </form>
+                  <!-- table service -->
+                  <h4 class="card-title mt-5">Danh sách sử dụng dịch vụ</h4>
+                  <div class="table-responsive">
+                    <table class="table table-hover" id="myTable">
+                      <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Chủ xe</th>
+                          <th scope="col">Biển số</th>
+                          <th scope="col">Hiệu xe</th>
+                          <th scope="col">Ngày tiếp nhận</th>
+                          <th scope="col">Tiền nợ</th>
+                          <th scope="col">Trạng thái</th>
+                          <th scope="col">Thêm</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-purple">Đã tiếp nhận</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-info">Đang xử lý</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-success"
+                              >Đã hoàn thành</span
+                            >
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-purple">Đã tiếp nhận</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">5</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-purple">Đã tiếp nhận</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">6</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>Honda</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-purple">Đã tiếp nhận</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">7</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-purple">Đã tiếp nhận</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">8</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-purple">Đã tiếp nhận</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">9</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-purple">Đã tiếp nhận</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">10</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-purple">Đã tiếp nhận</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">11</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-purple">Đã tiếp nhận</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">12</th>
+                          <td>Mark</td>
+                          <td>22A-222.22</td>
+                          <td>BMW</td>
+                          <td>22/02/2022</td>
+                          <td>0</td>
+                          <td>
+                            <span class="label label-purple">Đã tiếp nhận</span>
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- card body -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ============================================================== -->
+          <!-- End PAge Content -->
+          <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center">
+          All Rights Reserved by Gara Oto
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Page wrapper  -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+
+    <!-- Table setting -->
+    <script src="dist/js/pages/service/service.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <!-- <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Slimscrollbar scrollbar JavaScript -->
+    <script src="../../assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="../../dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../dist/js/custom.min.js"></script>
+    <!--This page JavaScript -->
+    <!--Chartis chart-->
+    <script src="../../assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
+  </body>
+</html>
