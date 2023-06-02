@@ -377,6 +377,7 @@
                                           class="w-100 form-control"
                                           type="text"
                                           id="InputNguoiNhap"
+                                          placeholder="Trần Văn B"
                                         />
                                       </div>
                                     </div>
@@ -437,15 +438,17 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <th id="ShowId_1" scope="row">1</th>
-                              <td id="ShowNguoiNhao_1" scope="row">
+                              <th id="Td_ShowId_1" scope="row">1</th>
+                              <td id="Td_ShowNguoiNhao_1" scope="row">
                                 Trần Văn B
                               </td>
-                              <td id="ShowTongTien_1" scope="row">300.000</td>
-                              <td id="ShowNgayNhao_1" scope="row">
+                              <td id="Td_ShowTongTien_1" scope="row">
+                                300.000
+                              </td>
+                              <td id="Td_ShowNgayNhao_1" scope="row">
                                 22/02/2022
                               </td>
-                              <td id="Btn_1" scope="row">
+                              <td id="Td_Btn_1" scope="row">
                                 <button
                                   id="BtnXemChiTiet_1"
                                   class="btn-primary btn text-white"
@@ -491,14 +494,14 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <th id="ShowItem_Id_1" scope="row">1</th>
-                              <td id="ShowItem_TenVatTu_1" scope="row">
+                              <th id="Td_ShowItem_Id_1" scope="row">1</th>
+                              <td id="Td_ShowItem_TenVatTu_1" scope="row">
                                 Lọc nhiên liệu
                               </td>
-                              <td id="ShowItem_SoLuongVatTu_1" scope="row">
+                              <td id="Td_ShowItem_SoLuongVatTu_1" scope="row">
                                 2
                               </td>
-                              <td id="ShowItem_DonGiaVatTu_1" scope="row">
+                              <td id="Td_ShowItem_DonGiaVatTu_1" scope="row">
                                 300.000
                               </td>
                             </tr>
@@ -531,6 +534,119 @@
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+              <!-- popup chi tiết -->
+              <!-- Danh sách nhà cung ứng  -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <!-- card body -->
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col">
+                          <h4 class="card-title fw-bold fs-3">
+                            Danh sách nhà cung cấp
+                          </h4>
+                        </div>
+                        <div class="col-2 text-end">
+                          <button
+                            class="btn-primary btn text-white"
+                            data-toggle="modal"
+                            data-target="#popup3"
+                          >
+                            <span class="fw-bold">Thêm nhà cung cấp</span>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="table-responsive mt-2">
+                        <table class="table table-hover" id="SupplierTable">
+                          <thead>
+                            <tr>
+                              <th scope="col">STT</th>
+                              <th scope="col">Nhà cung cấp</th>
+                              <th scope="col">Địa chỉ</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">SĐT</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th id="Td_NCC_Id_1" scope="row">1</th>
+                              <td id="Td_NCC_Ten" scope="row">
+                                Thiết bị phụ tùng An Phát
+                              </td>
+                              <td id="Td_NCC_DiaChi" scope="row">
+                                Thủ Đức, HCM
+                              </td>
+                              <td id="Td_NCC_Email" scope="row">
+                                anphatvtpt@gmail.com
+                              </td>
+                              <td id="Td_NCC_SDT" scope="row">0123456789</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- lịch sử nhập hàng -->
+              <!-- popup chi tiết -->
+              <div id="popup3" class="modal">
+                <div class="modal-dialog">
+                  <form id="InputNhaCungCap" class="form-horizontal mt-2">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Thêm nhà cung cấp</h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                        >
+                          &times;
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <label>Tên nhà cung cấp:</label>
+                        <input
+                          id="InputNCC_TenNCC"
+                          type="text"
+                          class="form-control"
+                          placeholder="Vật tư phụ tùng An Phát"
+                        />
+                        <label>Địa chỉ:</label>
+                        <input
+                          id="InputNCC_DiaChi"
+                          type="text"
+                          class="form-control"
+                          placeholder="Thủ Đức, HCM"
+                        />
+                        <label>Email:</label>
+                        <input
+                          id="InputNCC_Email"
+                          type="text"
+                          class="form-control"
+                          placeholder="anphatvtpt@gmail.com"
+                        />
+                        <label>SĐT:</label>
+                        <input
+                          id="InputNCC_SDT"
+                          type="text"
+                          class="form-control"
+                          placeholder="0123456789"
+                        />
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          id="BtnNCC_Them"
+                          class="btn btn-primary mt-2 text-center w-25"
+                        >
+                          Thêm
+                        </button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
               <!-- popup chi tiết -->

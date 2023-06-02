@@ -420,7 +420,7 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Tạo Phiếu Thanh Toán</h5>
+                          <h5 class="modal-title">Thêm Vật Tư Phụ Tùng</h5>
                           <button
                             type="button"
                             class="close"
@@ -429,47 +429,29 @@
                             &times;
                           </button>
                         </div>
-                        <form
-                          id="InputFormThemPhuTung"
-                          class="form-horizontal mt-4"
-                        >
+                        <form id="InputFormThemPhuTung" class="form-horizontal">
                           <div class="modal-body">
-                            <div class="row">
-                              <div class="col">
-                                <label>Nhập tên phụ tùng </label>
-                              </div>
-                              <div class="col text-end">
-                                <input
-                                  type="text"
-                                  id="InputTenPhuTung"
-                                  placeholder="Lọc Gió"
-                                />
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <label>Nhập giá nhập hàng</label>
-                              </div>
-                              <div class="col text-end">
-                                <input
-                                  type="text"
-                                  id="InputGiaNhap"
-                                  placeholder="120.000"
-                                />
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <label>Nhập giá xuất hàng</label>
-                              </div>
-                              <div class="col text-end">
-                                <input
-                                  type="text"
-                                  id="InputGiaXuat"
-                                  placeholder="130.000"
-                                />
-                              </div>
-                            </div>
+                            <label>Nhập tên phụ tùng </label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="InputTenPhuTung"
+                              placeholder="Lọc Gió"
+                            />
+                            <label class="mt-2">Giá nhập hàng</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="InputGiaNhap"
+                              placeholder="120.000"
+                            />
+                            <label class="mt-2">Giá xuất hàng</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="InputGiaXuat"
+                              placeholder="130.000"
+                            />
                           </div>
                           <div class="modal-footer">
                             <button
