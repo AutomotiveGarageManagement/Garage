@@ -201,7 +201,7 @@
               <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark sidebar-link"
-                  href="#"
+                  href="staff.html"
                   aria-expanded="false"
                 >
                   <i class="mdi mdi-account-circle"></i>
@@ -273,8 +273,11 @@
                 <!-- card body -->
                 <div class="card-body">
                   <h4 class="card-title">Tiếp nhận dịch vụ</h4>
-                  <h5 class="card-subtitle">Số xe đã nhận hôm nay: 15/30</h5>
-                  <form class="form-horizontal mt-4">
+                  <h5 class="card-subtitle">
+                    Số xe đã nhận hôm nay:
+                    <span id="SoXeTrongNgay">15/30</span>
+                  </h5>
+                  <form id="InputFormThongTin" class="form-horizontal mt-4">
                     <!-- Input field -->
                     <div class="row">
                       <div class="form-group col-lg-6">
@@ -284,7 +287,7 @@
                           class="form-control"
                           placeholder="...Trần Văn A"
                           autofocus
-                          id="TenChuXe"
+                          id="InputTenChuXe"
                         />
                       </div>
                       <div class="form-group col-lg-6">
@@ -293,7 +296,7 @@
                           type="text"
                           class="form-control"
                           placeholder="...0123456789"
-                          id="SoDienThoaiChuXe"
+                          id="InputSoDienThoaiChuXe"
                         />
                       </div>
                     </div>
@@ -304,7 +307,7 @@
                           type="text"
                           class="form-control"
                           placeholder="Thủ Đức, Hồ Chí Minh"
-                          id="DiaChiChuXe"
+                          id="InputDiaChiChuXe"
                         />
                       </div>
                       <div class="form-group col-lg-6">
@@ -312,7 +315,7 @@
                         <input
                           type="date"
                           class="form-control"
-                          id="NgayTiepNhan"
+                          id="InputNgayTiepNhan"
                         />
                       </div>
                     </div>
@@ -321,7 +324,7 @@
                         <label>Hiệu xe</label>
                         <select
                           class="form-select shadow-none col-12"
-                          id="HieuXe"
+                          id="InputHieuXe"
                         >
                           <option selected>Hiệu xe</option>
                           <option value="Honda">Honda</option>
@@ -342,7 +345,7 @@
                           type="text"
                           class="form-control"
                           placeholder="...22A-222.22"
-                          id="BienSoXe"
+                          id="InputBienSoXe"
                         />
                       </div>
                     </div>
@@ -361,7 +364,7 @@
 
                       <div class="col">
                         <button
-                          id="BtnAdd"
+                          id="BtnThemXe"
                           class="btn btn-primary text-white w-100"
                         >
                           Thêm xe
@@ -389,17 +392,18 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
+                          <th id="Td_ID_1" scope="row">1</th>
+                          <td id="Td_Ten_1">Mark</td>
+                          <td id="Td_BienSo_1">22A-222.22</td>
+                          <td id="Td_HieuXe_1">BMW</td>
+                          <td id="Td_NgayTiepNhan_1">22/02/2022</td>
+                          <td id="Td_TienNo_1">0</td>
                           <td>
                             <span class="label label-purple">Đã tiếp nhận</span>
                           </td>
                           <td>
                             <a
+                              id="Td_Link_1"
                               class="btn btn-info text-white"
                               href="service_detail.html"
                               >Chi tiết</a
@@ -407,199 +411,37 @@
                           </td>
                         </tr>
                         <tr>
-                          <th scope="row">2</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
+                          <th id="Td_ID_2" scope="row">1</th>
+                          <td id="Td_Ten_2">Mark</td>
+                          <td id="Td_BienSo_2">22A-222.22</td>
+                          <td id="Td_HieuXe_2">BMW</td>
+                          <td id="Td_NgayTiepNhan_2">22/02/2022</td>
+                          <td id="Td_TienNo_2">0</td>
+                          <td>
+                            <span class="label label-success">Hoàn thành</span>
+                          </td>
+                          <td>
+                            <a
+                              id="Td_Link_2"
+                              class="btn btn-info text-white"
+                              href="service_detail.html"
+                              >Chi tiết</a
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <th id="Td_ID_3" scope="row">1</th>
+                          <td id="Td_Ten_3">Mark</td>
+                          <td id="Td_BienSo_3">22A-222.22</td>
+                          <td id="Td_HieuXe_3">BMW</td>
+                          <td id="Td_NgayTiepNhan_3">22/02/2022</td>
+                          <td id="Td_TienNo_3">0</td>
                           <td>
                             <span class="label label-info">Đang xử lý</span>
                           </td>
                           <td>
                             <a
-                              class="btn btn-info text-white"
-                              href="service_detail.html"
-                              >Chi tiết</a
-                            >
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
-                          <td>
-                            <span class="label label-success"
-                              >Đã hoàn thành</span
-                            >
-                          </td>
-                          <td>
-                            <a
-                              class="btn btn-info text-white"
-                              href="service_detail.html"
-                              >Chi tiết</a
-                            >
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">4</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
-                          <td>
-                            <span class="label label-purple">Đã tiếp nhận</span>
-                          </td>
-                          <td>
-                            <a
-                              class="btn btn-info text-white"
-                              href="service_detail.html"
-                              >Chi tiết</a
-                            >
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">5</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
-                          <td>
-                            <span class="label label-purple">Đã tiếp nhận</span>
-                          </td>
-                          <td>
-                            <a
-                              class="btn btn-info text-white"
-                              href="service_detail.html"
-                              >Chi tiết</a
-                            >
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">6</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>Honda</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
-                          <td>
-                            <span class="label label-purple">Đã tiếp nhận</span>
-                          </td>
-                          <td>
-                            <a
-                              class="btn btn-info text-white"
-                              href="service_detail.html"
-                              >Chi tiết</a
-                            >
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">7</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
-                          <td>
-                            <span class="label label-purple">Đã tiếp nhận</span>
-                          </td>
-                          <td>
-                            <a
-                              class="btn btn-info text-white"
-                              href="service_detail.html"
-                              >Chi tiết</a
-                            >
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">8</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
-                          <td>
-                            <span class="label label-purple">Đã tiếp nhận</span>
-                          </td>
-                          <td>
-                            <a
-                              class="btn btn-info text-white"
-                              href="service_detail.html"
-                              >Chi tiết</a
-                            >
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">9</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
-                          <td>
-                            <span class="label label-purple">Đã tiếp nhận</span>
-                          </td>
-                          <td>
-                            <a
-                              class="btn btn-info text-white"
-                              href="service_detail.html"
-                              >Chi tiết</a
-                            >
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">10</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
-                          <td>
-                            <span class="label label-purple">Đã tiếp nhận</span>
-                          </td>
-                          <td>
-                            <a
-                              class="btn btn-info text-white"
-                              href="service_detail.html"
-                              >Chi tiết</a
-                            >
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">11</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
-                          <td>
-                            <span class="label label-purple">Đã tiếp nhận</span>
-                          </td>
-                          <td>
-                            <a
-                              class="btn btn-info text-white"
-                              href="service_detail.html"
-                              >Chi tiết</a
-                            >
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">12</th>
-                          <td>Mark</td>
-                          <td>22A-222.22</td>
-                          <td>BMW</td>
-                          <td>22/02/2022</td>
-                          <td>0</td>
-                          <td>
-                            <span class="label label-purple">Đã tiếp nhận</span>
-                          </td>
-                          <td>
-                            <a
+                              id="Td_Link_3"
                               class="btn btn-info text-white"
                               href="service_detail.html"
                               >Chi tiết</a

@@ -258,7 +258,199 @@
           <!-- ============================================================== -->
           <!-- Start Page Content -->
           <!-- ============================================================== -->
-
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <!-- card body -->
+                <div class="card-body">
+                  <div class="row mb-5">
+                    <div class="col-10">
+                      <h4 class="fs-3 card-title">Danh sách nhân viên</h4>
+                    </div>
+                    <div class="col-2">
+                      <button
+                        id="BtnThemNhanVien"
+                        data-toggle="modal"
+                        data-target="#popupThemNV"
+                        class="btn btn-primary"
+                      >
+                        Thêm Nhân Viên
+                      </button>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-hover" id="StaffListTable">
+                      <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Tên</th>
+                          <th scope="col">SĐT</th>
+                          <th scope="col">Quyền Truy Cập</th>
+                          <th scope="col">Chi Tiet</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th id="Td_ID_1" scope="row">1</th>
+                          <td id="Td_Ten_1">Trần Văn B</td>
+                          <td id="Td_SoDienThoai_1">0123456789</td>
+                          <td>
+                            <span class="label label-purple">Admin</span>
+                          </td>
+                          <td>
+                            <button
+                              id="BtnChiTiet"
+                              class="btn-info btn text-white"
+                              data-toggle="modal"
+                              data-target="#popup"
+                            >
+                              <span class="fw-bold">Chi tiết</span>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <!-- POPUP -->
+                      <div id="popup" class="modal">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Thông tin nhân viên</h5>
+                              <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                              >
+                                &times;
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="row">
+                                <div class="col-6">
+                                  Họ tên:
+                                  <span id="ShowTen">Trần Văn B</span>
+                                </div>
+                                <div class="col-6">
+                                  CMND/CCCD:
+                                  <span id="ShowCMND">123456789012</span>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  Địa chỉ:
+                                  <span id="ShowDiaChi">Thủ Đức, HCM</span>
+                                </div>
+                                <div class="col-6">
+                                  SĐT: <span id="ShowSDT">0123456789</span>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    Chức vụ:
+                                    <span id="ShowChucVu">Nhân viên</span>
+                                  </div>
+                                </div>
+                                <div class="row text-center mt-3">
+                                  <div class="col-6">
+                                    <button
+                                      class="btn btn-primary text-white w-75"
+                                    >
+                                      Sửa
+                                    </button>
+                                  </div>
+                                  <div class="col-6">
+                                    <button
+                                      class="btn btn-danger text-white w-75"
+                                    >
+                                      Xoá
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- POPUP -->
+                      <!-- POPUP Them Nhan Vien -->
+                      <div id="popupThemNV" class="modal">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Thông tin nhân viên</h5>
+                              <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                              >
+                                &times;
+                              </button>
+                            </div>
+                            <form
+                              id="InputFormThemNhanVien"
+                              class="form-horizontal"
+                            >
+                              <div class="modal-body">
+                                <div class="row">
+                                  <label>Họ tên</label>
+                                  <input
+                                    id="InputTenNV"
+                                    type="text"
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="row">
+                                  <label>CMND/CCCD</label>
+                                  <input
+                                    id="InputCMND"
+                                    type="text"
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="row">
+                                  <label>Địa chỉ</label>
+                                  <input
+                                    id="InputDiaChi"
+                                    type="text"
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="row">
+                                  <label>SĐT</label>
+                                  <input
+                                    id="InputSDT"
+                                    type="text"
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="row">
+                                  <label>Chức vụ</label>
+                                  <select
+                                    class="form-select shadow-none col-12"
+                                    id="InputChucVu"
+                                  >
+                                    <option selected>-- Chọn chức vụ --</option>
+                                    <option value="vt1">
+                                      Nhân viên sửa xe
+                                    </option>
+                                    <option value="vt2">Kế toán</option>
+                                    <option value="vt2">Admin</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button id="BtnThemNV">Thêm Nhân Viên</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- POPUP -->
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- ============================================================== -->
           <!-- End PAge Content -->
           <!-- ============================================================== -->
@@ -286,7 +478,7 @@
     <!-- ============================================================== -->
 
     <!-- Table setting -->
-    <script src="dist/js/pages/dashboards/dashboard1.js"></script>
+    <script src="dist/js/pages/staff.html/staff.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <!-- <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

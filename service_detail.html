@@ -264,39 +264,42 @@
               <div class="card">
                 <!-- card body -->
                 <div class="card-body">
-                  <div class="row">
+                  <div class="row mb-4">
                     <div class="col">
                       <h4 class="card-title">Tiếp nhận xe sửa</h4>
                     </div>
-                    <div class="col-lg-1">
-                      <button class="w-100 btn btn-warning">
-                        <span class="fw-bold">Sửa</span>
+                    <div class="col-lg-2">
+                      <button id="BtnDieuChinh" class="w-100 btn btn-warning">
+                        <span class="fw-bold">Điều chỉnh</span>
                       </button>
                     </div>
                   </div>
                   <div class="row">
                     <div class="form-group col-lg-4">
-                      <span>Chủ xe: <b id="TenPTN">Nguyễn Văn A</b></span>
+                      <span>Chủ xe: <b id="ShowTenChuXe">Nguyễn Văn A</b></span>
                     </div>
                     <div class="form-group col-lg-4">
                       <span
                         >Địa chỉ:
-                        <b id="DiaChiPTN">Thủ Đức, Hồ Chí Minh</b></span
+                        <b id="ShowDiaChi">Thủ Đức, Hồ Chí Minh</b></span
                       >
                     </div>
                     <div class="form-group col-lg-4">
-                      <span>SĐT: <b id="SDTPTN">012346789</b></span>
+                      <span>SĐT: <b id="ShowSDT">012346789</b></span>
                     </div>
                   </div>
                   <div class="row">
                     <div class="form-group col-lg-4">
-                      <span>Biển số: <b id="BienSoPTN">22A-222.22</b></span>
+                      <span>Biển số: <b id="ShowBienSo">22A-222.22</b></span>
                     </div>
                     <div class="form-group col-lg-4">
-                      <span>Hiệu xe: <b id="DiaChiPTN">BMW</b></span>
+                      <span>Hiệu xe: <b id="ShowHieuXe">BMW</b></span>
                     </div>
                     <div class="form-group col-lg-4">
-                      <span>Ngày tiếp nhận: <b id="SDTPTN">22/02/2022</b></span>
+                      <span
+                        >Ngày tiếp nhận:
+                        <b id="ShowNgayTiepNhan">22/02/2022</b></span
+                      >
                     </div>
                   </div>
                   <!-- card body -->
@@ -311,19 +314,19 @@
               <div class="card">
                 <!-- card body -->
                 <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h4 class="card-title">
-                        Lựa chọn vật tư phụ tùng và nội dung sửa chửa
-                      </h4>
+                  <form id="InputFormChonVatTu" class="form-horizontal mt-4">
+                    <div class="row">
+                      <div class="col">
+                        <h4 class="card-title">
+                          Lựa chọn vật tư phụ tùng và nội dung sửa chửa
+                        </h4>
+                      </div>
+                      <div class="col-lg-1">
+                        <button class="w-100 btn-primary w-100 btn">
+                          <span class="fw-bold">Thêm</span>
+                        </button>
+                      </div>
                     </div>
-                    <div class="col-lg-1">
-                      <button class="w-100 btn-primary w-100 btn">
-                        <span class="fw-bold">Thêm</span>
-                      </button>
-                    </div>
-                  </div>
-                  <form class="form-horizontal mt-4">
                     <div class="row">
                       <div class="col-lg-5">
                         <label>Vật tư phụ tùng</label>
@@ -378,6 +381,7 @@
                     </div>
                     <div class="col-2 text-end">
                       <button
+                        id="BtnThanhToan"
                         class="btn-success btn text-white"
                         data-toggle="modal"
                         data-target="#popup"
@@ -415,10 +419,10 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <th scope="row">1</th>
-                          <td id="NoiDung1">Tháo vệ sinh thiết bị</td>
-                          <td id="VatTu1">Lọc nhiên liệu</td>
-                          <td id="Soluong1" style="width: 10%">
+                          <th id="Td_ID_1" scope="row">1</th>
+                          <td id="Td_NoiDung_1">Tháo vệ sinh thiết bị</td>
+                          <td id="Td_VatTu_1">Lọc nhiên liệu</td>
+                          <td id="Td_Soluong_1" style="width: 10%">
                             <input
                               class="form-control"
                               type="number"
@@ -427,13 +431,14 @@
                               style="width: 70%"
                             />
                           </td>
-                          <td id="DonGia1">170.000</td>
-                          <td id="TienCong1">130.000</td>
-                          <td id="ThanhTien1">300.000</td>
-                          <td id="Sua1">
+                          <td id="Td_DonGia_1">170.000</td>
+                          <td id="Td_TienCong_1">130.000</td>
+                          <td id="Td_ThanhTien_1">300.000</td>
+                          <td id="Td_Sua_1">
                             <div class="row">
                               <div class="col-sm-6">
                                 <button
+                                  id="Td_BtnLuu_1"
                                   class="btn btn-primary text-white fw-bold"
                                 >
                                   Lưu
@@ -441,6 +446,7 @@
                               </div>
                               <div class="col-sm-6">
                                 <button
+                                  id="Td_BtnXoa_1"
                                   class="btn btn-danger text-white fw-bold"
                                 >
                                   Xoá
@@ -455,20 +461,21 @@
                   <div class="row mt-3">
                     <div class="col-lg-4">
                       <span class="font-20"
-                        >Người tạo: <b id="TenNhanVien">Nguyễn Văn A</b></span
+                        >Người tạo:
+                        <b id="ShowTenNhanVien">Nguyễn Văn A</b></span
                       >
                     </div>
                     <div class="col-lg-4 text-center">
                       <span class="font-20"
                         >Trạng Thái:
-                        <b class="text-purple" id="TrangThai"
+                        <b class="text-purple" id="ShowTrangThai"
                           >Đã tạo phiếu sửa chữa</b
                         ></span
                       >
                     </div>
                     <div class="col-lg-4 text-end">
                       <span class="font-20"
-                        >Tổng tiền: <b id="TongSoTien">300.000</b></span
+                        >Tổng tiền: <b id="ShowTongSoTien">300.000</b></span
                       >
                     </div>
                   </div>
@@ -489,26 +496,32 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <div class="row">
-                    <div class="col">
-                      <label>Nhập số tiền thu: </label>
+                  <form id="InputFormThanhToan" class="form-horizontal mt-4">
+                    <div class="row">
+                      <div class="col">
+                        <label>Nhập số tiền thu: </label>
+                      </div>
+                      <div class="col text-end">
+                        <input
+                          type="text"
+                          id="InputTienThu"
+                          placeholder="300.000"
+                        />
+                      </div>
                     </div>
-                    <div class="col text-end">
-                      <input type="text" id="TienThu" placeholder="300.000" />
+                    <div class="row">
+                      <div class="col">
+                        <label>Nhập tên người tạo: </label>
+                      </div>
+                      <div class="col text-end">
+                        <input
+                          type="text"
+                          id="InputNguoiThu"
+                          placeholder="Tran Van B"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <label>Nhập tên người tạo: </label>
-                    </div>
-                    <div class="col text-end">
-                      <input
-                        type="text"
-                        id="NguoiThu"
-                        placeholder="Tran Van B"
-                      />
-                    </div>
-                  </div>
+                  </form>
                 </div>
                 <div class="modal-footer">
                   <button
@@ -532,31 +545,42 @@
                   <h4 class="card-title">Phiếu thu</h4>
                   <div class="row mt-2">
                     <div class="col-lg-3">
-                      <span>Chủ xe: <b id="TenPTN">Nguyễn Văn A</b></span>
+                      <span
+                        >Chủ xe: <b id="ShowTenPhieuThu">Nguyễn Văn A</b></span
+                      >
                     </div>
                     <div class="col-lg-3">
-                      <span>Biển số: <b id="BienSoPTN">22A-222.22</b></span>
+                      <span>Biển số: <b id="ShowBienSoThu">22A-222.22</b></span>
                     </div>
                     <div class="col-lg-3">
-                      <span>Email: <b id="TenPTN">nguyena@gmail.com</b></span>
+                      <span
+                        >Email: <b id="ShowEmailThu">nguyena@gmail.com</b></span
+                      >
                     </div>
                     <div class="col-lg-3">
-                      <span>SĐT: <b id="TenPTN">0123456789</b></span>
+                      <span>SĐT: <b id="ShowSDTThu">0123456789</b></span>
                     </div>
                   </div>
                   <div class="row mt-2">
                     <div class="col-lg-3">
-                      <span>Tổng tiền: <b id="DiaChiPTN">300.000</b></span>
-                    </div>
-                    <div class="col-lg-3">
-                      <span>Số tiền thu: <b id="DiaChiPTN">300.000</b></span>
-                    </div>
-                    <div class="col-lg-3">
-                      <span>Ngày tạo: <b id="SDTPTN">22/02/2022</b></span>
+                      <span
+                        >Tổng tiền: <b id="ShowTongTienThu">300.000</b></span
+                      >
                     </div>
                     <div class="col-lg-3">
                       <span
-                        >Người tạo phiếu: <b id="SDTPTN">Trần Văn B</b></span
+                        >Số tiền thu: <b id="ShowSoTienThu">300.000</b></span
+                      >
+                    </div>
+                    <div class="col-lg-3">
+                      <span
+                        >Ngày tạo: <b id="ShowNgayTaoThu">22/02/2022</b></span
+                      >
+                    </div>
+                    <div class="col-lg-3">
+                      <span
+                        >Người tạo phiếu:
+                        <b id="ShowNguoiTaoThu">Người tạo</b></span
                       >
                     </div>
                   </div>
