@@ -271,194 +271,269 @@
           <div class="row">
             <div class="col-12">
               <div class="card">
-                <!-- card body -->
                 <div class="card-body">
-                  <div class="row mb-5">
-                    <div class="col-10">
-                      <h4 class="fs-3 card-title">Danh sách nhân viên</h4>
-                    </div>
-                    <div class="col-2">
-                      <button
-                        id="BtnThemNhanVien"
-                        data-toggle="modal"
-                        data-target="#popupThemNV"
-                        class="btn btn-primary"
-                      >
-                        Thêm Nhân Viên
-                      </button>
+                  <!-- //Nhập phụ tùng -->
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card">
+                        <!-- card body -->
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h4 class="card-title fw-bold fs-3">
+                                Nhập phụ tùng
+                              </h4>
+                            </div>
+                            <div class="col-2 text-end">
+                              <button
+                                class="btn-primary btn text-white"
+                                data-toggle="modal"
+                                data-target="#popup"
+                              >
+                                <span class="fw-bold">Nhập hàng</span>
+                              </button>
+                            </div>
+                          </div>
+                          <form id="InputVatTu" class="form-horizontal mt-4">
+                            <div class="table-responsive mt-2">
+                              <table
+                                class="table table-hover"
+                                id="ImportItemWarehouseTable"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Vật tư phụ tùng</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Đơn giá</th>
+                                    <th scope="col">Chọn</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Lọc nhiên liệu</td>
+                                    <td>
+                                      <input
+                                        type="number"
+                                        min="0"
+                                        style="width: 80%"
+                                        value="0"
+                                        class="form-control"
+                                      />
+                                    </td>
+                                    <td scope="row">150.000</td>
+                                    <td scope="row">
+                                      <div class="form-check">
+                                        <input
+                                          type="checkbox"
+                                          class="form-check-input"
+                                          id="CheckItem_1"
+                                        />
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <!-- popup nhập hàng -->
+                            <div id="popup" class="modal">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Nhập hàng</h5>
+                                    <button
+                                      type="button"
+                                      class="close"
+                                      data-dismiss="modal"
+                                    >
+                                      &times;
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <label>Chọn nhà cung cấp</label>
+                                    <select
+                                      class="form-select shadow-none col-12"
+                                      id="InputCBBNhaCungCap"
+                                    >
+                                      <option selected>
+                                        -- Chọn nhà cung cấp --
+                                      </option>
+                                      <option value="ncc1">THACO Group</option>
+                                      <option value="ncc2">
+                                        Thiết bị phụ tùng An Phát
+                                      </option>
+                                      <option value="ncc3">
+                                        Thiết bị phụ tùng TDN
+                                      </option>
+                                      <option value="ncc4">
+                                        Ô tô Liên Việt
+                                      </option>
+                                    </select>
+                                    <label class="mt-3">Người nhập hàng</label>
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <input
+                                          class="w-100 form-control"
+                                          type="text"
+                                          id="InputNguoiNhap"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button
+                                      type="button"
+                                      class="btn btn-success text-white"
+                                      id="HoanThanhThanhToan"
+                                      data-dismiss="modal"
+                                    >
+                                      Thanh toán
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- popup nhập hàng -->
+                          </form>
+
+                          <div class="row">
+                            <div class="col-12 text-end mt-3 fs-2">
+                              <span
+                                >Tổng tiền:
+                                <b id="TongTien" class="text-primary"
+                                  >150.000</b
+                                ></span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="table-responsive">
-                    <table class="table table-hover" id="StaffListTable">
-                      <thead>
-                        <tr>
-                          <th scope="col">ID</th>
-                          <th scope="col">Tên</th>
-                          <th scope="col">SĐT</th>
-                          <th scope="col">Quyền Truy Cập</th>
-                          <th scope="col">Chi Tiet</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th id="Td_ID_1" scope="row">1</th>
-                          <td id="Td_Ten_1">Trần Văn B</td>
-                          <td id="Td_SoDienThoai_1">0123456789</td>
-                          <td>
-                            <span class="label label-purple">Admin</span>
-                          </td>
-                          <td>
-                            <button
-                              id="BtnChiTiet"
-                              class="btn-info btn text-white"
-                              data-toggle="modal"
-                              data-target="#popup"
-                            >
-                              <span class="fw-bold">Chi tiết</span>
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                      <!-- POPUP -->
-                      <div id="popup" class="modal">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title">Thông tin nhân viên</h5>
-                              <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                              >
-                                &times;
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <div class="row">
-                                <div class="col-6">
-                                  Họ tên:
-                                  <span id="ShowTen">Trần Văn B</span>
-                                </div>
-                                <div class="col-6">
-                                  CMND/CCCD:
-                                  <span id="ShowCMND">123456789012</span>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  Địa chỉ:
-                                  <span id="ShowDiaChi">Thủ Đức, HCM</span>
-                                </div>
-                                <div class="col-6">
-                                  SĐT: <span id="ShowSDT">0123456789</span>
-                                </div>
-                                <div class="row">
-                                  <div class="col">
-                                    Chức vụ:
-                                    <span id="ShowChucVu">Nhân viên</span>
-                                  </div>
-                                </div>
-                                <div class="row text-center mt-3">
-                                  <div class="col-6">
-                                    <button
-                                      class="btn btn-primary text-white w-75"
-                                    >
-                                      Sửa
-                                    </button>
-                                  </div>
-                                  <div class="col-6">
-                                    <button
-                                      class="btn btn-danger text-white w-75"
-                                    >
-                                      Xoá
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="modal-footer"></div>
-                          </div>
-                        </div>
+                  <!-- //Nhập phụ tùng -->
+                </div>
+              </div>
+              <!-- lịch sử nhập hàng  -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <!-- card body -->
+                    <div class="card-body">
+                      <h4 class="card-title fw-bold fs-3">Lịch sử nhập hàng</h4>
+                      <div class="table-responsive mt-2">
+                        <table
+                          class="table table-hover"
+                          id="ImportItemHistoryWarehouseTable"
+                        >
+                          <thead>
+                            <tr>
+                              <th scope="col">STT</th>
+                              <th scope="col">Người nhập</th>
+                              <th scope="col">Tổng tiền</th>
+                              <th scope="col">Ngày nhập</th>
+                              <th scope="col">Chi tiết</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th id="ShowId_1" scope="row">1</th>
+                              <td id="ShowNguoiNhao_1" scope="row">
+                                Trần Văn B
+                              </td>
+                              <td id="ShowTongTien_1" scope="row">300.000</td>
+                              <td id="ShowNgayNhao_1" scope="row">
+                                22/02/2022
+                              </td>
+                              <td id="Btn_1" scope="row">
+                                <button
+                                  id="BtnXemChiTiet_1"
+                                  class="btn-primary btn text-white"
+                                  data-toggle="modal"
+                                  data-target="#popup2"
+                                >
+                                  Xem
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <!-- POPUP -->
-                      <!-- POPUP Them Nhan Vien -->
-                      <div id="popupThemNV" class="modal">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title">Thông tin nhân viên</h5>
-                              <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                              >
-                                &times;
-                              </button>
-                            </div>
-                            <form
-                              id="InputFormThemNhanVien"
-                              class="form-horizontal"
-                            >
-                              <div class="modal-body">
-                                <div class="row">
-                                  <label>Họ tên</label>
-                                  <input
-                                    id="InputTenNV"
-                                    type="text"
-                                    class="form-control"
-                                  />
-                                </div>
-                                <div class="row">
-                                  <label>CMND/CCCD</label>
-                                  <input
-                                    id="InputCMND"
-                                    type="text"
-                                    class="form-control"
-                                  />
-                                </div>
-                                <div class="row">
-                                  <label>Địa chỉ</label>
-                                  <input
-                                    id="InputDiaChi"
-                                    type="text"
-                                    class="form-control"
-                                  />
-                                </div>
-                                <div class="row">
-                                  <label>SĐT</label>
-                                  <input
-                                    id="InputSDT"
-                                    type="text"
-                                    class="form-control"
-                                  />
-                                </div>
-                                <div class="row">
-                                  <label>Chức vụ</label>
-                                  <select
-                                    class="form-select shadow-none col-12"
-                                    id="InputChucVu"
-                                  >
-                                    <option selected>-- Chọn chức vụ --</option>
-                                    <option value="vt1">
-                                      Nhân viên sửa xe
-                                    </option>
-                                    <option value="vt2">Kế toán</option>
-                                    <option value="vt2">Admin</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button id="BtnThemNV">Thêm Nhân Viên</button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- POPUP -->
-                    </table>
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- lịch sử nhập hàng -->
+              <!-- popup chi tiết -->
+              <div id="popup2" class="modal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Chi tiết nhập hàng</h5>
+                      <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="table-responsive mt-2">
+                        <table
+                          class="table table-hover"
+                          id="HistoryDetailWarehouseTable"
+                        >
+                          <thead>
+                            <tr>
+                              <th scope="col">STT</th>
+                              <th scope="col">Phụ Tùng</th>
+                              <th scope="col">Số lượng</th>
+                              <th scope="col">Đơn giá</th>
+                              <!-- <th scope="col">Tổng</th> -->
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th id="ShowItem_Id_1" scope="row">1</th>
+                              <td id="ShowItem_TenVatTu_1" scope="row">
+                                Lọc nhiên liệu
+                              </td>
+                              <td id="ShowItem_SoLuongVatTu_1" scope="row">
+                                2
+                              </td>
+                              <td id="ShowItem_DonGiaVatTu_1" scope="row">
+                                300.000
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <div class="row">
+                        <div class="col text-start">
+                          <span
+                            >Người nhập:
+                            <b
+                              id="ShowTenNguoiNhapPopUp"
+                              class="fw-bold text-info"
+                              >Trần Văn B</b
+                            ></span
+                          >
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-end">
+                          <span
+                            >Tổng tiền:
+                            <b id="ShowTongTienPopUp" class="fw-bold text-info"
+                              >150.000</b
+                            ></span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- popup chi tiết -->
             </div>
           </div>
           <!-- ============================================================== -->
@@ -488,7 +563,7 @@
     <!-- ============================================================== -->
 
     <!-- Table setting -->
-    <script src="dist/js/pages/staff.html/staff.js"></script>
+    <script src="dist/js/pages/import/import.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <!-- <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
