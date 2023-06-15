@@ -268,197 +268,186 @@
           <!-- ============================================================== -->
           <!-- Start Page Content -->
           <!-- ============================================================== -->
+
           <div class="row">
             <div class="col-12">
               <div class="card">
                 <!-- card body -->
                 <div class="card-body">
-                  <div class="row mb-5">
-                    <div class="col-10">
-                      <h4 class="fs-3 card-title">Danh sách nhân viên</h4>
+                  <div class="row mt-4">
+                    <div class="col-9">
+                      <h4 class="card-title fw-bold fs-3">Điều chỉnh</h4>
                     </div>
-                    <div class="col-2">
-                      <button
-                        id="BtnThemNhanVien"
-                        data-toggle="modal"
-                        data-target="#popupThemNV"
-                        class="btn btn-primary"
-                      >
-                        Thêm Nhân Viên
+                    <div class="col-3 text-end">
+                      <button class="btn btn-primary" type="submit">
+                        Xác nhận điều chỉnh
                       </button>
                     </div>
                   </div>
-                  <div class="table-responsive">
-                    <table class="table table-hover" id="StaffListTable">
+                  <form
+                    id="InputFormDieuChinh"
+                    class="form-horizontal mt-4"
+                    method="Post"
+                  >
+                    <div class="row">
+                      <div class="col">
+                        <label>Số xe tối đa trong ngày: </label>
+                        <input
+                          type="number"
+                          id="InputSoxeToiDa"
+                          value="30"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="col">
+                        <label>Tiền nợ tối đa cho phép</label>
+                        <input
+                          type="number"
+                          id="InputTienNoToiDa"
+                          value="0"
+                          class="form-control"
+                          step="1000"
+                          min="0"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                  <form
+                    id="InputFormThemHieuXe"
+                    class="form-horizontal mt-4"
+                    method="Post"
+                  >
+                    <div class="row mb-3">
+                      <div class="col-6"><h3>Thêm hiệu xe</h3></div>
+                      <div class="col-6 text-end">
+                        <button class="btn btn-primary">Thêm</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <input
+                          type="text"
+                          id="InputThemHieuXe"
+                          placeholder="BMW"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                  <div class="table-responsive mt-3">
+                    <table class="table table-hover" id="CarBrandTable">
                       <thead>
                         <tr>
                           <th scope="col">ID</th>
-                          <th scope="col">Tên</th>
-                          <th scope="col">SĐT</th>
-                          <th scope="col">Quyền Truy Cập</th>
-                          <th scope="col">Chi Tiet</th>
+                          <th scope="col">Hiệu xe</th>
+                          <th scope="col">Thêm</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <th id="Td_ID_1" scope="row">1</th>
-                          <td id="Td_Ten_1">Trần Văn B</td>
-                          <td id="Td_SoDienThoai_1">0123456789</td>
+                          <td id="Td_Ten_1">BMW</td>
                           <td>
-                            <span class="label label-purple">Admin</span>
-                          </td>
-                          <td>
-                            <button
-                              id="BtnChiTiet"
-                              class="btn-info btn text-white"
-                              data-toggle="modal"
-                              data-target="#popup"
-                            >
-                              <span class="fw-bold">Chi tiết</span>
-                            </button>
+                            <div class="row">
+                              <div class="col">
+                                <button
+                                  id="BtnSua_1"
+                                  class="btn-info btn text-white"
+                                  data-toggle="modal"
+                                  data-target="#popup"
+                                >
+                                  <span class="fw-bold">Sửa</span>
+                                </button>
+                              </div>
+                              <div class="col">
+                                <button
+                                  id="BtnXoa_1"
+                                  class="btn-danger btn text-white"
+                                  data-toggle="modal"
+                                  data-target="#popup"
+                                >
+                                  <span class="fw-bold">Xoá</span>
+                                </button>
+                              </div>
+                            </div>
                           </td>
                         </tr>
                       </tbody>
-                      <!-- POPUP -->
-                      <div id="popup" class="modal">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title">Thông tin nhân viên</h5>
-                              <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                              >
-                                &times;
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <div class="row">
-                                <div class="col-6">
-                                  Họ tên:
-                                  <span id="ShowTen">Trần Văn B</span>
-                                </div>
-                                <div class="col-6">
-                                  CMND/CCCD:
-                                  <span id="ShowCMND">123456789012</span>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-6">
-                                  Địa chỉ:
-                                  <span id="ShowDiaChi">Thủ Đức, HCM</span>
-                                </div>
-                                <div class="col-6">
-                                  SĐT: <span id="ShowSDT">0123456789</span>
-                                </div>
-                                <div class="row">
-                                  <div class="col">
-                                    Chức vụ:
-                                    <span id="ShowChucVu">Nhân viên</span>
-                                  </div>
-                                </div>
-                                <div class="row text-center mt-3">
-                                  <div class="col-6">
-                                    <button
-                                      class="btn btn-primary text-white w-75"
-                                    >
-                                      Sửa
-                                    </button>
-                                  </div>
-                                  <div class="col-6">
-                                    <button
-                                      class="btn btn-danger text-white w-75"
-                                    >
-                                      Xoá
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="modal-footer"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- POPUP -->
                     </table>
                   </div>
-                  <!-- POPUP Them Nhan Vien -->
-                  <div id="popupThemNV" class="modal">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Thông tin nhân viên</h5>
-                          <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                          >
-                            &times;
-                          </button>
-                        </div>
-                        <form
-                          id="InputFormThemNhanVien"
-                          class="form-horizontal"
-                        >
-                          <div class="modal-body">
-                            <div class="row">
-                              <label>Họ tên</label>
-                              <input
-                                id="InputTenNV"
-                                type="text"
-                                class="form-control"
-                              />
-                            </div>
-                            <div class="row">
-                              <label>CMND/CCCD</label>
-                              <input
-                                id="InputCMND"
-                                type="text"
-                                class="form-control"
-                              />
-                            </div>
-                            <div class="row">
-                              <label>Địa chỉ</label>
-                              <input
-                                id="InputDiaChi"
-                                type="text"
-                                class="form-control"
-                              />
-                            </div>
-                            <div class="row">
-                              <label>SĐT</label>
-                              <input
-                                id="InputSDT"
-                                type="text"
-                                class="form-control"
-                              />
-                            </div>
-                            <div class="row">
-                              <label>Chức vụ</label>
-                              <select
-                                class="form-select shadow-none col-12"
-                                id="InputChucVu"
-                              >
-                                <option selected>-- Chọn chức vụ --</option>
-                                <option value="vt1">Nhân viên sửa xe</option>
-                                <option value="vt2">Kế toán</option>
-                                <option value="vt2">Admin</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button id="BtnThemNV">Thêm Nhân Viên</button>
-                          </div>
-                        </form>
+                  <form
+                    id="InputFormThemTienCong"
+                    class="form-horizontal mt-4"
+                    method="Post"
+                  >
+                    <div class="row mb-3">
+                      <div class="col-6"><h3>Thêm tiền công</h3></div>
+                      <div class="col-6 text-end">
+                        <button class="btn btn-primary">Thêm</button>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <input
+                          type="text"
+                          id="InputThemTienCong"
+                          placeholder="Thay mới"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  </form>
+
+                  <!-- Tiền công -->
+
+                  <div class="table-responsive mt-3">
+                    <table class="table table-hover" id="WageListTable">
+                      <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Loại tiền công</th>
+                          <th scope="col">Giá</th>
+                          <th scope="col">Thêm</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th id="Td_ID_1" scope="row">1</th>
+                          <td id="Td_Ten_1">Thay phụ tùng</td>
+                          <td id="Td">200.000</td>
+                          <td>
+                            <div class="row">
+                              <div class="col">
+                                <button
+                                  id="BtnChiTiet"
+                                  class="btn-info btn text-white"
+                                  data-toggle="modal"
+                                  data-target="#popup"
+                                >
+                                  <span class="fw-bold">Sửa</span>
+                                </button>
+                              </div>
+                              <div class="col">
+                                <button
+                                  id="BtnChiTiet"
+                                  class="btn-danger btn text-white"
+                                  data-toggle="modal"
+                                  data-target="#popup"
+                                >
+                                  <span class="fw-bold">Xoá</span>
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-                  <!-- POPUP -->
                 </div>
               </div>
             </div>
           </div>
+
           <!-- ============================================================== -->
           <!-- End PAge Content -->
           <!-- ============================================================== -->
@@ -486,7 +475,7 @@
     <!-- ============================================================== -->
 
     <!-- Table setting -->
-    <script src="dist/js/pages/staff.html/staff.js"></script>
+    <script src="dist/js/pages/option/option.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <!-- <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
