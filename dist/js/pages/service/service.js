@@ -22,4 +22,60 @@ $(document).ready(function () {
       },
     },
   });
+
+  // Xử lý sự kiện click của nút "Thêm"
+  $("#BtnThemXe").click(function (e) {
+    e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit (nếu có)
+
+    // Lấy giá trị từ các trường nhập liệu
+    var TenChuXe = $("#InputTenChuXe").val();
+    var DiaChiCX = $("#InputDiaChiChuXe").val();
+    var SDT = $("#InputSoDienThoaiChuXe").val();
+    var Email = $("#InputEmail").val();
+    var CMND = $("#InputCMND").val();
+    var HanGiaoXe = $("#InputNgayTiepNhan").val();
+    var MaHangXe = $("#InputHieuXe").val();
+    var BienSoXe = $("#InputBienSoXe").val();
+    var GhiChu = "";
+    GhiChu = $("#InputGhiChu").val();
+    console.log(
+      TenChuXe,
+      DiaChiCX,
+      SDT,
+      Email,
+      CMND,
+      HanGiaoXe,
+      MaHangXe,
+      BienSoXe,
+      GhiChu
+    );
+    fetch("http://localhost:8888/api/receipt/create/form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        TenChuXe: TenChuXe,
+        DiaChiCX: DiaChiCX,
+        SDT: SDT,
+        Email: Email,
+        CMND: CMND,
+        MaHangXe: MaHangXe,
+        BienSoXe: BienSoXe,
+        GhiChu: GhiChu,
+        HanGiaoXe: HanGiaoXe,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => console.log(data))
+      .catch((error) => console.log("ERROR"));
+
+    //location.reload();
+    // gửi tại đây!
+  });
 });
+
+// Đợi cho tài liệu HTML được tải xong
+$(document).ready(function () {});
