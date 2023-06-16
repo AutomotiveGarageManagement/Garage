@@ -27,7 +27,7 @@ $(document).ready(function () {
 
   $("#BTNTimCMND").click(function (e) {
     e.preventDefault();
-    //get all wage type
+    //Tìm bằng cmnd
     CMND = $("#InputCMND").val();
     console.log(CMND);
     fetch("http://localhost:8888/api/receipt/get/customerInfo", {
@@ -177,7 +177,7 @@ $(document).ready(function () {
 
   //get all receiptions
   fetch("http://localhost:8888/api/receipt/getAll", {
-    method: "POST",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },

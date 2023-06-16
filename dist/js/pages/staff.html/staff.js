@@ -29,7 +29,7 @@ $(document).ready(function () {
 
   //get all staffs
   fetch("http://localhost:8888/api/staff/getAll", {
-    method: "POST",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },

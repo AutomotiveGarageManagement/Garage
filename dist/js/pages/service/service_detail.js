@@ -32,7 +32,7 @@ $(document).ready(function () {
     var VatTuPhuTung = $("#CBBLoaiTienCon").val();
     console.log(LoaiTienCong, VatTuPhuTung);
     fetch("http://localhost:8888/api/wage/find/wage", {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
