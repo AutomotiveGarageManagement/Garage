@@ -279,7 +279,7 @@
                       <h4 class="card-title fw-bold fs-3">Điều chỉnh</h4>
                     </div>
                     <div class="col-3 text-end">
-                      <button class="btn btn-primary" type="submit">
+                      <button class="btn btn-primary" id="BtnDieuChinh">
                         Xác nhận điều chỉnh
                       </button>
                     </div>
@@ -320,7 +320,9 @@
                     <div class="row mb-3">
                       <div class="col-6"><h3>Thêm hiệu xe</h3></div>
                       <div class="col-6 text-end">
-                        <button class="btn btn-primary">Thêm</button>
+                        <button id="BtnThemHieuXe" class="btn btn-primary">
+                          Thêm
+                        </button>
                       </div>
                     </div>
                     <div class="row">
@@ -383,15 +385,29 @@
                     <div class="row mb-3">
                       <div class="col-6"><h3>Thêm tiền công</h3></div>
                       <div class="col-6 text-end">
-                        <button class="btn btn-primary">Thêm</button>
+                        <button id="BtnThemTienCong" class="btn btn-primary">
+                          Thêm
+                        </button>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-12">
+                      <div class="col-6">
+                        <label>Loại tiền công</label>
                         <input
                           type="text"
-                          id="InputThemTienCong"
+                          id="InputThemLoaiTienCong"
                           placeholder="Thay mới"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="col-6">
+                        <label>Giá trị tiền công</label>
+                        <input
+                          type="number"
+                          min="0"
+                          step="1000"
+                          id="InputGiaTriTienCong"
+                          placeholder="0"
                           class="form-control"
                         />
                       </div>

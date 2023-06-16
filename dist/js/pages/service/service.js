@@ -34,6 +34,7 @@ $(document).ready(function () {
     var Email = $("#InputEmail").val();
     var CMND = $("#InputCMND").val();
     var HanGiaoXe = $("#InputNgayTiepNhan").val();
+    HanGiaoXe = HanGiaoXe.replace(/-/g, "/");
     var MaHangXe = $("#InputHieuXe").val();
     var BienSoXe = $("#InputBienSoXe").val();
     var GhiChu = "";
@@ -49,6 +50,7 @@ $(document).ready(function () {
       BienSoXe,
       GhiChu
     );
+    // gửi tại đây!
     fetch("http://localhost:8888/api/receipt/create/form", {
       method: "POST",
       headers: {
@@ -73,7 +75,6 @@ $(document).ready(function () {
       .catch((error) => console.log("ERROR"));
 
     //location.reload();
-    // gửi tại đây!
   });
 });
 

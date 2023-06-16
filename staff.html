@@ -410,6 +410,38 @@
                                 class="form-control"
                               />
                             </div>
+                            <div class="row mb-2">
+                              <label>Giới tính</label>
+                              <div class="form-check col-6">
+                                <input
+                                  type="radio"
+                                  id="InputGioiTinhNam"
+                                  name="InputGioiTinh"
+                                  class="form-check-input"
+                                  value="1"
+                                  checked
+                                />
+                                <label
+                                  class="form-check-label mb-0"
+                                  for="customRadio1"
+                                  >Nam</label
+                                >
+                              </div>
+                              <div class="form-check col-6">
+                                <input
+                                  type="radio"
+                                  id="InputGioiTinhNu"
+                                  name="InputGioiTinh"
+                                  class="form-check-input"
+                                  value="0"
+                                />
+                                <label
+                                  class="form-check-label mb-0"
+                                  for="customRadio2"
+                                  >Nữ</label
+                                >
+                              </div>
+                            </div>
                             <div class="row">
                               <label>CMND/CCCD</label>
                               <input
@@ -441,10 +473,26 @@
                                 id="InputChucVu"
                               >
                                 <option selected>-- Chọn chức vụ --</option>
-                                <option value="vt1">Nhân viên sửa xe</option>
-                                <option value="vt2">Kế toán</option>
-                                <option value="vt2">Admin</option>
+                                <option value="0">Nhân viên sửa xe</option>
+                                <option value="1">Kế toán</option>
+                                <option value="2">Admin</option>
                               </select>
+                            </div>
+                            <div class="row">
+                              <label>Tên tài khoản</label>
+                              <input
+                                id="InputTaiKhoan"
+                                type="text"
+                                class="form-control"
+                              />
+                            </div>
+                            <div class="row">
+                              <label>Mật khẩu</label>
+                              <input
+                                id="InputMatKhau"
+                                type="password"
+                                class="form-control"
+                              />
                             </div>
                           </div>
                           <div class="modal-footer">

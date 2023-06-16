@@ -22,4 +22,64 @@ $(document).ready(function () {
       },
     },
   });
+
+  $("#BtnThemNV").click(function (e) {
+    e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit (nếu có)
+
+    // Lấy giá trị từ các trường nhập liệu
+    var HoTen = $("#InputTenNV").val();
+    var GioiTinh;
+    // Lấy radio buttons bằng tên name
+    var gioiTinhNam = document.getElementById("InputGioiTinhNam");
+    var gioiTinhNu = document.getElementById("InputGioiTinhNu");
+
+    // Kiểm tra radio button đã được chọn hay chưa
+    if (gioiTinhNam.checked) {
+      GioiTinh = gioiTinhNam.value; // Lấy giá trị của radio button Nam
+    } else {
+      GioiTinh = gioiTinhNu.value; // Lấy giá trị của radio button Nữ
+    }
+
+    var CMND = $("#InputCMND").val();
+    var DiaChi = $("#InputDiaChi").val();
+    var SDT = $("#InputSDT").val();
+    var MaChucVu = $("#InputChucVu").val();
+    var TenTaiKhoan = $("#InputTaiKhoan").val();
+    var MatKhau = $("#InputMatKhau").val();
+    console.log(
+      HoTen,
+      GioiTinh,
+      CMND,
+      DiaChi,
+      SDT,
+      MaChucVu,
+      TenTaiKhoan,
+      MatKhau
+    );
+    // gửi tại đây!
+    var API = "http://localhost:8888/api/staff/create";
+    fetch(API, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        HoTen: HoTen,
+        GioiTinh: GioiTinh,
+        CMND: CMND,
+        DiaChi: DiaChi,
+        SDT: SDT,
+        MaChucVu: MaChucVu,
+        TenTaiKhoan: TenTaiKhoan,
+        MatKhau: MatKhau,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => console.log(data))
+      .catch((error) => console.log("ERROR"));
+
+    //location.reload();
+  });
 });
