@@ -274,12 +274,29 @@
                 <!-- card body -->
                 <div class="card-body">
                   <h4 class="card-title">Tiếp nhận dịch vụ</h4>
-                  <h5 class="card-subtitle">
+                  <h5 class="card-subtitle mb-3">
                     Số xe đã nhận hôm nay:
                     <span id="SoXeTrongNgay">15/30</span>
                   </h5>
 
                   <!-- Input field -->
+                  <label>Nhập CMND để tìm khách hàng</label>
+                  <div class="row">
+                    <div class="form-group col-lg-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="...0123456789012"
+                        autofocus
+                        id="InputCMND"
+                      />
+                    </div>
+                    <div class="col-6">
+                      <button class="btn w-100 btn-primary" id="BTNTimCMND">
+                        Tìm
+                      </button>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="form-group col-lg-6">
                       <label>Chủ xe</label>
@@ -303,13 +320,12 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-lg-6">
-                      <label>CMND/CCCD</label>
+                      <label>Địa chỉ</label>
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="...0123456789012"
-                        autofocus
-                        id="InputCMND"
+                        placeholder="Thủ Đức, Hồ Chí Minh"
+                        id="InputDiaChiChuXe"
                       />
                     </div>
                     <div class="form-group col-lg-6">
@@ -323,17 +339,17 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-lg-6">
-                      <label>Địa chỉ</label>
+                    <div class="col-lg-6 form-group">
+                      <label>Ghi chú</label>
                       <input
                         type="text"
+                        id="InputGhiChu"
+                        placeholder="...Sửa cẩn thận"
                         class="form-control"
-                        placeholder="Thủ Đức, Hồ Chí Minh"
-                        id="InputDiaChiChuXe"
                       />
                     </div>
                     <div class="form-group col-lg-6">
-                      <label>Ngày tiếp nhận</label>
+                      <label>Ngày giao</label>
                       <input
                         type="date"
                         class="form-control"
@@ -371,17 +387,6 @@
                       />
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-lg-12 form-group">
-                      <label>Ghi chú</label>
-                      <input
-                        type="text"
-                        id="InputGhiChu"
-                        placeholder="...Sửa cẩn thận"
-                        class="form-control"
-                      />
-                    </div>
-                  </div>
 
                   <!-- Input field -->
                   <!-- button -->
@@ -414,7 +419,8 @@
                           <th scope="col">Thêm</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody></tbody>
+                      <!-- <tbody>
                         <tr>
                           <th id="Td_ID_1" scope="row">1</th>
                           <td id="Td_Ten_1">Mark</td>
@@ -472,7 +478,7 @@
                             >
                           </td>
                         </tr>
-                      </tbody>
+                      </tbody> -->
                     </table>
                   </div>
 

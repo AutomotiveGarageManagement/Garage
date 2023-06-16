@@ -48,8 +48,7 @@ $(document).ready(function () {
   });
 
   $("#BtnDieuChinh").click(function (e) {
-    e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit (nếu có)
-
+    e.preventDefault(); //
     // Lấy giá trị từ các trường nhập liệu
     var XeToiDa = $("#InputSoxeToiDa").val();
     var NoToiDa = $("#InputTienNoToiDa").val();

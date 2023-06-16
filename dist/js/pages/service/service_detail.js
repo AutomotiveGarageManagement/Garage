@@ -1,5 +1,11 @@
 //table
 $(document).ready(function () {
+  var storedData = localStorage.getItem("mockData");
+  var mockData = JSON.parse(storedData);
+  var itemData = localStorage.getItem("item");
+  var item = JSON.parse(itemData);
+  console.log(mockData);
+  console.log(item);
   $("#Table_ItemsList").DataTable({
     searching: true,
     paging: true,
@@ -17,6 +23,30 @@ $(document).ready(function () {
         previous: "Trước",
       },
     },
+  });
+
+  $("#BtnThemDichVu").click(function (e) {
+    e.preventDefault();
+    //get all wage type
+    var LoaiTienCong = $("#CBBVatTuPhuTung").val();
+    var VatTuPhuTung = $("#CBBLoaiTienCon").val();
+    console.log(LoaiTienCong, VatTuPhuTung);
+    fetch("http://localhost:8888/api/wage/find/wage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        LoaiTienCong: LoaiTienCong,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => console.log(data))
+      .catch((error) => console.log("ERROR"));
+
+    //location.reload();
   });
 });
 //popup

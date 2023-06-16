@@ -1,4 +1,8 @@
 $(document).ready(function () {
+  // var storedData = localStorage.getItem("mockData");
+  // var mockData = JSON.parse(storedData);
+
+  // console.log(mockData);
   // Kích hoạt DataTables
   $("#StaffListTable").DataTable({
     // Cấu hình thanh tìm kiếm
@@ -22,6 +26,19 @@ $(document).ready(function () {
       },
     },
   });
+
+  //get all staffs
+  fetch("http://localhost:8888/api/staff/getAll", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => console.log(data))
+    .catch((error) => console.log("ERROR"));
 
   $("#BtnThemNV").click(function (e) {
     e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit (nếu có)
