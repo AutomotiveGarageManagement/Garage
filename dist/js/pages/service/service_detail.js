@@ -1,11 +1,63 @@
 //table
 $(document).ready(function () {
-  var storedData = localStorage.getItem("mockData");
-  var mockData = JSON.parse(storedData);
   var itemData = localStorage.getItem("item");
   var item = JSON.parse(itemData);
-  console.log(mockData);
   console.log(item);
+
+  var dateTN = item.NgayTiepNhan;
+  var dateHG = item.HanGiaoXe;
+
+  var date1 = new Date(dateTN);
+  var date2 = new Date(dateHG);
+
+  var day1 = date1.getDate();
+  var day2 = date2.getDate();
+
+  var month1 = date1.getMonth() + 1; // Tháng được đánh số từ 0, nên cộng 1
+  var month2 = date2.getMonth() + 1;
+
+  var year1 = date1.getFullYear();
+  var year2 = date2.getFullYear();
+
+  var formattedDate1 = `${day1}/${month1}/${year1}`;
+  var formattedDate2 = `${day2}/${month2}/${year2}`;
+
+  fetch("http://localhost:8888/api/wage/get/wages", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      //   {
+      //     "id": 1,
+      //     "LoaiTienCong": "Làm sạch",
+      //     "GiaTriTienCong": 50000
+      // }
+      var selectElement = $("#CBBLoaiTienCong");
+      console.log(data.DT);
+      $.each(data.DT, function (index, option) {
+        selectElement.append(
+          $("<option>")
+            .attr("value", option.id)
+            .text(option.LoaiTienCong + "  -  " + option.GiaTriTienCong)
+        );
+      });
+    })
+    .catch((error) => console.log("ERROR WAGE TYPES"));
+
+  $("#ShowTenChuXe").text(item.TenChuXe);
+  $("#ShowDiaChi").text(item.DiaChiCX);
+  $("#ShowNgayTiepNhan").text(formattedDate1);
+  $("#ShowBienSo").text(item.BienSoXe);
+  $("#ShowHieuXe").text(item.MaHangXe);
+  $("#ShowCMND").text(item.CMND);
+  $("#ShowNgayHanGiao").text(formattedDate2);
+  $("#ShowSDT").text(item.SDT);
+
   $("#Table_ItemsList").DataTable({
     searching: true,
     paging: true,
