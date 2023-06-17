@@ -42,18 +42,23 @@ $(document).ready(function () {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data))
-      // .catch((error) => console.log("ERROR"));
-      .catch((error) => {
-        $("#InputTenChuXe").val("sadaSA21312313213");
-        $("#InputDiaChiChuXe").val("ASDASD");
-        $("#InputSoDienThoaiChuXe").val("123123");
-        $("#InputEmail").val("SDS@GMA");
-        $("#InputNgayTiepNhan").val("2023-06-16");
-        $("#InputHieuXe").val("1");
-        $("#InputBienSoXe").val("12312");
-        $("#InputGhiChu").val("WQE");
-      });
+      .then((data) => {
+        // "id": 1,
+        // "TenChuXe": "Ph?m H?u L?c",
+        // "DiaChiCX": "Tam Phước Biên Hòa Đồng Nai",
+        // "SDT": "0353339425",
+        // "Email": "loc281202@gmail.com",
+        // "CMND": "030202011896",
+        // "BienSoXe": "H-88888"
+        inputData = data.DT[0];
+        console.log(inputData);
+        $("#InputTenChuXe").val(inputData.TenChuXe);
+        $("#InputDiaChiChuXe").val(inputData.DiaChiCX);
+        $("#InputSoDienThoaiChuXe").val(inputData.SDT);
+        $("#InputEmail").val(inputData.Email);
+        $("#InputNgayTiepNhan").val(inputData.HanGiaoXe);
+      })
+      .catch((error) => console.log("ERROR"));
 
     //location.reload();
   });
