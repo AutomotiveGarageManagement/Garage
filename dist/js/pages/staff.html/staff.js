@@ -11,27 +11,29 @@ $(document).ready(function () {
     $.each(data, function (index, item) {
       var row = $("<tr>");
       //<th id="Td_ID_1" scope="row">1</th>
-      row.append($("<th>").attr("scope", "row").text(item.Id));
-      row.append($("<td>").text(item.TenNV));
+      row.append($("<th>").attr("scope", "row").text(item.MaTTNV));
+      row.append($("<td>").text(item.HoTen));
       row.append($("<td>").text(item.SDT));
       var tdChucVu = $("<td>");
-      var chucvu = item.ChucVu;
-      var TenChucVu = ["Admin", "Kế Toán", "Nhân Viên"];
-      var spanChucVu;
-      if (chucvu === 0) {
+
+      if (item.TenChucVu == "Admin") {
         spanChucVu = $("<span>")
           .addClass("label label-purple")
-          .text(TenChucVu[chucvu]);
-      } else if (chucvu === 1) {
+          .text(item.TenChucVu);
+      } else if (item.TenChucVu === "Accountant") {
         spanChucVu = $("<span>")
           .addClass("label label-success")
-          .text(TenChucVu[chucvu]);
+          .text(item.TenChucVu);
+      } else {
+        spanChucVu = $("<span>")
+          .addClass("label label-primary")
+          .text(item.TenChucVu);
       }
       tdChucVu.append(spanChucVu);
       row.append(tdChucVu);
 
       var btnXem = $("<button>")
-        .attr("id", item.Id)
+        .attr("id", item.MaTTNV)
         .addClass("btn-info btn text-white")
         .append($("<span>").addClass("fw-bold").text("Xem"))
         .attr("data-toggle", "modal")
@@ -47,7 +49,7 @@ $(document).ready(function () {
         row1.append(
           $("<div>")
             .addClass("col-6")
-            .text("Họ tên: " + item.TenNV)
+            .text("Họ tên: " + item.HoTen)
         );
         row1.append(
           $("<div>")
@@ -69,10 +71,22 @@ $(document).ready(function () {
         modalBody.append(row1, row2);
 
         var row3 = $("<div>").addClass("row");
-        row3.append($("<div>").addClass("col-6").text("Chúc vụ:"));
-        row3.append($("<div>").addClass("col-6").text(TenChucVu[chucvu]));
+        row3.append(
+          $("<div>")
+            .addClass("col-6")
+            .text("Tài khoản: " + item.TenTaiKhoan)
+        );
+        row3.append(
+          $("<div>")
+            .addClass("col-6")
+            .text("Mật khẩu: " + item.MatKhau)
+        );
 
         modalBody.append(row3);
+
+        var row4 = $("<div>").addClass("row");
+        row4.append($("<div>").addClass("col-6").text("Chúc vụ:"));
+        row4.append($("<div>").addClass("col-6").text(item.TenChucVu));
 
         var row6 = $("<div>").addClass("row text-center mt-3");
         row6.append(
@@ -121,27 +135,9 @@ $(document).ready(function () {
     .then((res) => {
       return res.json();
     })
-    .then((data) => console.log(data))
-    // .catch((error) => console.log("ERROR"));
-    .catch((error) => {
-      Tabledata = [
-        {
-          Id: 1,
-          TenNV: "Nguyễn Văn X",
-          SDT: "123456789012",
-          ChucVu: 0,
-          CMND: "0123456789",
-          DiaChi: "Thủ Đức",
-        },
-        {
-          Id: 2,
-          TenNV: "Nguyễn Văn E",
-          SDT: "0123456789",
-          ChucVu: 1,
-          CMND: "123456789012",
-          DiaChi: "Hồ Chí Minh",
-        },
-      ];
+    .then((data) => {
+      Tabledata = data.DT;
+
       renderTableStaffs(Tabledata);
       // Kích hoạt DataTables
       $("#StaffListTable").DataTable({
@@ -166,8 +162,8 @@ $(document).ready(function () {
           },
         },
       });
-    });
-
+    })
+    .catch((error) => console.log(error));
   $("#BtnThemNV").click(function (e) {
     e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit (nếu có)
 
@@ -225,6 +221,6 @@ $(document).ready(function () {
       .then((data) => console.log(data))
       .catch((error) => console.log("ERROR"));
 
-    //location.reload();
+    location.reload();
   });
 });
