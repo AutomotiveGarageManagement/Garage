@@ -3,29 +3,113 @@ $(document).ready(function () {
   // var mockData = JSON.parse(storedData);
 
   // console.log(mockData);
-  // Kích hoạt DataTables
-  $("#StaffListTable").DataTable({
-    // Cấu hình thanh tìm kiếm
-    searching: true,
-    // Cấu hình điều hướng trang
-    paging: true,
-    // Cấu hình số bản ghi hiển thị trên mỗi trang
-    pageLength: 10,
-    // Cấu hình ngôn ngữ hiển thị
-    language: {
-      search: "Tìm kiếm:",
-      lengthMenu: "Hiển thị _MENU_ bản ghi",
-      info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
-      infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
-      infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
-      paginate: {
-        first: "Đầu",
-        last: "Cuối",
-        next: "Tiếp",
-        previous: "Trước",
-      },
-    },
-  });
+
+  function renderTableStaffs(data) {
+    var tableBody = $("#StaffListTable tbody");
+    tableBody.empty(); // Xóa dữ liệu cũ trong bảng
+
+    $.each(data, function (index, item) {
+      var row = $("<tr>");
+      //<th id="Td_ID_1" scope="row">1</th>
+      row.append($("<th>").attr("scope", "row").text(item.Id));
+      row.append($("<td>").text(item.TenNV));
+      row.append($("<td>").text(item.SDT));
+      var tdChucVu = $("<td>");
+      var chucvu = item.ChucVu;
+      var TenChucVu = ["Admin", "Kế Toán", "Nhân Viên"];
+      var spanChucVu;
+      if (chucvu === 0) {
+        spanChucVu = $("<span>")
+          .addClass("label label-purple")
+          .text(TenChucVu[chucvu]);
+      } else if (chucvu === 1) {
+        spanChucVu = $("<span>")
+          .addClass("label label-success")
+          .text(TenChucVu[chucvu]);
+      }
+      tdChucVu.append(spanChucVu);
+      row.append(tdChucVu);
+
+      var btnXem = $("<button>")
+        .attr("id", item.Id)
+        .addClass("btn-info btn text-white")
+        .append($("<span>").addClass("fw-bold").text("Xem"))
+        .attr("data-toggle", "modal")
+        .attr("data-target", "#popup");
+      row.append($("<td>").append(btnXem));
+
+      btnXem.click(function () {
+        // Xử lý sự kiện nhấn nút Xoá
+        var buttonId = $(this).attr("id");
+        var modalBody = $("<div>").addClass("modal-body");
+
+        var row1 = $("<div>").addClass("row");
+        row1.append(
+          $("<div>")
+            .addClass("col-6")
+            .text("Họ tên: " + item.TenNV)
+        );
+        row1.append(
+          $("<div>")
+            .addClass("col-6")
+            .text("CMND: " + item.CMND)
+        );
+
+        var row2 = $("<div>").addClass("row");
+        row2.append(
+          $("<div>")
+            .addClass("col-6")
+            .text("Địa chỉ: " + item.DiaChi)
+        );
+        row2.append(
+          $("<div>")
+            .addClass("col-6")
+            .text("SĐT:" + item.SDT)
+        );
+        modalBody.append(row1, row2);
+
+        var row3 = $("<div>").addClass("row");
+        row3.append($("<div>").addClass("col-6").text("Chúc vụ:"));
+        row3.append($("<div>").addClass("col-6").text(TenChucVu[chucvu]));
+
+        modalBody.append(row3);
+
+        var row6 = $("<div>").addClass("row text-center mt-3");
+        row6.append(
+          $("<div>")
+            .addClass("col-6")
+            .append(
+              $("<button>")
+                .addClass("btn btn-primary text-white w-75")
+                .text("Sửa")
+                .click(function () {
+                  console.log("Đã nhấn nút Sửa với ID: " + buttonId);
+                })
+            )
+        );
+        row6.append(
+          $("<div>")
+            .addClass("col-6")
+            .append(
+              $("<button>")
+                .addClass("btn btn-danger text-white w-75")
+                .text("Xoá")
+                .click(function () {
+                  console.log("Đã nhấn nút Xoá với ID: " + buttonId);
+                })
+            )
+        );
+        modalBody.append(row6);
+        //xoá data popup khi tắt
+        $("#popup .modal-body").append(modalBody);
+        $("#popup").on("hidden.bs.modal", function () {
+          $("#popup .modal-body").empty();
+        });
+      });
+
+      tableBody.append(row);
+    });
+  }
 
   //get all staffs
   fetch("http://localhost:8888/api/staff/getAll", {
@@ -38,7 +122,51 @@ $(document).ready(function () {
       return res.json();
     })
     .then((data) => console.log(data))
-    .catch((error) => console.log("ERROR"));
+    // .catch((error) => console.log("ERROR"));
+    .catch((error) => {
+      Tabledata = [
+        {
+          Id: 1,
+          TenNV: "Nguyễn Văn X",
+          SDT: "123456789012",
+          ChucVu: 0,
+          CMND: "0123456789",
+          DiaChi: "Thủ Đức",
+        },
+        {
+          Id: 2,
+          TenNV: "Nguyễn Văn E",
+          SDT: "0123456789",
+          ChucVu: 1,
+          CMND: "123456789012",
+          DiaChi: "Hồ Chí Minh",
+        },
+      ];
+      renderTableStaffs(Tabledata);
+      // Kích hoạt DataTables
+      $("#StaffListTable").DataTable({
+        // Cấu hình thanh tìm kiếm
+        searching: true,
+        // Cấu hình điều hướng trang
+        paging: true,
+        // Cấu hình số bản ghi hiển thị trên mỗi trang
+        pageLength: 10,
+        // Cấu hình ngôn ngữ hiển thị
+        language: {
+          search: "Tìm kiếm:",
+          lengthMenu: "Hiển thị _MENU_ bản ghi",
+          info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
+          infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
+          infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
+          paginate: {
+            first: "Đầu",
+            last: "Cuối",
+            next: "Tiếp",
+            previous: "Trước",
+          },
+        },
+      });
+    });
 
   $("#BtnThemNV").click(function (e) {
     e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit (nếu có)
