@@ -37,47 +37,35 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
   var cellWidth = 30;
   var cellHeight = 10;
 
-
-  // Lấy danh sách tồn kho tu api
+  // Lấy danh sách tồn kho từ API
   var danhSachTonKho = getDanhSachTonKho();
 
   // Tạo một bảng để hiển thị danh sách tồn kho trong PDF
-  var tableData = [];
-  var headers = ['ID', 'Vat tu Phu Tung', 'Ton dau', 'Phat sinh','Ton cuoi'];
-  tableData.push(headers);
-
-  danhSachTonKho.forEach(function(hang) {
-    var row = [hang.ID, hang.VatTu, hang.TonDau, hang.PhatSinh, hang.TonCuoi];
-    tableData.push(row);
+  var headers = [['ID', 'Vat tu Phu tung', 'Ton dau', 'Phat Sinh', 'Ton cuoi']];
+  var data = danhSachTonKho.map(function (hang) {
+    return [hang.ID, hang.VatTu, hang.TonDau.toString(), hang.PhatSinh.toString(), hang.TonCuoi.toString()];
   });
 
- // Vẽ tiêu đề
- doc.setFontSize(12);
- doc.setFontStyle("bold");
- doc.text("Báo cáo tồn kho", margin, startY);
- startY += cellHeight;
+  // Vẽ tiêu đề
+  doc.setFontSize(12);
+  doc.setFontStyle("bold");
+  doc.text("Bao cao Ton Kho", margin, startY);
+  doc.text("Thang 8", startY*3, startY);
+  startY += cellHeight;
 
- // Vẽ header bảng
- doc.setFontStyle("bold");
- doc.text(headers[0], margin, startY);
- doc.text(headers[1], margin + cellWidth, startY);
- doc.text(headers[2], margin + cellWidth * 2+30, startY);
- doc.text(headers[3], margin + cellWidth * 3+30, startY);
- doc.text(headers[4], margin + cellWidth * 4+30, startY);
- startY += cellHeight;
-
- // Vẽ dữ liệu trong bảng
- doc.setFontStyle("normal");
- danhSachTonKho.forEach(function (hang) {
-   doc.text(hang.ID, margin, startY);
-   doc.text(hang.VatTu, margin + cellWidth, startY);
-   doc.text(hang.TonDau.toString(), margin + cellWidth * 2+30, startY);
-   doc.text(hang.PhatSinh.toString(), margin + cellWidth * 3+30, startY);
-   doc.text(hang.TonCuoi.toString(), margin + cellWidth * 4+30, startY);
-   startY += cellHeight;
- });
-
-
+  // Vẽ bảng
+  doc.autoTable({
+    startY: startY,
+    head: headers,
+    body: data,
+    margin: margin,
+    styles: {
+      font: "Courier New",
+      fontStyle: "normal",
+      fontSize: 10,
+      cellPadding: 5
+    }
+  });
   // Lưu file PDF
   doc.save('danh-sach-ton-kho.pdf');
 });

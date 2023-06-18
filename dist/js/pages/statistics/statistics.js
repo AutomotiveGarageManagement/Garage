@@ -78,9 +78,10 @@ $(function () {
   });
   sparklineLogin();
 });
+
 $("#BtnXuatDoanhThuThang").click(function (e) {
   e.preventDefault();
-  console.log("da nhan nut");
+
   // Tạo đối tượng jsPDF
   var doc = new jsPDF();
   var startY = 20;
@@ -93,13 +94,9 @@ $("#BtnXuatDoanhThuThang").click(function (e) {
   console.log(getDanhSachTonKho());
 
   // Tạo một bảng để hiển thị danh sách tồn kho trong PDF
-  var tableData = [];
-  var headers = ['ID', 'Hieu Xe', 'So Luot Sua', 'Thanh Tien', 'Ty le'];
-  tableData.push(headers);
-
-  danhSachTonKho.forEach(function (hang) {
-    var row = [hang.ID, hang.HieuXe, hang.SoLuot, hang.ThanhTien, hang.TyLe];
-    tableData.push(row);
+  var headers = [['ID', 'Hiệu Xe', 'Số Lượt Sửa', 'Thành Tiền', 'Tỷ Lệ']];
+  var data = danhSachTonKho.map(function (hang) {
+    return [hang.ID, hang.HieuXe, hang.SoLuot.toString(), hang.ThanhTien.toString(), hang.TyLe];
   });
 
   // Vẽ tiêu đề
@@ -108,29 +105,24 @@ $("#BtnXuatDoanhThuThang").click(function (e) {
   doc.text("Báo cáo doanh thu", margin, startY);
   startY += cellHeight;
 
-  // Vẽ header bảng
-  doc.setFontStyle("bold");
-  doc.text(headers[0], margin, startY);
-  doc.text(headers[1], margin + cellWidth, startY);
-  doc.text(headers[2], margin + cellWidth * 2, startY);
-  doc.text(headers[3], margin + cellWidth * 3, startY);
-  doc.text(headers[4], margin + cellWidth * 4, startY);
-  startY += cellHeight;
-
-  // Vẽ dữ liệu trong bảng
-  doc.setFontStyle("normal");
-  danhSachTonKho.forEach(function (hang) {
-    doc.text(hang.ID, margin, startY);
-    doc.text(hang.HieuXe, margin + cellWidth, startY);
-    doc.text(hang.SoLuot.toString(), margin + cellWidth * 2, startY);
-    doc.text(hang.ThanhTien.toString(), margin + cellWidth * 3, startY);
-    doc.text(hang.TyLe, margin + cellWidth * 4, startY);
-    startY += cellHeight;
+  // Vẽ bảng
+  doc.autoTable({
+    startY: startY,
+    head: headers,
+    body: data,
+    margin: margin,
+    styles: {
+      font: "Courier New",
+      fontStyle: "normal",
+      fontSize: 10,
+      cellPadding: 5
+    }
   });
 
   // Lưu file PDF
   doc.save('bao-cao-doanh-thu.pdf');
 });
+
 
 
 function getDanhSachTonKho() {
