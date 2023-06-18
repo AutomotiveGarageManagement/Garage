@@ -1,4 +1,8 @@
 // table supplier
+
+
+
+
 $(document).ready(function () {
   // Kích hoạt DataTables
   $("#TableStatistics").DataTable({
@@ -74,3 +78,39 @@ $(function () {
   });
   sparklineLogin();
 });
+$("#BtnXuatDoanhThuThang").click(function (e) {
+  e.preventDefault();
+  console.log("da nhan nut");
+  // Tạo đối tượng jsPDF
+  var doc = new jsPDF();
+
+  // Lấy danh sách tồn kho từ API
+  var danhSachTonKho = getDanhSachTonKho();
+
+  // Tạo một bảng để hiển thị danh sách tồn kho trong PDF
+  var tableData = [];
+  var headers = ['ID', 'Hiệu Xe', 'Số lượt sửa', 'Thành Tiền', 'Tỷ lệ'];
+  tableData.push(headers);
+
+  danhSachTonKho.forEach(function (hang) {
+    var row = [hang.ID, hang.HieuXe, hang.SoLuot, hang.ThanhTien, hang.TyLe];
+    tableData.push(row);
+  });
+
+  // Vẽ bảng trong file PDF
+  doc.autoTable({
+    head: tableData.slice(0, 1),
+    body: tableData.slice(1)
+  });
+
+  // Lưu file PDF
+  doc.output('dataurlnewwindow');
+});
+
+function getDanhSachTonKho() {
+  // Đây là hàm giả lập, thay thế nó bằng hàm thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
+  return [
+    { ID: 'H001', HieuXe: 'HonDa', SoLuot: 10, ThanhTien: 100000, TyLe: "50%" },
+    { ID: 'H002', HieuXe: 'BMW', SoLuot: 10, ThanhTien: 100000, TyLe: "50%" },
+  ];
+}
