@@ -1,8 +1,34 @@
 //table
 $(document).ready(function () {
+  fetchData();
   var itemData = localStorage.getItem("item");
   var item = JSON.parse(itemData);
   console.log(item);
+
+  function fetchData() {
+    fetch("http://localhost:8888/api/receipt/getAll", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        mockData = data.DT;
+        console.log(mockData);
+        localStorage.setItem("mockData", JSON.stringify(mockData));
+        $.each(mockData, function (index, Newitem) {
+          if (Newitem.MaTN == item.MaTN) {
+            localStorage.setItem("item", JSON.stringify(Newitem));
+            itemData = localStorage.getItem("item");
+            item = JSON.parse(itemData);
+          }
+        });
+      })
+      .catch((error) => console.log("ERROR"));
+  }
 
   var TienCong;
   var PhuTung;
@@ -47,7 +73,7 @@ $(document).ready(function () {
   $.each(VTPTSelect, function (index, option) {
     selectElementVTPT.append(
       $("<option>")
-        .attr("value", index)
+        .attr("value", option.id)
         .text(option.TenVTPT + "  -  " + option.DonGiaThamKhao)
     );
   });
@@ -73,21 +99,87 @@ $(document).ready(function () {
       $.each(data.DT, function (index, option) {
         selectElement.append(
           $("<option>")
-            .attr("value", index)
+            .attr("value", option.id)
             .text(option.LoaiTienCong + "  -  " + option.GiaTriTienCong)
         );
       });
     })
     .catch((error) => console.log("ERROR WAGE TYPES"));
 
-  $("#ShowTenChuXe").text(item.TenChuXe);
-  $("#ShowDiaChi").text(item.DiaChiCX);
-  $("#ShowNgayTiepNhan").text(formattedDate1);
-  $("#ShowBienSo").text(item.BienSoXe);
-  $("#ShowHieuXe").text(item.MaHangXe);
-  $("#ShowCMND").text(item.CMND);
-  $("#ShowNgayHanGiao").text(formattedDate2);
-  $("#ShowSDT").text(item.SDT);
+  var car = localStorage.getItem("car");
+  var car_id = localStorage.getItem("car_id");
+  $("#inputTenChuXe").val(item.TenChuXe);
+  $("#inputDiaChi").val(item.DiaChiCX);
+  $("#inputNgayTiepNhan").val(formattedDate1);
+  $("#inputBienSo").val(item.BienSoXe);
+  $("#inputHieuXe").val(car);
+  $("#inputCMND").val(item.CMND);
+  $("#inputNgayHanGiao").val(formattedDate2);
+  $("#inputSDT").val(item.SDT);
+
+  $("#BtnDieuChinh").click(function (e) {
+    e.preventDefault();
+    //POSTTTT
+    var TenChuXe = $("#inputTenChuXe").val();
+    var DiaChiCX = $("#inputDiaChi").val();
+    var SDT = $("#inputSDT").val();
+    var BienSoXe = $("#inputBienSo").val();
+    var HanGiaoXe = $("#inputNgayHanGiao").val();
+
+    //email
+    var Email = item.Email;
+    var MaHangXe = car_id;
+    var GhiChu = item.Ghichu;
+    // console.log(
+    //   // TenChuXe,
+    //   // DiaChiCX,
+    //   // SDT,
+    //   // BienSoXe,
+    //   // HanGiaoXe,
+    //   // Email,
+    //   // MaHangXe,
+    //   GhiChu
+    // );
+    console.log(
+      JSON.stringify({
+        TenChuXe: TenChuXe,
+        DiaChiCX: DiaChiCX,
+        SDT: SDT,
+        Email: Email,
+        MaHangXe: parseInt(MaHangXe),
+        BienSoXe: BienSoXe,
+        GhiChu: GhiChu,
+        HanGiaoXe: HanGiaoXe,
+        MaTN: item.MaTN,
+      })
+    );
+    fetch(
+      "http://localhost:8888/api/receipt/update/information/form/" + item.MaTN,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          TenChuXe: TenChuXe,
+          DiaChiCX: DiaChiCX,
+          SDT: SDT,
+          Email: Email,
+          MaHangXe: parseInt(MaHangXe),
+          BienSoXe: BienSoXe,
+          GhiChu: GhiChu,
+          HanGiaoXe: HanGiaoXe,
+        }),
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => console.log(data))
+      .catch((error) => console.log("ERROR"));
+
+    //location.reload();
+  });
   var tongcong = 0;
   function renderTableRepairDetails(data) {
     var tableBody = $("#Table_ItemsList tbody");
@@ -150,14 +242,17 @@ $(document).ready(function () {
       tableBody.append(roww);
     });
     var TienConNoLai = item.TienNo;
+    fetchData();
     $("#ShowTienConNoLai").text(TienConNoLai);
     $("#ShowTrangThai").text(item.status);
     $("#ShowTongSoTien").text(tongcong);
-    if (TienConNoLai != tongcong) {
-      var button = document.getElementById("BtnThemDichVu");
+    if (tongcong != 0) {
+      if (TienConNoLai != tongcong) {
+        var button = document.getElementById("BtnThemDichVu");
 
-      // Disable nút
-      button.disabled = true;
+        // Disable nút
+        button.disabled = true;
+      }
     }
     if (TienConNoLai == 0) {
       var button = document.getElementById("BtnThanhToan");
@@ -206,79 +301,27 @@ $(document).ready(function () {
   $("#BtnThemDichVu").click(function (e) {
     e.preventDefault();
     //POSTTTT
-    var LoaiTienCong = $("#CBBVatTuPhuTung").val();
-    var VatTuPhuTung = $("#CBBLoaiTienCon").val();
     var MaTN = parseInt(item.MaTN);
-    console.log(typeof MaTN);
-    var MaTiencong = parseInt($("#CBBLoaiTienCong").val());
-    console.log(MaTiencong);
-    console.log(typeof MaTiencong);
-    var MaPhuTung = parseInt($("#CBBVatTuPhuTung").val());
-    console.log(MaPhuTung);
-    console.log(typeof MaPhuTung);
-    var NoiDung = TienCong[MaTiencong].LoaiTienCong;
-    console.log("Noi dung", NoiDung);
-    console.log(typeof NoiDung);
-    var GiaTienCong = parseFloat(TienCong[MaTiencong].GiaTriTienCong);
-    console.log("GIa Tien Cong", GiaTienCong);
-    console.log(typeof GiaTienCong);
-    var DonGia = parseFloat(PhuTung[MaPhuTung].DonGiaThamKhao);
-    console.log("DonGia", DonGia);
-    console.log(typeof DonGia);
-    var SoLuong = parseInt($("#InputNum").val());
-    console.log("SL", typeof SoLuong);
+    console.log("MaTN: ", MaTN, typeof MaTN);
 
-    var productDetail;
-    console.log("-");
-    productDetail = {
-      MaTiencong: MaTiencong,
-      MaVTPT: MaPhuTung,
-      NoiDung: NoiDung,
-      DonGia: DonGia,
-      TienCong: GiaTienCong,
-      SoLuong: SoLuong,
-    };
-    console.log(MaTN);
-    console.log(MaTiencong);
-    console.log(MaPhuTung);
-    console.log(NoiDung);
-    console.log(GiaTienCong);
-    console.log(DonGia);
-    console.log(SoLuong);
-    console.log(productDetail);
-    // "MaTN" : 2,
-    // "productDetail":{
-    //     "MaTienCong":2,
-    //     "MaVTPT":2,
-    //     "NoiDung":"Thay lọc nhớt",
-    //     "DonGia":120000,
-    //     "TienCong":2200000,
-    //     "SoLuong":2
-    // }
-    // DonGia
-    // :
-    // 100000
-    // MaTiencong
-    // :
-    // 2
-    // MaVTPT
-    // :
-    // 0
-    // NoiDung
-    // :
-    // "Thay thế vật tư phụ tùng "
-    // SoLuong
-    // :
-    // 1
-    // TienCong
-    // :
-    // 150000
-    console.log(
-      JSON.stringify({
-        MaTN: MaTN,
-        productDetail: productDetail,
-      })
-    );
+    var MaTiencong = parseInt($("#CBBLoaiTienCong").val());
+    console.log("MaTiencong: ", MaTiencong, typeof MaTiencong);
+
+    var MaPhuTung = parseInt($("#CBBVatTuPhuTung").val());
+    console.log("MaPhuTung: ", MaPhuTung, typeof MaPhuTung);
+
+    var NoiDung = TienCong[MaTiencong - 1].LoaiTienCong;
+    console.log("NoiDung: ", NoiDung, typeof NoiDung);
+
+    var GiaTienCong = parseInt(TienCong[MaTiencong - 1].GiaTriTienCong);
+    console.log("GiaTienCong: ", GiaTienCong, typeof GiaTienCong);
+
+    var DonGia = parseInt(PhuTung[MaPhuTung - 1].DonGiaThamKhao);
+    console.log("DonGia: ", DonGia, typeof DonGia);
+
+    var SoLuong = parseInt($("#InputNum").val());
+    console.log("SoLuong: ", SoLuong, typeof SoLuong);
+
     fetch("http://localhost:8888/api/repair/create/form", {
       method: "POST",
       headers: {
@@ -286,7 +329,14 @@ $(document).ready(function () {
       },
       body: JSON.stringify({
         MaTN: MaTN,
-        productDetail: productDetail,
+        productDetail: {
+          MaTienCong: MaTiencong,
+          MaVTPT: MaPhuTung,
+          NoiDung: NoiDung,
+          DonGia: DonGia,
+          TienCong: GiaTienCong,
+          SoLuong: SoLuong,
+        },
       }),
     })
       .then((res) => {
@@ -295,7 +345,7 @@ $(document).ready(function () {
       .then((data) => console.log(data))
       .catch((error) => console.log("ERROR"));
 
-    //location.reload();
+    location.reload();
   });
   //popup
   // {
@@ -346,6 +396,9 @@ $(document).ready(function () {
         console.log(TienConNoLai);
       })
       .catch((error) => console.log("ERROR"));
+    setTimeout(function () {
+      window.location.href = "service.html";
+    }, 5000); // 5000ms = 5 giây
 
     //     $("#ShowTenChuXe").text(item.TenChuXe);
     // $("#ShowDiaChi").text(item.DiaChiCX);
