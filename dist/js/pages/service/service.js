@@ -160,8 +160,19 @@ $(document).ready(function () {
       row.append($("<td>").text(formattedDate1));
       row.append($("<td>").text(formattedDate2));
       row.append($("<td>").text(item.TienNo));
+
       var statusLabel = $("<span>").addClass("label");
-      statusLabel.addClass("label-purple").text("Đã tiếp nhận");
+
+      var status = item.status;
+      if (status == "Hoàn Thành") {
+        statusLabel.addClass("label-success").text("Hoàn Thành");
+      } else if (status == "Đã tiếp nhận") {
+        statusLabel.addClass("label-primary").text("Đã tiếp nhận");
+      } else {
+        statusLabel.addClass("label-purple").text("Đang xử lý");
+      }
+
+      //statusLabel.addClass("label-purple").text("Đã tiếp nhận");
       row.append($("<td>").append(statusLabel));
 
       var link = $("<a>")

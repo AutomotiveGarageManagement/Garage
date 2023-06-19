@@ -96,16 +96,22 @@ $(document).ready(function () {
 
     $.each(data, function (index, item) {
       var row = $("<tr>");
-      row.append($("<th>").attr("scope", "row").text(item.STT));
-      row.append($("<td>").text(item.NhaCungCap));
-      row.append($("<td>").text(item.DiaChi));
-      row.append($("<td>").text(item.NguoiDungDau));
+      row.append($("<th>").attr("scope", "row").text(item.id));
+      row.append($("<td>").text(item.TenNCC));
+      row.append($("<td>").text(item.DiaChiNhaCungCap));
+      row.append($("<td>").text(item.HotenNDD));
       row.append($("<td>").text(item.SDT));
 
       tableBody.append(row);
     });
   }
-
+  // {
+  //   "id": 1,
+  //   "TenNCC": "LocPham",
+  //   "SDT": "092423423",
+  //   "DiaChiNhaCungCap": "Tam phu?c biên hòa d?ng nai",
+  //   "HotenNDD": "Ph?m H?u L?c"
+  // }
   // renderTableSuplier(data);
 
   fetch("http://localhost:8888/api/supplier/get/suppliers", {
@@ -117,25 +123,9 @@ $(document).ready(function () {
     .then((res) => {
       return res.json();
     })
-    .then((data) => console.log(data))
-    // .catch((error) => console.log("ERROR"));
-    .catch((error) => {
-      Tabledata = [
-        {
-          STT: 1,
-          NhaCungCap: "Thiết bị phụ tùng An Phát",
-          DiaChi: "Thủ Đức, HCM",
-          NguoiDungDau: "Nguyễn Văn C",
-          SDT: "0123456789",
-        },
-        {
-          STT: 2,
-          NhaCungCap: "Thiết bị phụ tùng Kiệt Lặc",
-          DiaChi: "Biên Hoà",
-          NguoiDungDau: "Nguyễn Xuân Tuấn Kiệt",
-          SDT: "0123456789",
-        },
-      ];
+    .then((data) => {
+      Tabledata = data.DT;
+      console.log(Tabledata);
       renderTableSuplier(Tabledata);
       $("#SupplierTable").DataTable({
         // Cấu hình thanh tìm kiếm
@@ -159,7 +149,9 @@ $(document).ready(function () {
           },
         },
       });
-    });
+    })
+    .catch((error) => console.log("ERROR"));
+
   // Kích hoạt DataTables
   $("#BtnNCC_Them").click(function (e) {
     e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit (nếu có)
