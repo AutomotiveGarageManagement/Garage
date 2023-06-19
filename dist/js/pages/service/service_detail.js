@@ -89,24 +89,106 @@ $(document).ready(function () {
   $("#ShowNgayHanGiao").text(formattedDate2);
   $("#ShowSDT").text(item.SDT);
 
-  $("#Table_ItemsList").DataTable({
-    searching: true,
-    paging: true,
-    pageLength: 10,
-    language: {
-      search: "Tìm kiếm:",
-      lengthMenu: "Hiển thị _MENU_ bản ghi",
-      info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
-      infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
-      infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
-      paginate: {
-        first: "Đầu",
-        last: "Cuối",
-        next: "Tiếp",
-        previous: "Trước",
-      },
+  function renderTableRepairDetails(data) {
+    var tableBody = $("#Table_ItemsList tbody");
+    tableBody.empty();
+    var tongcong = 0;
+
+    $.each(data, function (index, item) {
+      //   {
+      //     "id": 2,
+      //     "TenVTPT": "Lọc Gió",
+      //     "DVT": "cái",
+      //     "NoiDung": "Thay lọc nhớt",
+      //     "DonGia": 150000,
+      //     "TienCong": 150000,
+      //     "SoLuong": 1,
+      //     "TongTien": 300000
+      // },
+
+      var roww = $("<tr>");
+      roww.append($("<th>").attr("scope", "row").text(item.id));
+      roww.append($("<td>").text(item.NoiDung));
+      roww.append($("<td>").text(item.TenVTPT));
+      roww.append($("<td>").text(item.SoLuong));
+      roww.append($("<td>").text(item.DonGia));
+      roww.append($("<td>").text(item.TienCong));
+      roww.append($("<td>").text(item.TongTien));
+
+      tongcong += item.TongTien;
+      console.log(tongcong);
+
+      var buttonsw = $("<div>").addClass("row");
+      var colw1 = $("<div>").addClass("col");
+      var colw2 = $("<div>").addClass("col");
+
+      var btnwSua = $("<button>")
+        .attr("id", item.id)
+        .addClass("btn-info btn text-white")
+        .append($("<span>").addClass("fw-bold").text("Sửa"));
+      var btnwXoa = $("<button>")
+        .attr("id", item.id)
+        .addClass("btn-danger btn text-white")
+        .append($("<span>").addClass("fw-bold").text("Xoá"));
+      colw1.append(btnwSua);
+      colw2.append(btnwXoa);
+      buttonsw.append(colw1, colw2);
+
+      roww.append($("<td>").append(buttonsw));
+
+      btnwSua.click(function () {
+        // Xử lý sự kiện nhấn nút Xoá
+        var buttonIdw = $(this).attr("id");
+        // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
+        console.log("Đã nhấn nút Sửa với ID: " + buttonIdw);
+      });
+      btnwXoa.click(function () {
+        // Xử lý sự kiện nhấn nút Xoá
+        var buttonIdw = $(this).attr("id");
+        // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
+        console.log("Đã nhấn nút Xoá với ID: " + buttonIdw);
+      });
+      tableBody.append(roww);
+    });
+    $("#ShowTrangThai").text(item.status);
+    $("#ShowTongSoTien").text(tongcong);
+  }
+  fetch("http://localhost:8888/api/repair/get/information/form", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-  });
+    body: JSON.stringify({
+      MaTN: item.MaTN,
+    }),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      Tabledatar = data.DT;
+      console.log(Tabledatar);
+      renderTableRepairDetails(Tabledatar);
+      $("#Table_ItemsList").DataTable({
+        searching: true,
+        paging: true,
+        pageLength: 10,
+        language: {
+          search: "Tìm kiếm:",
+          lengthMenu: "Hiển thị _MENU_ bản ghi",
+          info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
+          infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
+          infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
+          paginate: {
+            first: "Đầu",
+            last: "Cuối",
+            next: "Tiếp",
+            previous: "Trước",
+          },
+        },
+      });
+    })
+    .catch((error) => console.log("ERROR WAGE TYPES"));
 
   $("#BtnThemDichVu").click(function (e) {
     e.preventDefault();
