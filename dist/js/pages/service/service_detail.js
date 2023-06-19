@@ -88,11 +88,10 @@ $(document).ready(function () {
   $("#ShowCMND").text(item.CMND);
   $("#ShowNgayHanGiao").text(formattedDate2);
   $("#ShowSDT").text(item.SDT);
-
+  var tongcong = 0;
   function renderTableRepairDetails(data) {
     var tableBody = $("#Table_ItemsList tbody");
     tableBody.empty();
-    var tongcong = 0;
 
     $.each(data, function (index, item) {
       //   {
@@ -150,8 +149,22 @@ $(document).ready(function () {
       });
       tableBody.append(roww);
     });
+    var TienConNoLai = item.TienNo;
+    $("#ShowTienConNoLai").text(TienConNoLai);
     $("#ShowTrangThai").text(item.status);
     $("#ShowTongSoTien").text(tongcong);
+    if (TienConNoLai != tongcong) {
+      var button = document.getElementById("BtnThemDichVu");
+
+      // Disable nút
+      button.disabled = true;
+    }
+    if (TienConNoLai == 0) {
+      var button = document.getElementById("BtnThanhToan");
+
+      // Disable nút
+      button.disabled = true;
+    }
   }
   fetch("http://localhost:8888/api/repair/get/information/form", {
     method: "POST",
@@ -284,11 +297,64 @@ $(document).ready(function () {
 
     //location.reload();
   });
+  //popup
+  // {
+
+  //   "MaPhieuTN":1,
+  //    "SDT":"0353339425",
+  //    "Email":"loc281202@gmail.com",
+  //    "SoTienThu": 600000
+  // }
+  var phieuThu = document.getElementById("PhieuThu");
+  var showHiddenPhieuThu = document.getElementById("showHiddenPhieuThu");
+  function showHiddenDivPhieuThu() {
+    phieuThu.style.display = "block";
+    var TienThu = parseInt($("#InputTienThu").val());
+    var SDT = $("#InputSDT").val();
+    var Email = $("#InputEmail").val();
+    var NguoiTao = $("#InputNguoiTao").val();
+    console.log("Số tiền thu: ", TienThu, typeof TienThu);
+    console.log("Mã TN: ", item.MaTN, typeof item.MaTN);
+    console.log(SDT, Email);
+    fetch("http://localhost:8888/api/payment/create/form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        MaPhieuTN: item.MaTN,
+        SDT: SDT,
+        Email: Email,
+        SoTienThu: TienThu,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        $("#ShowTenPhieuThu").text(item.TenChuXe);
+        $("#ShowBienSoThu").text(item.BienSoXe);
+        $("#ShowEmailThu").text(Email);
+        $("#ShowSDTThu").text(item.SDT);
+        $("#ShowTongTienThu").text(tongcong);
+        $("#ShowSoTienThu").text(TienThu);
+        $("#ShowNgayTaoThu").text(new Date());
+        $("#ShowNguoiTaoThu").text(NguoiTao);
+        var TienConNoLai = item.TienNo - TienThu;
+        $("#ShowTienConNoLai").text(TienConNoLai);
+        $("#ShowTienNoLaiPT").text(TienConNoLai);
+        console.log(TienConNoLai);
+      })
+      .catch((error) => console.log("ERROR"));
+
+    //     $("#ShowTenChuXe").text(item.TenChuXe);
+    // $("#ShowDiaChi").text(item.DiaChiCX);
+    // $("#ShowNgayTiepNhan").text(formattedDate1);
+    // $("#ShowBienSo").text(item.BienSoXe);
+    // $("#ShowHieuXe").text(item.MaHangXe);
+    // $("#ShowCMND").text(item.CMND);
+    // $("#ShowNgayHanGiao").text(formattedDate2);
+    // $("#ShowSDT").text(item.SDT);
+  }
+  showHiddenPhieuThu.addEventListener("click", showHiddenDivPhieuThu);
 });
-//popup
-var phieuThu = document.getElementById("PhieuThu");
-var showHiddenPhieuThu = document.getElementById("showHiddenPhieuThu");
-function showHiddenDivPhieuThu() {
-  phieuThu.style.display = "block";
-}
-showHiddenPhieuThu.addEventListener("click", showHiddenDivPhieuThu);
