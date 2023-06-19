@@ -1,8 +1,5 @@
 // table supplier
 
-
-
-
 $(document).ready(function () {
   // Kích hoạt DataTables
   $("#TableStatistics").DataTable({
@@ -77,6 +74,16 @@ $(function () {
     sparkResize = setTimeout(sparklineLogin, 500);
   });
   sparklineLogin();
+
+  $("#ThangDoanhThu").change(function () {
+    // Lấy giá trị tháng đã chọn
+    var selectedMonth = $(this).val();
+
+    // Xử lý logic tương ứng với giá trị tháng đã chọn
+    console.log("Tháng đã chọn:", selectedMonth);
+
+    // Gọi hàm hoặc thực hiện các tác vụ khác dựa trên tháng đã chọn
+  });
 });
 
 $("#BtnXuatDoanhThuThang").click(function (e) {
@@ -94,9 +101,15 @@ $("#BtnXuatDoanhThuThang").click(function (e) {
   console.log(getDanhSachTonKho());
 
   // Tạo một bảng để hiển thị danh sách tồn kho trong PDF
-  var headers = [['ID', 'Hiệu Xe', 'Số Lượt Sửa', 'Thành Tiền', 'Tỷ Lệ']];
+  var headers = [["ID", "Hiệu Xe", "Số Lượt Sửa", "Thành Tiền", "Tỷ Lệ"]];
   var data = danhSachTonKho.map(function (hang) {
-    return [hang.ID, hang.HieuXe, hang.SoLuot.toString(), hang.ThanhTien.toString(), hang.TyLe];
+    return [
+      hang.ID,
+      hang.HieuXe,
+      hang.SoLuot.toString(),
+      hang.ThanhTien.toString(),
+      hang.TyLe,
+    ];
   });
 
   // Vẽ tiêu đề
@@ -115,15 +128,15 @@ $("#BtnXuatDoanhThuThang").click(function (e) {
       font: "Courier New",
       fontStyle: "normal",
       fontSize: 10,
-      cellPadding: 5
-    }
+      cellPadding: 5,
+    },
   });
 
   // Lưu file PDF
-  doc.save('bao-cao-doanh-thu.pdf');
+  doc.save("bao-cao-doanh-thu.pdf");
+
+  // Bắt sự kiện khi chọn tháng
 });
-
-
 
 function getDanhSachTonKho() {
   // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
@@ -134,8 +147,7 @@ function getDanhSachTonKho() {
   //   .then(data => data);
 
   return [
-    { ID: 'H001', HieuXe: 'HonDa', SoLuot: 10, ThanhTien: 100000, TyLe: "50%" },
-    { ID: 'H002', HieuXe: 'BMW', SoLuot: 10, ThanhTien: 100000, TyLe: "50%" },
+    { ID: "H001", HieuXe: "HonDa", SoLuot: 10, ThanhTien: 100000, TyLe: "50%" },
+    { ID: "H002", HieuXe: "BMW", SoLuot: 10, ThanhTien: 100000, TyLe: "50%" },
   ];
 }
-

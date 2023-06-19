@@ -206,10 +206,10 @@ $(document).ready(function () {
     var NoiDung = TienCong[MaTiencong].LoaiTienCong;
     console.log("Noi dung", NoiDung);
     console.log(typeof NoiDung);
-    var GiaTienCong = parseInt(TienCong[MaTiencong].GiaTriTienCong);
+    var GiaTienCong = parseFloat(TienCong[MaTiencong].GiaTriTienCong);
     console.log("GIa Tien Cong", GiaTienCong);
     console.log(typeof GiaTienCong);
-    var DonGia = parseInt(PhuTung[MaPhuTung].DonGiaThamKhao);
+    var DonGia = parseFloat(PhuTung[MaPhuTung].DonGiaThamKhao);
     console.log("DonGia", DonGia);
     console.log(typeof DonGia);
     var SoLuong = parseInt($("#InputNum").val());
@@ -260,6 +260,12 @@ $(document).ready(function () {
     // TienCong
     // :
     // 150000
+    console.log(
+      JSON.stringify({
+        MaTN: MaTN,
+        productDetail: productDetail,
+      })
+    );
     fetch("http://localhost:8888/api/repair/create/form", {
       method: "POST",
       headers: {

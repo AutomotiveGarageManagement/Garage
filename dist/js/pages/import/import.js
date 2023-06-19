@@ -168,10 +168,10 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        TenNCC: "LocPham",
-        SDT: "092423423",
-        DiaChiNhaCungCap: "Tam phước biên hòa đồng nai",
-        HoTenNDD: "Phạm Hữu Lộc",
+        TenNCC: TenNCC,
+        SDT: SDT,
+        DiaChiNhaCungCap: DiaChi,
+        HoTenNDD: NDD,
       }),
     })
       .then((res) => {
@@ -180,6 +180,6 @@ $(document).ready(function () {
       .then((data) => console.log(data))
       .catch((error) => console.log("ERROR"));
 
-    //location.reload();
+    location.reload();
   });
 });
