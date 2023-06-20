@@ -1,7 +1,71 @@
 //import item table setting
 var PhuTung;
 var NhaCungCap;
+var TongCong = 0;
+var ImportItem = [];
 $(document).ready(function () {
+  //nút thanh toán
+  $("#HoanThanhThanhToan").click(function (e) {
+    e.preventDefault();
+    console.log(ImportItem);
+    var manhacungcap = $("#InputCBBNhaCungCap").val();
+    var tenncc = NhaCungCap[manhacungcap - 1].TenNCC;
+    var currentDate = new Date(); // Tạo đối tượng ngày hiện tại
+    var day = currentDate.getDate(); // Lấy ngày
+    var month = currentDate.getMonth() + 1; // Lấy tháng (0-11, nên cần +1)
+    var year = currentDate.getFullYear(); // Lấy năm
+
+    // Định dạng ngày tháng năm thành chuỗi "dd/mm/yyyy"
+    var formattedDate =
+      (day < 10 ? "0" : "") +
+      day +
+      "/" +
+      (month < 10 ? "0" : "") +
+      month +
+      "/" +
+      year;
+    console.log(formattedDate, typeof formattedDate);
+    console.log(tenncc);
+    fetch("http://localhost:8888/api/import/create/form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        MaNV: "1",
+        MaNCC: manhacungcap,
+        NgayLapPhieuNhap: "12/06/2023",
+        TenNhaCungCap: tenncc,
+        TongTienNhapHang: TongCong + "",
+        productDetail: ImportItem,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => console.log("ERROR ITEM LIST"));
+  });
+  //nút nhập hàng
+  $("#btnNhapHang").click(function (e) {
+    e.preventDefault();
+    $("#ImportItemWarehouseTable tbody tr").each(function () {
+      var soLuong = parseInt($(this).find("input[type='number']").val());
+      if (soLuong > 0) {
+        var id = $(this).find("th").text();
+        var donGia = $(this).find("td:nth-child(4)").text();
+        ImportItem.push({
+          MaVTPT: id,
+          DonGia: parseInt(donGia),
+          SoLuong: soLuong,
+        });
+        TongCong += donGia * soLuong;
+      }
+    });
+    $("#TongTien").text(TongCong);
+  });
   function createStuffTable(data) {
     var tableBody = $("#ImportItemWarehouseTable tbody");
     tableBody.empty(); // Xóa dữ liệu cũ trong bảng
@@ -229,6 +293,12 @@ $(document).ready(function () {
     .then((data) => {
       Tabledata = data.DT;
       NhaCungCap = data.DT;
+      var selectElementVTPT = $("#InputCBBNhaCungCap");
+      $.each(NhaCungCap, function (index, option) {
+        selectElementVTPT.append(
+          $("<option>").attr("value", option.id).text(option.TenNCC)
+        );
+      });
       console.log(Tabledata);
       renderTableSuplier(Tabledata);
       $("#SupplierTable").DataTable({
