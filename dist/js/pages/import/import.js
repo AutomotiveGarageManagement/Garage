@@ -1,28 +1,84 @@
 //import item table setting
+var PhuTung;
 $(document).ready(function () {
-  // Kích hoạt DataTables
-  $("#ImportItemWarehouseTable").DataTable({
-    // Cấu hình thanh tìm kiếm
-    searching: true,
-    // Cấu hình điều hướng trang
-    paging: true,
-    // Cấu hình số bản ghi hiển thị trên mỗi trang
-    pageLength: 10,
-    // Cấu hình ngôn ngữ hiển thị
-    language: {
-      search: "Tìm kiếm:",
-      lengthMenu: "Hiển thị _MENU_ bản ghi",
-      info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
-      infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
-      infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
-      paginate: {
-        first: "Đầu",
-        last: "Cuối",
-        next: "Tiếp",
-        previous: "Trước",
+  function createStuffTable(data) {
+    var tableBody = $("#ImportItemWarehouseTable tbody");
+    tableBody.empty(); // Xóa dữ liệu cũ trong bảng
+    // "id": 1,
+    // "TenVTPT": "Lọc Gió",
+    // "DVT": "cái",
+    // "DonGiaThamKhao": 100000,
+    // "SoLuongVatTu": 1
+    $.each(data, function (index, item) {
+      var row = $("<tr>");
+      row.append($("<th>").attr("scope", "row").text(item.id));
+      row.append($("<td>").text(item.TenVTPT));
+      row.append(
+        $("<td>").append(
+          $("<input>")
+            .attr("type", "number")
+            .attr("min", "0")
+            .attr("id", "inputNumber" + item.id)
+            .val("0")
+        )
+      );
+      row.append($("<td>").text(item.DonGiaThamKhao));
+      row.append($("<td>").text(item.SoLuongVatTu));
+      tableBody.append(row);
+    });
+    $("#ImportItemWarehouseTable").DataTable({
+      // Cấu hình thanh tìm kiếm
+      searching: true,
+      // Cấu hình điều hướng trang
+      paging: true,
+      // Cấu hình số bản ghi hiển thị trên mỗi trang
+      pageLength: 10,
+      // Cấu hình ngôn ngữ hiển thị
+      language: {
+        search: "Tìm kiếm:",
+        lengthMenu: "Hiển thị _MENU_ bản ghi",
+        info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
+        infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
+        infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
+        paginate: {
+          first: "Đầu",
+          last: "Cuối",
+          next: "Tiếp",
+          previous: "Trước",
+        },
       },
+    });
+  }
+  fetch("http://localhost:8888/api/stuff/get/stuffs", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
     },
-  });
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      //   {
+      //     "id": 1,
+      //     "LoaiTienCong": "Làm sạch",
+      //     "GiaTriTienCong": 50000
+      // }
+
+      PhuTung = data.DT;
+
+      //   {
+      //     "id": 3,
+      //     "TenVTPT": "Má phanh sau",
+      //     "DVT": "Cai",
+      //     "DonGiaThamKhao": 100000,
+      //     "SoLuongVatTu": 0
+      // }
+      console.log(PhuTung);
+      createStuffTable(PhuTung);
+    })
+    .catch((error) => console.log("ERROR ITEM LIST"));
+  // Kích hoạt DataTables
 });
 
 //import item table setting

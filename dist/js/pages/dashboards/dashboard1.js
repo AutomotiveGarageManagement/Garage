@@ -102,3 +102,73 @@ $(function () {
   });
   sparklineLogin();
 });
+
+$(document).ready(function () {
+  fetch("http://localhost:8888/api/parameter/get/parameters", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      param = data.DT[0];
+      console.log(param.SoLuongXeToiDa);
+      $("#XeToiDaMoiNgay").text(param.SoLuongXeToiDa);
+    })
+    .catch((error) => console.log("ERROR"));
+
+  fetch("http://localhost:8888/api/statistic/get/sum-receipt/6", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      all_days = data["DT"][0]["All Days"];
+      today = data["DT"][0]["Today"];
+      console.log(all_days, today);
+      $("#TongSoXe").text(all_days);
+      $("#XeHomNay").text(today);
+    })
+    .catch((error) => console.log("ERROR"));
+  fetch("http://localhost:8888/api/statistic/get/sum-turnover/6", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      all_days = data["DT"][0]["All Days"];
+      today = data["DT"][0]["Today"];
+      console.log(all_days, today);
+      $("#TongDoanhThu").text(all_days);
+      $("#DoanhThuHomNay").text(today);
+    })
+    .catch((error) => console.log("ERROR"));
+  fetch("http://localhost:8888/api/statistic/get/sum-customer", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      all_days = data["DT"][0]["All Days"];
+      today = data["DT"][0]["Today"];
+      console.log(all_days, today);
+      $("#TongKhachHang").text(all_days);
+      $("#KhachHangHomNay").text(today);
+    })
+    .catch((error) => console.log("ERROR"));
+});
