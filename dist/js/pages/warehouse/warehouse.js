@@ -133,8 +133,8 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
   var headers = [["ID", "Vat tu Phu tung", "Ton dau", "Phat Sinh", "Ton cuoi"]];
   var data = danhSachTonKho.map(function (hang) {
     return [
-      hang.ID,
-      hang.VatTu,
+      hang.id,
+      hang.TenVTPT,
       hang.TonDau.toString(),
       hang.PhatSinh.toString(),
       hang.TonCuoi.toString(),
@@ -164,13 +164,20 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
   // Lưu file PDF
   doc.save("danh-sach-ton-kho.pdf");
 });
+ function getDanhSachTonKho()
+ {
+  fetch("http://localhost:8888/api/stuff/get/stuffs", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => data)
 
-function getDanhSachTonKho() {
-  return [
-    { ID: "1", VatTu: "Buồn Nhớt", TonDau: 1, PhatSinh: 0, TonCuoi: 1 },
-    { ID: "1", VatTu: "chong chóng che", TonDau: 1, PhatSinh: 0, TonCuoi: 1 },
-  ];
-}
+ }
 
 //item table
 $(document).ready(function () {
@@ -272,9 +279,11 @@ $(document).ready(function () {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data))
+      .then((data) => { 
+        alert(data.Em)
+        location.reload();
+      })
       .catch((error) => console.log("ERROR"));
 
-    location.reload();
   });
 });

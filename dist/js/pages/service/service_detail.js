@@ -67,28 +67,28 @@ function InPhieuThu() {
   // Lưu file PDF
   doc.save("bao-cao-doanh-thu.pdf");
 
-  function getDanhSachPhieuThu() {
-    // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
-    // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
-    // Ví dụ:
-    // return fetch('url-api-danh-sach-ton-kho')
-    //   .then(response => response.json())
-    //   .then(data => data);
+  // function getDanhSachPhieuThu() {
+  //   // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
+  //   // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
+  //   // Ví dụ:
+  //   // return fetch('url-api-danh-sach-ton-kho')
+  //   //   .then(response => response.json())
+  //   //   .then(data => data);
 
-    return [
-      {
-        ChuXe: "H001",
-        SDT: "HonDa",
-        NgayTao: 10,
-        BienSo: 100000,
-        Email: "50%",
-        NguoiTaoPhieu: "",
-        TongTien: 9999999,
-        SoTienThu: 100000,
-        ConNo: 3000000,
-      },
-    ];
-  }
+  //   return [
+  //     {
+  //       ChuXe: "H001",
+  //       SDT: "HonDa",
+  //       NgayTao: 10,
+  //       BienSo: 100000,
+  //       Email: "50%",
+  //       NguoiTaoPhieu: "",
+  //       TongTien: 9999999,
+  //       SoTienThu: 100000,
+  //       ConNo: 3000000,
+  //     },
+  //   ];
+  // }
 }
 $(document).ready(function () {
   fetchData();
@@ -347,7 +347,9 @@ $(document).ready(function () {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data))
+      .then((data) => {
+        alert(data.Em)
+      })
       .catch((error) => console.log("ERROR"));
 
     //location.reload();
@@ -404,13 +406,13 @@ $(document).ready(function () {
         // Xử lý sự kiện nhấn nút Xoá
         var buttonIdw = $(this).attr("id");
         // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
-        console.log("Đã nhấn nút Sửa với ID: " + buttonIdw);
+        alert("Sửa thành công");
       });
       btnwXoa.click(function () {
         // Xử lý sự kiện nhấn nút Xoá
         var buttonIdw = $(this).attr("id");
         // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
-        console.log("Đã nhấn nút Xoá với ID: " + buttonIdw);
+       alert("Xoá thành công");
       });
       tableBody.append(roww);
     });
@@ -459,6 +461,8 @@ $(document).ready(function () {
     var SoLuong = parseInt($("#InputNum").val());
     console.log("SoLuong: ", SoLuong, typeof SoLuong);
 
+    if (MaPhuTung == NaN ||  MaTiencong == NaN ) alert("Chưa chọn phụ tùng hoặc nội dung sửa chữa")
+
     fetch("http://localhost:8888/api/repair/create/form", {
       method: "POST",
       headers: {
@@ -479,10 +483,10 @@ $(document).ready(function () {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data))
+      .then((data) => {
+        alert(data.Em);
+      })
       .catch((error) => console.log("ERROR"));
-
-    location.reload();
   });
   //popup
   // {
@@ -493,60 +497,136 @@ $(document).ready(function () {
   //    "SoTienThu": 600000
   // }
   var phieuThu = document.getElementById("PhieuThu");
-  var showHiddenPhieuThu = document.getElementById("showHiddenPhieuThu");
-  function showHiddenDivPhieuThu() {
-    phieuThu.style.display = "block";
+var showHiddenPhieuThu = document.getElementById("showHiddenPhieuThu");
 
-    var TienThu = parseInt($("#InputTienThu").val());
-    var SDT = $("#InputSDT").val();
-    var Email = $("#InputEmail").val();
-    var NguoiTao = $("#InputNguoiTao").val();
-    console.log("Số tiền thu: ", TienThu, typeof TienThu);
-    console.log("Mã TN: ", item.MaTN, typeof item.MaTN);
-    console.log(SDT, Email);
-    fetch("http://localhost:8888/api/payment/create/form", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        MaPhieuTN: item.MaTN,
-        SDT: SDT,
-        Email: Email,
-        SoTienThu: TienThu,
-      }),
+function showHiddenDivPhieuThu() {
+  phieuThu.style.display = "block";
+
+  var TienThu = parseInt($("#InputTienThu").val());
+  var SDT = $("#InputSDT").val();
+  var Email = $("#InputEmail").val();
+  var NguoiTao = $("#InputNguoiTao").val();
+  console.log("Số tiền thu: ", TienThu, typeof TienThu);
+  console.log("Mã TN: ", item.MaTN, typeof item.MaTN);
+  console.log(SDT, Email);
+
+  fetch("http://localhost:8888/api/payment/create/form", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      MaPhieuTN: item.MaTN,
+      SDT: SDT,
+      Email: Email,
+      SoTienThu: TienThu,
+    }),
+  })
+    .then((res) => {
+      return res.json();
     })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        $("#ShowTenPhieuThu").text(item.TenChuXe);
-        $("#ShowBienSoThu").text(item.BienSoXe);
-        $("#ShowEmailThu").text(Email);
-        $("#ShowSDTThu").text(item.SDT);
-        $("#ShowTongTienThu").text(tongcong);
-        $("#ShowSoTienThu").text(TienThu);
-        $("#ShowNgayTaoThu").text(new Date());
-        $("#ShowNguoiTaoThu").text(NguoiTao);
-        var TienConNoLai = item.TienNo - TienThu;
-        $("#ShowTienConNoLai").text(TienConNoLai);
-        $("#ShowTienNoLaiPT").text(TienConNoLai);
-        console.log(TienConNoLai);
-      })
-      .catch((error) => console.log("ERROR"));
-    InPhieuThu();
-    setTimeout(function () {
-      window.location.href = "service.html";
-    }, 5000); // 5000ms = 5 giây
+    .then((data) => {
+      $("#ShowTenPhieuThu").text(item.TenChuXe);
+      $("#ShowBienSoThu").text(item.BienSoXe);
+      $("#ShowEmailThu").text(Email);
+      $("#ShowSDTThu").text(item.SDT);
+      $("#ShowTongTienThu").text(tongcong);
+      $("#ShowSoTienThu").text(TienThu);
+      $("#ShowNgayTaoThu").text(new Date());
+      $("#ShowNguoiTaoThu").text(NguoiTao);
+      var TienConNoLai = item.TienNo - TienThu;
+      $("#ShowTienConNoLai").text(TienConNoLai);
+      $("#ShowTienNoLaiPT").text(TienConNoLai);
+      console.log(TienConNoLai);
+      alert(data.Em);
+    })
+    .catch((error) => console.log("ERROR"));
 
-    //     $("#ShowTenChuXe").text(item.TenChuXe);
-    // $("#ShowDiaChi").text(item.DiaChiCX);
-    // $("#ShowNgayTiepNhan").text(formattedDate1);
-    // $("#ShowBienSo").text(item.BienSoXe);
-    // $("#ShowHieuXe").text(item.MaHangXe);
-    // $("#ShowCMND").text(item.CMND);
-    // $("#ShowNgayHanGiao").text(formattedDate2);
-    // $("#ShowSDT").text(item.SDT);
+  //////////////////////////
+  var doc = new jsPDF();
+  var startY = 20;
+  var margin = 10;
+  var cellWidth = 30;
+  var cellHeight = 10;
+  var TienConNoLai = item.TienNo - TienThu;
+  var ngayTao = new Date();
+  var ngayThangNam = ngayTao.toLocaleDateString();
+  // Lấy danh sách tồn kho từ API
+  var danhSachTonKho = getDanhSachPhieuThu();
+  console.log(getDanhSachPhieuThu());
+
+  // Tạo một bảng để hiển thị danh sách tồn kho trong PDF
+  var headers = [
+    [
+      "Chu Xe",
+      "SDT",
+      "Ngay Tao",
+      "Bien So",
+      "Email",
+      "Nguoi Tao Phieu",
+      "Tong Tien",
+      "So Tien Thu",
+      "Con No",
+    ],
+  ];
+  var data = danhSachTonKho.map(function (hang) {
+    return [
+      hang.ChuXe,
+      hang.SDT,
+      hang.NgayTao,
+      hang.BienSo,
+      hang.Email,
+      hang.NguoiTaoPhieu,
+      hang.TongTien.toString(),
+      hang.SoTienThu.toString(),
+      hang.ConNo.toString(),
+    ];
+  });
+
+  // Vẽ tiêu đề
+  
+  doc.text("Phieu thu", (margin + 9) * 5, startY);
+  startY += cellHeight;
+
+  // Vẽ bảng
+  doc.autoTable({
+    startY: startY,
+    head: headers,
+    body: data,
+    margin: margin,
+    styles: {
+      font: "Times", // Sử dụng font đã được thêm
+      fontSize: 10,
+      cellPadding: 5,
+    },
+  });
+  // Lưu file PDF
+  doc.save("bao-cao-doanh-thu.pdf");
+  ///////////////////////
+  function getDanhSachPhieuThu() {
+    // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
+    // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
+    // Ví dụ:
+    // return fetch('url-api-danh-sach-ton-kho')
+    //   .then(response => response.json())
+    //   .then(data => data);
+  
+    return [
+      {
+        ChuXe: item.TenChuXe,
+        SDT: item.BienSoXe,
+        NgayTao: ngayThangNam,
+        BienSo: item.BienSoXe,
+        Email: Email,
+        NguoiTaoPhieu: NguoiTao,
+        TongTien: tongcong,
+        SoTienThu: TienThu,
+        ConNo: TienConNoLai,
+      },
+    ];
   }
-  showHiddenPhieuThu.addEventListener("click", showHiddenDivPhieuThu);
-});
+}
+
+showHiddenPhieuThu.addEventListener("click", showHiddenDivPhieuThu);
+})
+

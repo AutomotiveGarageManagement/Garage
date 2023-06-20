@@ -14070,6 +14070,42 @@ File: scss
   color: #137eff;
 }
 
+    /* Styles for overlay */
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+    }
+
+    /* Styles for alert box */
+    #alertBox {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    #alertBox h2 {
+      margin-top: 0;
+    }
+
+    #alertBox p {
+      margin-bottom: 0;
+    }
+
+    #alertBox button {
+      margin-top: 10px;
+    }
+
 /*
 Template Name: Admin Template
 Author: Wrappixel
