@@ -1,6 +1,47 @@
 //car brands
 $(document).ready(function () {
   // Kích hoạt DataTables
+  fetch("http://localhost:8888/api/parameter/get/parameters", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      param = data.DT[0];
+      console.log(param.SoLuongXeToiDa, param.PhanTramTienLoiCuaSanPham);
+
+      $("#InputSoxeToiDa").val(param.SoLuongXeToiDa);
+      $("#InputTiLe").val(param.PhanTramTienLoiCuaSanPham);
+      $("#BtnDieuChinh").click(function (e) {
+        e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit (nếu có)
+        var xetoida = parseInt($("#InputSoxeToiDa").val());
+        var tilephantram = parseInt($("#InputTiLe").val());
+        // gửi tại đây!
+        fetch("http://localhost:8888/api/parameter/update/parameters", {
+          method: "put",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            SoLuongXeToiDa: xetoida,
+            PhanTramTienLoiCuaSanPham: tilephantram,
+          }),
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data);
+            location.reload();
+          })
+          .catch((error) => console.log("ERROR"));
+      });
+    })
+    .catch((error) => console.log("ERROR"));
 
   function renderTableCarBrands(data) {
     var tableBody = $("#CarBrandTable tbody");
@@ -227,32 +268,7 @@ $(document).ready(function () {
     //location.reload();
   });
   //điều chỉnh xe tối đa trong ngày
-  $("#BtnDieuChinh").click(function (e) {
-    e.preventDefault(); //
-    // Lấy giá trị từ các trường nhập liệu
-    var XeToiDa = $("#InputSoxeToiDa").val();
-    var NoToiDa = $("#InputTienNoToiDa").val();
-    console.log(XeToiDa, NoToiDa);
-    // gửi tại đây!
-    var API = "";
-    fetch(API, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        XeToiDa: XeToiDa,
-        NoToiDa: NoToiDa,
-      }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => console.log(data))
-      .catch((error) => console.log("ERROR"));
 
-    location.reload();
-  });
   //thêm tiền công
   $("#BtnThemTienCong").click(function (e) {
     e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit (nếu có)

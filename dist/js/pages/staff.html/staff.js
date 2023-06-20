@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  var MaChucVuI;
+  var GioiTinhI;
   // var storedData = localStorage.getItem("mockData");
   // var mockData = JSON.parse(storedData);
 
@@ -14,20 +16,24 @@ $(document).ready(function () {
       row.append($("<th>").attr("scope", "row").text(item.MaTTNV));
       row.append($("<td>").text(item.HoTen));
       row.append($("<td>").text(item.SDT));
+      GioiTinhI = item.GioiTinh;
       var tdChucVu = $("<td>");
 
       if (item.TenChucVu == "Admin") {
         spanChucVu = $("<span>")
           .addClass("label label-purple")
           .text(item.TenChucVu);
+        MaChucVuI = 0;
       } else if (item.TenChucVu === "Accountant") {
         spanChucVu = $("<span>")
           .addClass("label label-success")
           .text(item.TenChucVu);
+        MaChucVuI = 1;
       } else {
         spanChucVu = $("<span>")
           .addClass("label label-primary")
           .text(item.TenChucVu);
+        MaChucVuI = 2;
       }
       tdChucVu.append(spanChucVu);
       row.append(tdChucVu);
@@ -41,54 +47,68 @@ $(document).ready(function () {
       row.append($("<td>").append(btnXem));
 
       btnXem.click(function () {
-        // Xử lý sự kiện nhấn nút Xoá
         var buttonId = $(this).attr("id");
         var modalBody = $("<div>").addClass("modal-body");
 
         var row1 = $("<div>").addClass("row");
-        row1.append(
-          $("<div>")
-            .addClass("col-6")
-            .text("Họ tên: " + item.HoTen)
-        );
-        row1.append(
-          $("<div>")
-            .addClass("col-6")
-            .text("CMND: " + item.CMND)
-        );
+
+        var divCol6 = $("<div>").addClass("col-6");
+        var inputElement = $("<input>")
+          .attr("type", "text")
+          .val(item.HoTen)
+          .attr("id", "InputStaffDetail_Name");
+        divCol6.append("Họ tên: ", inputElement);
+        row1.append(divCol6);
+
+        var divCol6 = $("<div>").addClass("col-6");
+        var inputElement = $("<input>")
+          .attr("type", "text")
+          .val(item.CMND)
+          .attr("id", "InputStaffDetail_CMND");
+        divCol6.append("CMND: ", inputElement);
+        row1.append(divCol6);
 
         var row2 = $("<div>").addClass("row");
-        row2.append(
-          $("<div>")
-            .addClass("col-6")
-            .text("Địa chỉ: " + item.DiaChi)
-        );
-        row2.append(
-          $("<div>")
-            .addClass("col-6")
-            .text("SĐT:" + item.SDT)
-        );
+
+        var divCol6 = $("<div>").addClass("col-6");
+        var inputElement = $("<input>")
+          .attr("type", "text")
+          .val(item.DiaChi)
+          .attr("id", "InputStaffDetail_DiaChi");
+        divCol6.append("Địa chỉ: ", inputElement);
+        row2.append(divCol6);
+
+        var divCol6 = $("<div>").addClass("col-6");
+        var inputElement = $("<input>")
+          .attr("type", "text")
+          .val(item.SDT)
+          .attr("id", "InputStaffDetail_SDT");
+        divCol6.append("SDT: ", inputElement);
+        row2.append(divCol6);
+
         modalBody.append(row1, row2);
 
         var row3 = $("<div>").addClass("row");
-        row3.append(
-          $("<div>")
-            .addClass("col-6")
-            .text("Tài khoản: " + item.TenTaiKhoan)
-        );
-        row3.append(
-          $("<div>")
-            .addClass("col-6")
-            .text("Mật khẩu: " + item.MatKhau)
-        );
+        var divCol6 = $("<div>").addClass("col-6");
+        var inputElement = $("<input>")
+          .attr("type", "text")
+          .val(item.TenTaiKhoan)
+          .attr("id", "InputStaffDetail_TenTaiKhoan");
+        divCol6.append("Tên tài khoản: ", inputElement);
+        row3.append(divCol6);
+
+        var divCol6 = $("<div>").addClass("col-6");
+        var inputElement = $("<input>")
+          .attr("type", "text")
+          .val(item.MatKhau)
+          .attr("id", "InputStaffDetail_MatKhau");
+        divCol6.append("Mật khẩu: ", inputElement);
+        row3.append(divCol6);
 
         modalBody.append(row3);
 
-        var row4 = $("<div>").addClass("row");
-        row4.append($("<div>").addClass("col-6").text("Chúc vụ:"));
-        row4.append($("<div>").addClass("col-6").text(item.TenChucVu));
-
         var row6 = $("<div>").addClass("row text-center mt-3");
+
         row6.append(
           $("<div>")
             .addClass("col-6")
@@ -97,7 +117,41 @@ $(document).ready(function () {
                 .addClass("btn btn-primary text-white w-75")
                 .text("Sửa")
                 .click(function () {
+                  var CMND = $("#InputStaffDetail_CMND").val();
+                  var DiaChi = $("#InputStaffDetail_DiaChi").val();
+                  var SDT = $("#InputStaffDetail_SDT").val();
+                  var HoTen = $("#InputStaffDetail_Name").val();
+                  var TenTaiKhoan = $("#InputStaffDetail_TenTaiKhoan").val();
+                  var MatKhau = $("#InputStaffDetail_MatKhau").val();
                   console.log("Đã nhấn nút Sửa với ID: " + buttonId);
+                  console.log(HoTen, CMND, DiaChi, SDT, TenTaiKhoan, MatKhau);
+                  fetch("http://localhost:8888/api/staff/update/" + buttonId, {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+
+                    body: JSON.stringify({
+                      HoTen: HoTen,
+                      GioiTinh: GioiTinhI,
+                      CMND: CMND,
+                      DiaChi: DiaChi,
+                      SDT: SDT,
+                      MaChucVu: parseInt(MaChucVuI),
+                      TenTaiKhoan: TenTaiKhoan,
+                      MatKhau: MatKhau,
+                    }),
+                  })
+                    .then((res) => {
+                      return res.json();
+                    })
+                    .then((data) => {
+                      console.log(data);
+                      location.reload();
+                    })
+                    .catch((error) => console.log("ERROR"));
+
+                  // location.reload();
                 })
             )
         );
@@ -110,6 +164,20 @@ $(document).ready(function () {
                 .text("Xoá")
                 .click(function () {
                   console.log("Đã nhấn nút Xoá với ID: " + buttonId);
+                  fetch("http://localhost:8888/api/staff/delete/" + buttonId, {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  })
+                    .then((res) => {
+                      return res.json();
+                    })
+                    .then((data) => {
+                      console.log(data);
+                      location.reload();
+                    })
+                    .catch((error) => console.log(error));
                 })
             )
         );

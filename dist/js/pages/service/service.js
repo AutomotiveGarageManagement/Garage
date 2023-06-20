@@ -1,5 +1,6 @@
+// Đợi cho tài liệu HTML được tải xong
 $(document).ready(function () {
-  // Kích hoạt DataTables
+  //append table
 
   var CMND;
 
@@ -37,10 +38,8 @@ $(document).ready(function () {
         $("#InputNgayTiepNhan").val(inputData.HanGiaoXe);
       })
       .catch((error) => console.log("ERROR"));
-
-    location.reload();
   });
-
+  var cars;
   fetch("http://localhost:8888/api/carBrand/get/brands", {
     method: "GET",
     headers: {
@@ -51,6 +50,7 @@ $(document).ready(function () {
       return res.json();
     })
     .then((data) => {
+      cars = data.DT;
       var selectElement = $("#InputHieuXe");
       console.log(data.DT);
       $.each(data.DT, function (index, option) {
@@ -70,7 +70,8 @@ $(document).ready(function () {
     var DiaChiCX = $("#InputDiaChiChuXe").val();
     var SDT = $("#InputSoDienThoaiChuXe").val();
     var Email = $("#InputEmail").val();
-
+    var CMND = $("#InputCMND").val();
+    console.log(CMND);
     var HanGiaoXe = $("#InputNgayTiepNhan").val();
     HanGiaoXe = HanGiaoXe.replace(/-/g, "/");
     var MaHangXe = $("#InputHieuXe").val();
@@ -112,13 +113,8 @@ $(document).ready(function () {
       .then((data) => console.log(data))
       .catch((error) => console.log("ERROR"));
 
-    //location.reload();
+    location.reload();
   });
-});
-
-// Đợi cho tài liệu HTML được tải xong
-$(document).ready(function () {
-  //append table
 
   function createTableRows(data) {
     var tableBody = $("#myTable tbody");
@@ -144,7 +140,10 @@ $(document).ready(function () {
       row.append($("<th>").attr("scope", "row").text(item.id));
       row.append($("<td>").text(item.TenChuXe));
       row.append($("<td>").text(item.BienSoXe));
-      row.append($("<td>").text(item.MaHangXe));
+      console.log(cars[item.MaHangXe - 1].TenHX);
+      row.append($("<td>").text(cars[item.MaHangXe - 1].TenHX));
+      localStorage.setItem("car", cars[item.MaHangXe - 1].TenHX);
+      localStorage.setItem("car_id", item.MaHangXe);
       var dateTN = item.NgayTiepNhan;
       var dateHG = item.HanGiaoXe;
       var date1 = new Date(dateTN);
@@ -182,6 +181,7 @@ $(document).ready(function () {
         .text("Chi tiết")
         .click(function () {
           localStorage.setItem("item", JSON.stringify(item));
+
           // Thực hiện các hành động khác tại đây
         });
       row.append($("<td>").append(link));

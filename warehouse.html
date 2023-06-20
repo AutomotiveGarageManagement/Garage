@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
   <head>
-
-    
-
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <meta name="robots" content="noindex,nofollow" />
-  
+
     <title>Admin Dashboard</title>
     <link
       rel="canonical"
@@ -45,7 +42,10 @@
       src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"
     ></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -402,15 +402,17 @@
                           <th scope="col">Vật tư phụ tùng</th>
                           <th scope="col">Giá nhập</th>
                           <th scope="col">Giá xuất</th>
+                          <th scope="col">Đơn vị</th>
                           <th scope="col">Thao tác</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        <!-- <tr>
                           <th scope="row">1</th>
                           <td>Buồn nhớt</td>
                           <td>120.000</td>
                           <td>120.000</td>
+                          <td>Cái</td>
                           <td>
                             <div class="row">
                               <div class="col-sm-6">
@@ -429,7 +431,7 @@
                               </div>
                             </div>
                           </td>
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>
                   </div>
@@ -456,19 +458,19 @@
                               id="InputTenPhuTung"
                               placeholder="Lọc Gió"
                             />
-                            <label class="mt-2">Giá nhập hàng</label>
+                            <label class="mt-2">Đơn giá</label>
                             <input
                               class="form-control"
                               type="text"
-                              id="InputGiaNhap"
+                              id="InputDonGia"
                               placeholder="120.000"
                             />
-                            <label class="mt-2">Giá xuất hàng</label>
+                            <label class="mt-2">Đơn vị tính</label>
                             <input
                               class="form-control"
                               type="text"
-                              id="InputGiaXuat"
-                              placeholder="130.000"
+                              id="InputDonViTinh"
+                              placeholder="cái"
                             />
                           </div>
                           <div class="modal-footer">
@@ -536,8 +538,7 @@
     <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>  
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
   </body>
 </html>
