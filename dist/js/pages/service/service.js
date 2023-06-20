@@ -181,7 +181,8 @@ $(document).ready(function () {
         return res.json();
       })
       .then((data) => {
-        alert(data.Em)
+        alert(data.Em);
+        location.reload();
       })
       .catch((error) => console.log("ERROR"));
    

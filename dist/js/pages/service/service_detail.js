@@ -1,9 +1,218 @@
 //table
+var Tile;
+function InPhieuThu() {
+  var doc = new jsPDF();
+  var startY = 20;
+  var margin = 10;
+  var cellWidth = 30;
+  var cellHeight = 10;
+
+  // Lấy danh sách tồn kho từ API
+  var danhSachTonKho = getDanhSachPhieuThu();
+  console.log(getDanhSachPhieuThu());
+
+  // Tạo một bảng để hiển thị danh sách tồn kho trong PDF
+  var headers = [
+    [
+      "Chu Xe",
+      "SDT",
+      "Ngay Tao",
+      "Bien So",
+      "Email",
+      "Nguoi Tao Phieu",
+      "Tong Tien",
+      "So Tien Thu",
+      "Con No",
+    ],
+  ];
+  var data = danhSachTonKho.map(function (hang) {
+    return [
+      hang.ChuXe,
+      hang.SDT,
+      hang.NgayTao,
+      hang.BienSo,
+      hang.Email,
+      hang.NguoiTaoPhieu,
+      hang.TongTien.toString(),
+      hang.SoTienThu.toString(),
+      hang.ConNo.toString(),
+    ];
+  });
+
+  // Tạo một font hỗ trợ tiếng Việt
+  doc.addFont(
+    "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js",
+    "Roboto-Italic.ttf"
+  );
+
+  // Vẽ tiêu đề
+  doc.setFont("Roboto-Italic.ttf"); // Sử dụng font đã được thêm
+  doc.setFontSize(12);
+  doc.setFontStyle("bold");
+  doc.text("Phieu thu", (margin + 9) * 5, startY);
+  startY += cellHeight;
+
+  // Vẽ bảng
+  doc.autoTable({
+    startY: startY,
+    head: headers,
+    body: data,
+    margin: margin,
+    styles: {
+      font: "Times", // Sử dụng font đã được thêm
+      fontSize: 10,
+      cellPadding: 5,
+    },
+  });
+  // Lưu file PDF
+  doc.save("bao-cao-doanh-thu.pdf");
+
+  function getDanhSachPhieuThu() {
+    // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
+    // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
+    // Ví dụ:
+    // return fetch('url-api-danh-sach-ton-kho')
+    //   .then(response => response.json())
+    //   .then(data => data);
+
+    return [
+      {
+        ChuXe: "H001",
+        SDT: "HonDa",
+        NgayTao: 10,
+        BienSo: 100000,
+        Email: "50%",
+        NguoiTaoPhieu: "",
+        TongTien: 9999999,
+        SoTienThu: 100000,
+        ConNo: 3000000,
+      },
+    ];
+  }
+}
 $(document).ready(function () {
   fetchData();
   var itemData = localStorage.getItem("item");
   var item = JSON.parse(itemData);
   console.log(item);
+
+  fetch("http://localhost:8888/api/parameter/get/parameters", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      param = data.DT[0];
+      Tile = param.PhanTramTienLoiCuaSanPham;
+      console.log(Tile);
+      fetch("http://localhost:8888/api/stuff/get/stuffs", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          //   {
+          //     "id": 1,
+          //     "LoaiTienCong": "Làm sạch",
+          //     "GiaTriTienCong": 50000
+          // }
+
+          PhuTung = data.DT;
+          //   {
+          //     "id": 3,
+          //     "TenVTPT": "Má phanh sau",
+          //     "DVT": "Cai",
+          //     "DonGiaThamKhao": 100000,
+          //     "SoLuongVatTu": 0
+          // }
+          console.log(PhuTung);
+          var selectElementVTPT = $("#CBBVatTuPhuTung");
+          $.each(PhuTung, function (index, option) {
+            var giaban =
+              (option.DonGiaThamKhao * Tile) / 100 + option.DonGiaThamKhao;
+            selectElementVTPT.append(
+              $("<option>")
+                .attr("value", option.id)
+                .text(option.TenVTPT + "  -  " + giaban)
+            );
+          });
+        })
+        .catch((error) => console.log("ERROR WAGE TYPES"));
+
+      fetch("http://localhost:8888/api/repair/get/information/form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          MaTN: item.MaTN,
+        }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          Tabledatar = data.DT;
+          console.log(Tabledatar);
+          renderTableRepairDetails(Tabledatar);
+          $("#Table_ItemsList").DataTable({
+            searching: true,
+            paging: true,
+            pageLength: 10,
+            language: {
+              search: "Tìm kiếm:",
+              lengthMenu: "Hiển thị _MENU_ bản ghi",
+              info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
+              infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
+              infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
+              paginate: {
+                first: "Đầu",
+                last: "Cuối",
+                next: "Tiếp",
+                previous: "Trước",
+              },
+            },
+          });
+        })
+        .catch((error) => console.log("ERROR WAGE TYPES"));
+
+      fetch("http://localhost:8888/api/wage/get/wages", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          //   {
+          //     "id": 1,
+          //     "LoaiTienCong": "Làm sạch",
+          //     "GiaTriTienCong": 50000
+          // }
+          var selectElement = $("#CBBLoaiTienCong");
+          console.log(data.DT);
+          TienCong = data.DT;
+          $.each(data.DT, function (index, option) {
+            selectElement.append(
+              $("<option>")
+                .attr("value", option.id)
+                .text(option.LoaiTienCong + "  -  " + option.GiaTriTienCong)
+            );
+          });
+        })
+        .catch((error) => console.log("ERROR WAGE TYPES"));
+    })
+    .catch((error) => console.log("ERROR"));
 
   function fetchData() {
     fetch("http://localhost:8888/api/receipt/getAll", {
@@ -51,42 +260,6 @@ $(document).ready(function () {
   var formattedDate1 = `${day1}/${month1}/${year1}`;
   var formattedDate2 = `${day2}/${month2}/${year2}`;
 
-  fetch("http://localhost:8888/api/stuff/get/stuffs", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      //   {
-      //     "id": 1,
-      //     "LoaiTienCong": "Làm sạch",
-      //     "GiaTriTienCong": 50000
-      // }
-
-      PhuTung = data.DT;
-      //   {
-      //     "id": 3,
-      //     "TenVTPT": "Má phanh sau",
-      //     "DVT": "Cai",
-      //     "DonGiaThamKhao": 100000,
-      //     "SoLuongVatTu": 0
-      // }
-      console.log(PhuTung);
-      var selectElementVTPT = $("#CBBVatTuPhuTung");
-      $.each(PhuTung, function (index, option) {
-        selectElementVTPT.append(
-          $("<option>")
-            .attr("value", option.id)
-            .text(option.TenVTPT + "  -  " + option.DonGiaThamKhao)
-        );
-      });
-    })
-    .catch((error) => console.log("ERROR WAGE TYPES"));
-
   // VTPTSelect = [
   //   {
   //     id: "1",
@@ -104,34 +277,6 @@ $(document).ready(function () {
   //   },
   // ];
   //load vật tư phụ tùng cbb
-
-  fetch("http://localhost:8888/api/wage/get/wages", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      //   {
-      //     "id": 1,
-      //     "LoaiTienCong": "Làm sạch",
-      //     "GiaTriTienCong": 50000
-      // }
-      var selectElement = $("#CBBLoaiTienCong");
-      console.log(data.DT);
-      TienCong = data.DT;
-      $.each(data.DT, function (index, option) {
-        selectElement.append(
-          $("<option>")
-            .attr("value", option.id)
-            .text(option.LoaiTienCong + "  -  " + option.GiaTriTienCong)
-        );
-      });
-    })
-    .catch((error) => console.log("ERROR WAGE TYPES"));
 
   var car = localStorage.getItem("car");
   var car_id = localStorage.getItem("car_id");
@@ -231,7 +376,8 @@ $(document).ready(function () {
       roww.append($("<td>").text(item.NoiDung));
       roww.append($("<td>").text(item.TenVTPT));
       roww.append($("<td>").text(item.SoLuong));
-      roww.append($("<td>").text(item.DonGia));
+      var giabanitemlist = (item.DonGia * Tile) / 100 + item.DonGia;
+      roww.append($("<td>").text(giabanitemlist));
       roww.append($("<td>").text(item.TienCong));
       roww.append($("<td>").text(item.TongTien));
 
@@ -290,43 +436,6 @@ $(document).ready(function () {
       button.disabled = true;
     }
   }
-  fetch("http://localhost:8888/api/repair/get/information/form", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      MaTN: item.MaTN,
-    }),
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      Tabledatar = data.DT;
-      console.log(Tabledatar);
-      renderTableRepairDetails(Tabledatar);
-      $("#Table_ItemsList").DataTable({
-        searching: true,
-        paging: true,
-        pageLength: 10,
-        language: {
-          search: "Tìm kiếm:",
-          lengthMenu: "Hiển thị _MENU_ bản ghi",
-          info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
-          infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
-          infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
-          paginate: {
-            first: "Đầu",
-            last: "Cuối",
-            next: "Tiếp",
-            previous: "Trước",
-          },
-        },
-      });
-    }
-    )
-    .catch((error) => console.log("ERROR WAGE TYPES"));
 
   $("#BtnThemDichVu").click(function (e) {
     e.preventDefault();
@@ -389,6 +498,7 @@ $(document).ready(function () {
   var showHiddenPhieuThu = document.getElementById("showHiddenPhieuThu");
   function showHiddenDivPhieuThu() {
     phieuThu.style.display = "block";
+
     var TienThu = parseInt($("#InputTienThu").val());
     var SDT = $("#InputSDT").val();
     var Email = $("#InputEmail").val();
@@ -427,6 +537,7 @@ $(document).ready(function () {
         alert(data.Em);
       })
       .catch((error) => console.log("ERROR"));
+    InPhieuThu();
     setTimeout(function () {
       window.location.href = "service.html";
     }, 5000); // 5000ms = 5 giây
