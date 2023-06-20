@@ -265,7 +265,7 @@ $(document).ready(function () {
         .catch((error) => console.log("ERROR"));
     }
 
-    location.reload();
+    //location.reload();
   });
   //điều chỉnh xe tối đa trong ngày
 

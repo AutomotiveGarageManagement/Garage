@@ -84,7 +84,7 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
     body: data,
     margin: margin,
     styles: {
-      font: "Courier New",
+      font: "Times-Roman",
       fontStyle: "normal",
       fontSize: 10,
       cellPadding: 5,
