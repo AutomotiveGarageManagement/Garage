@@ -289,6 +289,7 @@
                                 class="btn-primary btn text-white"
                                 data-toggle="modal"
                                 data-target="#popup"
+                                id="btnNhapHang"
                               >
                                 <span class="fw-bold">Nhập hàng</span>
                               </button>
@@ -356,10 +357,10 @@
                                       class="form-select shadow-none col-12"
                                       id="InputCBBNhaCungCap"
                                     >
-                                      <option selected>
+                                      <!-- <option selected>
                                         -- Chọn nhà cung cấp --
-                                      </option>
-                                      <option value="ncc1">THACO Group</option>
+                                      </option> -->
+                                      <!-- <option value="ncc1">THACO Group</option>
                                       <option value="ncc2">
                                         Thiết bị phụ tùng An Phát
                                       </option>
@@ -368,7 +369,7 @@
                                       </option>
                                       <option value="ncc4">
                                         Ô tô Liên Việt
-                                      </option>
+                                      </option> -->
                                     </select>
                                     <label class="mt-3">Người nhập hàng</label>
                                     <div class="row">
@@ -379,6 +380,16 @@
                                           id="InputNguoiNhap"
                                           placeholder="Trần Văn B"
                                         />
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-12 text-end mt-3 fs-2">
+                                        <span
+                                          >Tổng tiền:
+                                          <b id="TongTien" class="text-primary"
+                                            >0</b
+                                          ></span
+                                        >
                                       </div>
                                     </div>
                                   </div>
@@ -397,17 +408,6 @@
                             </div>
                             <!-- popup nhập hàng -->
                           </form>
-
-                          <div class="row">
-                            <div class="col-12 text-end mt-3 fs-2">
-                              <span
-                                >Tổng tiền:
-                                <b id="TongTien" class="text-primary"
-                                  >150.000</b
-                                ></span
-                              >
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -430,7 +430,7 @@
                           <thead>
                             <tr>
                               <th scope="col">STT</th>
-                              <th scope="col">Người nhập</th>
+                              <th scope="col">Nhà cung cấp</th>
                               <th scope="col">Tổng tiền</th>
                               <th scope="col">Ngày nhập</th>
                               <th scope="col">Chi tiết</th>
@@ -439,9 +439,7 @@
                           <tbody>
                             <tr>
                               <th id="Td_ShowId_1" scope="row">1</th>
-                              <td id="Td_ShowNguoiNhao_1" scope="row">
-                                Trần Văn B
-                              </td>
+
                               <td id="Td_ShowTongTien_1" scope="row">
                                 300.000
                               </td>
