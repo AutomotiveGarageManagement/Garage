@@ -1,7 +1,78 @@
 //item list table setting
 var StuffsData;
 var Tile;
+var dataReport;
 $(document).ready(function () {
+  function renderReportDataTable(data) {
+    var tableBody = $("#ItemWarehouseTable tbody");
+    tableBody.empty();
+
+    $.each(data, function (index, item) {
+      // "id": 1,
+      // "TenVTPT": "Lọc Gió",
+      // "SoLuongPhatSinh": 0,
+      // "opening_inventory": -8,
+      // "closing_inventory": 0
+      var roww = $("<tr>");
+      roww.append($("<th>").attr("scope", "row").text(item.id));
+      roww.append($("<td>").text(item.TenVTPT));
+      roww.append($("<td>").text(item.opening_inventory));
+      roww.append($("<td>").text(item.SoLuongPhatSinh));
+      roww.append($("<td>").text(item.closing_inventory));
+
+      // roww.append($("<td>").text(item.DonGiaThamKhao));
+
+      tableBody.append(roww);
+    });
+    $("#ItemWarehouseTable").DataTable({
+      // Cấu hình thanh tìm kiếm
+      searching: true,
+      // Cấu hình điều hướng trang
+      paging: true,
+      // Cấu hình số bản ghi hiển thị trên mỗi trang
+      pageLength: 10,
+      // Cấu hình ngôn ngữ hiển thị
+      language: {
+        search: "Tìm kiếm:",
+        lengthMenu: "Hiển thị _MENU_ bản ghi",
+        info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
+        infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
+        infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
+        paginate: {
+          first: "Đầu",
+          last: "Cuối",
+          next: "Tiếp",
+          previous: "Trước",
+        },
+      },
+    });
+  }
+  $("#ThangBaoCaoTon").change(function () {
+    var selectedOption = $(this).children("option:selected");
+    var selectedValue = selectedOption.val();
+    if (selectedValue == 6) {
+      fetch("http://localhost:8888/api/statistic/get/inven", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          start_date: "06-30-2023",
+          end_date: "06-01-2023",
+        }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          dataReport = data.DT[0];
+          console.log(dataReport);
+          renderReportDataTable(dataReport);
+        })
+        .catch((error) => console.log("ERROR"));
+    }
+  });
+
   fetch("http://localhost:8888/api/parameter/get/parameters", {
     method: "GET",
     headers: {
