@@ -52,7 +52,7 @@ $(document).ready(function () {
     var selectedValue = selectedOption.val();
     if (selectedValue == 6) {
       fetch("http://localhost:8888/api/statistic/get/inven", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -65,11 +65,12 @@ $(document).ready(function () {
           return res.json();
         })
         .then((data) => {
-          dataReport = data.DT[0];
+          console.log(data);
+          dataReport = data.DT;
           console.log(dataReport);
-          //renderReportDataTable(dataReport);
+          renderReportDataTable(dataReport);
         })
-        .catch((error) => console.log("ERROR"));
+        .catch((error) => console.log(error));
     }
   });
 
