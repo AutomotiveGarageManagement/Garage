@@ -67,7 +67,7 @@ $(document).ready(function () {
         .then((data) => {
           dataReport = data.DT[0];
           console.log(dataReport);
-          renderReportDataTable(dataReport);
+          //renderReportDataTable(dataReport);
         })
         .catch((error) => console.log("ERROR"));
     }
@@ -164,8 +164,7 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
   // Lưu file PDF
   doc.save("danh-sach-ton-kho.pdf");
 });
- function getDanhSachTonKho()
- {
+function getDanhSachTonKho() {
   fetch("http://localhost:8888/api/stuff/get/stuffs", {
     method: "GET",
     headers: {
@@ -175,9 +174,8 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
     .then((res) => {
       return res.json();
     })
-    .then((data) => data)
-
- }
+    .then((data) => data);
+}
 
 //item table
 $(document).ready(function () {
@@ -279,11 +277,10 @@ $(document).ready(function () {
       .then((res) => {
         return res.json();
       })
-      .then((data) => { 
-        alert(data.Em)
+      .then((data) => {
+        alert(data.Em);
         location.reload();
       })
       .catch((error) => console.log("ERROR"));
-
   });
 });
