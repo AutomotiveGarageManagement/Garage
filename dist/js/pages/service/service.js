@@ -3,74 +3,6 @@ $(document).ready(function () {
   //append table
 
   var CMND;
-    // Tạo đối tượng jsPDF
-// var doc = new jsPDF();
-// var startY = 20;
-// var margin = 10;
-// var cellWidth = 30;
-// var cellHeight = 10;
-
-// // Lấy danh sách tồn kho từ API
-// var danhSachTonKho = getDanhSachPhieuThu();
-// console.log(getDanhSachPhieuThu());
-
-//   // Tạo một bảng để hiển thị danh sách tồn kho trong PDF
-// var headers = [
-//   ["Chu Xe", "SDT", "Ngay Tao", "Bien So", "Email", "Nguoi Tao Phieu", "Tong Tien", "So Tien Thu", "Con No"]
-// ];
-// var data = danhSachTonKho.map(function (hang) {
-//   return [
-//     hang.ChuXe,
-//     hang.SDT,
-//     hang.NgayTao,
-//     hang.BienSo,
-//     hang.Email,
-//     hang.NguoiTaoPhieu,
-//     hang.TongTien.toString(),
-//     hang.SoTienThu.toString(),
-//     hang.ConNo.toString()
-//   ];
-// });
-
-// // Tạo một font hỗ trợ tiếng Việt
-// doc.addFont("https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js", "Roboto-Italic.ttf");
-
-// // Vẽ tiêu đề
-// doc.setFont("Roboto-Italic.ttf"); // Sử dụng font đã được thêm
-// doc.setFontSize(12);
-// doc.setFontStyle("bold");
-// doc.text("Phieu thu", (margin + 9)*5, startY);
-// startY += cellHeight;
-
-// // Vẽ bảng
-// doc.autoTable({
-//   startY: startY,
-//   head: headers,
-//   body: data,
-//   margin: margin,
-//   styles: {
-//     font: "Times", // Sử dụng font đã được thêm
-//     fontSize: 10,
-//     cellPadding: 5,
-//   },
-// });
-//  // Lưu file PDF
-//  doc.save("bao-cao-doanh-thu.pdf");
-
-//   function getDanhSachPhieuThu() {
-//     // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
-//     // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
-//     // Ví dụ:
-//     // return fetch('url-api-danh-sach-ton-kho')
-//     //   .then(response => response.json())
-//     //   .then(data => data);
-  
-//     return [
-//       { ChuXe: "H001", SDT: "HonDa", NgayTao: 10, BienSo: 100000, Email: "50%", NguoiTaoPhieu:"", TongTien: 9999999, SoTienThu: 100000, ConNo: 3000000 },
-    
-//     ];
-//   }
-
 
   $("#BTNTimCMND").click(function (e) {
     e.preventDefault();
@@ -121,6 +53,7 @@ $(document).ready(function () {
       cars = data.DT;
       var selectElement = $("#InputHieuXe");
       console.log(data.DT);
+      console.log(data.EM);
       $.each(data.DT, function (index, option) {
         selectElement.append(
           $("<option>").attr("value", option.id).text(option.TenHX)

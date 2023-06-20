@@ -118,10 +118,11 @@ $(document).ready(function () {
       roww.append($("<th>").attr("scope", "row").text(item.id));
       roww.append($("<td>").text(item.TenVTPT));
       roww.append($("<td>").text(item.DonGiaThamKhao));
-      roww.append($("<td>").text(item.DonGiaThamKhao));
+      var giaban = (item.DonGiaThamKhao * Tile) / 100 + item.DonGiaThamKhao;
+      roww.append($("<td>").text(giaban));
       roww.append($("<td>").text(item.DVT));
 
-      roww.append($("<td>").text(item.DonGiaThamKhao));
+      // roww.append($("<td>").text(item.DonGiaThamKhao));
 
       tableBody.append(roww);
     });
