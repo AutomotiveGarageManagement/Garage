@@ -51,32 +51,59 @@ $(document).ready(function () {
   var formattedDate1 = `${day1}/${month1}/${year1}`;
   var formattedDate2 = `${day2}/${month2}/${year2}`;
 
-  VTPTSelect = [
-    {
-      id: "1",
-      TenVTPT: "Lọc Gió",
-      DVT: "cái",
-      DonGiaThamKhao: 100000,
-      SoLuongVatTu: 5,
+  fetch("http://localhost:8888/api/stuff/get/stuffs", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
     },
-    {
-      id: "2",
-      TenVTPT: "Két Nước",
-      DVT: "cái",
-      DonGiaThamKhao: 120000,
-      SoLuongVatTu: 5,
-    },
-  ];
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      //   {
+      //     "id": 1,
+      //     "LoaiTienCong": "Làm sạch",
+      //     "GiaTriTienCong": 50000
+      // }
+
+      PhuTung = data.DT;
+      //   {
+      //     "id": 3,
+      //     "TenVTPT": "Má phanh sau",
+      //     "DVT": "Cai",
+      //     "DonGiaThamKhao": 100000,
+      //     "SoLuongVatTu": 0
+      // }
+      console.log(PhuTung);
+      var selectElementVTPT = $("#CBBVatTuPhuTung");
+      $.each(PhuTung, function (index, option) {
+        selectElementVTPT.append(
+          $("<option>")
+            .attr("value", option.id)
+            .text(option.TenVTPT + "  -  " + option.DonGiaThamKhao)
+        );
+      });
+    })
+    .catch((error) => console.log("ERROR WAGE TYPES"));
+
+  // VTPTSelect = [
+  //   {
+  //     id: "1",
+  //     TenVTPT: "Lọc Gió",
+  //     DVT: "cái",
+  //     DonGiaThamKhao: 100000,
+  //     SoLuongVatTu: 5,
+  //   },
+  //   {
+  //     id: "2",
+  //     TenVTPT: "Két Nước",
+  //     DVT: "cái",
+  //     DonGiaThamKhao: 120000,
+  //     SoLuongVatTu: 5,
+  //   },
+  // ];
   //load vật tư phụ tùng cbb
-  PhuTung = VTPTSelect;
-  var selectElementVTPT = $("#CBBVatTuPhuTung");
-  $.each(VTPTSelect, function (index, option) {
-    selectElementVTPT.append(
-      $("<option>")
-        .attr("value", option.id)
-        .text(option.TenVTPT + "  -  " + option.DonGiaThamKhao)
-    );
-  });
 
   fetch("http://localhost:8888/api/wage/get/wages", {
     method: "GET",
