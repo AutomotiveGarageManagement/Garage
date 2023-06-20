@@ -101,7 +101,7 @@ $("#BtnXuatDoanhThuThang").click(function (e) {
   console.log(getDanhSachTonKho());
 
   // Tạo một bảng để hiển thị danh sách tồn kho trong PDF
-  var headers = [["ID", "Hiệu Xe", "Số Lượt Sửa", "Thành Tiền", "Tỷ Lệ"]];
+  var headers = [["ID", "Hieu Xe", "So Luot Sua", "Thanh Tien", "Ty Le"]];
   var data = danhSachTonKho.map(function (hang) {
     return [
       hang.ID,
@@ -115,7 +115,10 @@ $("#BtnXuatDoanhThuThang").click(function (e) {
   // Vẽ tiêu đề
   doc.setFontSize(12);
   doc.setFontStyle("bold");
-  doc.text("Báo cáo doanh thu", margin, startY);
+  doc.text("Bao cao doanh thu", (margin+9)*5, startY);
+  startY += cellHeight;
+  doc.text("Ngay tao", margin, startY);
+  doc.text("GragraOTO", (margin+9)*7, startY);
   startY += cellHeight;
 
   // Vẽ bảng
@@ -125,8 +128,7 @@ $("#BtnXuatDoanhThuThang").click(function (e) {
     body: data,
     margin: margin,
     styles: {
-      font: "Times-Roman",
-      fontStyle: "normal",
+      font: "Times",
       fontSize: 10,
       cellPadding: 5,
     },
