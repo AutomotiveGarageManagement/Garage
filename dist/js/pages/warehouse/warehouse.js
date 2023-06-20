@@ -95,22 +95,6 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
 });
 
 function getDanhSachTonKho() {
-  // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
-  // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
-  // Ví dụ:
-  // return fetch('url-api-danh-sach-ton-kho')
-  //   .then(response => response.json())
-  //   .then(data => data);
-  // sửa lại tên biến như vậy
-  // bản stuffs
-  //   {
-  //     "id": 1,
-  //     "TenVTPT": "Lọc Gió",
-  //     "DVT": "cái",
-  //     "DonGiaThamKhao": 100000,
-  //     "SoLuongVatTu": 4
-  // },
-
   return [
     { ID: "1", VatTu: "Buồn Nhớt", TonDau: 1, PhatSinh: 0, TonCuoi: 1 },
     { ID: "1", VatTu: "chong chóng che", TonDau: 1, PhatSinh: 0, TonCuoi: 1 },
