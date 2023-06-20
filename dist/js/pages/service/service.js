@@ -1,6 +1,8 @@
+
 // Đợi cho tài liệu HTML được tải xong
 $(document).ready(function () {
   //append table
+  
 
   var CMND;
     // Tạo đối tượng jsPDF
@@ -178,10 +180,12 @@ $(document).ready(function () {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data))
+      .then((data) => {
+        alert(data.Em)
+      })
       .catch((error) => console.log("ERROR"));
+   
 
-    location.reload();
   });
 
   function createTableRows(data) {

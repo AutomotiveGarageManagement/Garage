@@ -202,7 +202,9 @@ $(document).ready(function () {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data))
+      .then((data) => {
+        alert(data.Em)
+      })
       .catch((error) => console.log("ERROR"));
 
     //location.reload();
@@ -258,13 +260,13 @@ $(document).ready(function () {
         // Xử lý sự kiện nhấn nút Xoá
         var buttonIdw = $(this).attr("id");
         // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
-        console.log("Đã nhấn nút Sửa với ID: " + buttonIdw);
+        alert("Sửa thành công");
       });
       btnwXoa.click(function () {
         // Xử lý sự kiện nhấn nút Xoá
         var buttonIdw = $(this).attr("id");
         // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
-        console.log("Đã nhấn nút Xoá với ID: " + buttonIdw);
+       alert("Xoá thành công");
       });
       tableBody.append(roww);
     });
@@ -322,7 +324,8 @@ $(document).ready(function () {
           },
         },
       });
-    })
+    }
+    )
     .catch((error) => console.log("ERROR WAGE TYPES"));
 
   $("#BtnThemDichVu").click(function (e) {
@@ -369,10 +372,10 @@ $(document).ready(function () {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data))
+      .then((data) => {
+        alert(data.Em);
+      })
       .catch((error) => console.log("ERROR"));
-
-    location.reload();
   });
   //popup
   // {
@@ -421,6 +424,7 @@ $(document).ready(function () {
         $("#ShowTienConNoLai").text(TienConNoLai);
         $("#ShowTienNoLaiPT").text(TienConNoLai);
         console.log(TienConNoLai);
+        alert(data.Em);
       })
       .catch((error) => console.log("ERROR"));
     setTimeout(function () {
