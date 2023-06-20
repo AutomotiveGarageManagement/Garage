@@ -1,5 +1,6 @@
 //import item table setting
 var PhuTung;
+var NhaCungCap;
 $(document).ready(function () {
   function createStuffTable(data) {
     var tableBody = $("#ImportItemWarehouseTable tbody");
@@ -82,30 +83,76 @@ $(document).ready(function () {
 });
 
 //import item table setting
+// "MaPN": 1,
+// "MaNV": 1,
+// "MaNCC": 1,
+// "NgayLapPhieuNhap": "2023-12-06T00:00:00.000Z",
+// "TenNhaCungCap": "ko biet",
+// "TongTienNhapHang": 10000
 $(document).ready(function () {
-  // Kích hoạt DataTables
-  $("#ImportItemHistoryWarehouseTable").DataTable({
-    // Cấu hình thanh tìm kiếm
-    searching: true,
-    // Cấu hình điều hướng trang
-    paging: true,
-    // Cấu hình số bản ghi hiển thị trên mỗi trang
-    pageLength: 10,
-    // Cấu hình ngôn ngữ hiển thị
-    language: {
-      search: "Tìm kiếm:",
-      lengthMenu: "Hiển thị _MENU_ bản ghi",
-      info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
-      infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
-      infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
-      paginate: {
-        first: "Đầu",
-        last: "Cuối",
-        next: "Tiếp",
-        previous: "Trước",
+  function createImportedHistoryTable(data) {
+    var tableBodyNew = $("#ImportItemHistoryWarehouseTable tbody");
+    tableBodyNew.empty(); // Xóa dữ liệu cũ trong bảng
+    console.log(data);
+
+    $.each(data, function (index, item) {
+      var row = $("<tr>");
+      row.append($("<th>").attr("scope", "row").text(item.MaPN));
+      row.append($("<td>").text(item.TenNhaCungCap));
+      row.append($("<td>").text(item.TongTienNhapHang));
+      row.append($("<td>").text(item.NgayLapPhieuNhap));
+      // row.append($("<td>").text(item.SDT));
+      // Sử dụng jQuery để tạo đối tượng nút
+      var button = $("<button>")
+        .attr("id", item.MaPN)
+        .addClass("btn btn-primary text-white")
+        .attr("data-toggle", "modal")
+        .attr("data-target", "#popup2")
+        .text("Xem");
+      var cell = $("<td>");
+      cell.append(button);
+      // Chèn đối tượng nút vào thẻ td
+      row.append(cell);
+
+      tableBodyNew.append(row);
+    });
+    $("#ImportItemHistoryWarehouseTable").DataTable({
+      // Cấu hình thanh tìm kiếm
+      searching: true,
+      // Cấu hình điều hướng trang
+      paging: true,
+      // Cấu hình số bản ghi hiển thị trên mỗi trang
+      pageLength: 10,
+      // Cấu hình ngôn ngữ hiển thị
+      language: {
+        search: "Tìm kiếm:",
+        lengthMenu: "Hiển thị _MENU_ bản ghi",
+        info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
+        infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
+        infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
+        paginate: {
+          first: "Đầu",
+          last: "Cuối",
+          next: "Tiếp",
+          previous: "Trước",
+        },
       },
+    });
+  }
+  fetch("http://localhost:8888/api/import/get/information/all", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-  });
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data2) => {
+      createImportedHistoryTable(data2.DT);
+    })
+    .catch((error) => console.log("ERROR AT HISTORY IMPORTED"));
+  // Kích hoạt DataTables
 });
 
 //pop up nhập hàng
@@ -181,6 +228,7 @@ $(document).ready(function () {
     })
     .then((data) => {
       Tabledata = data.DT;
+      NhaCungCap = data.DT;
       console.log(Tabledata);
       renderTableSuplier(Tabledata);
       $("#SupplierTable").DataTable({
