@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
   <head>
- 
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Tell the browser to be responsive to screen width -->
@@ -9,12 +8,7 @@
 
     <meta name="robots" content="noindex,nofollow" />
 
-      <!-- Thêm đường dẫn đến thư viện jsPDF -->
-     
-
-
-  
-
+    <!-- Thêm đường dẫn đến thư viện jsPDF -->
 
     <title>Admin Dashboard</title>
     <link
@@ -308,13 +302,12 @@
                           class="form-select shadow-none col-12"
                           id="ThangDoanhThu"
                         >
-                          <option selected>-- Chọn Tháng --</option>
                           <option value="1">Tháng 1</option>
                           <option value="2">Tháng 2</option>
                           <option value="3">Tháng 3</option>
                           <option value="4">Tháng 4</option>
                           <option value="5">Tháng 5</option>
-                          <option value="6">Tháng 6</option>
+                          <option value="6" selected>Tháng 6</option>
                           <option value="7">Tháng 7</option>
                           <option value="8">Tháng 8</option>
                           <option value="9">Tháng 9</option>
@@ -339,11 +332,18 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <th id="Td_ID_1" scope="row">1</th>
-                          <td id="Td_HieuXe_1">Toyota</td>
-                          <td id="Td_SoLuotSua_1">2</td>
-                          <td id="Td_ThanhTien_1">1.000.000</td>
-                          <td id="Td_TiLe_1">50%</td>
+                          <th scope="row">1</th>
+                          <td>HonDa</td>
+                          <td>10</td>
+                          <td>1.000.000</td>
+                          <td>50%</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>BMW</td>
+                          <td>10</td>
+                          <td>1.000.000</td>
+                          <td>50%</td>
                         </tr>
                       </tbody>
                     </table>
@@ -417,11 +417,7 @@
     <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
 
-   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>  
-   
-
-  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
   </body>
 </html>

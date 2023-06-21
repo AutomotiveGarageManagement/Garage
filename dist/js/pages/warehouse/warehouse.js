@@ -1,7 +1,79 @@
 //item list table setting
 var StuffsData;
 var Tile;
+var dataReport;
 $(document).ready(function () {
+  function renderReportDataTable(data) {
+    var tableBody = $("#ItemWarehouseTable tbody");
+    tableBody.empty();
+
+    $.each(data, function (index, item) {
+      // "id": 1,
+      // "TenVTPT": "Lọc Gió",
+      // "SoLuongPhatSinh": 0,
+      // "opening_inventory": -8,
+      // "closing_inventory": 0
+      var roww = $("<tr>");
+      roww.append($("<th>").attr("scope", "row").text(item.id));
+      roww.append($("<td>").text(item.TenVTPT));
+      roww.append($("<td>").text(item.opening_inventory));
+      roww.append($("<td>").text(item.SoLuongPhatSinh));
+      roww.append($("<td>").text(item.closing_inventory));
+
+      // roww.append($("<td>").text(item.DonGiaThamKhao));
+
+      tableBody.append(roww);
+    });
+    $("#ItemWarehouseTable").DataTable({
+      // Cấu hình thanh tìm kiếm
+      searching: true,
+      // Cấu hình điều hướng trang
+      paging: true,
+      // Cấu hình số bản ghi hiển thị trên mỗi trang
+      pageLength: 10,
+      // Cấu hình ngôn ngữ hiển thị
+      language: {
+        search: "Tìm kiếm:",
+        lengthMenu: "Hiển thị _MENU_ bản ghi",
+        info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
+        infoEmpty: "Hiển thị từ 0 đến 0 của 0 bản ghi",
+        infoFiltered: "(được lọc từ tổng số _MAX_ bản ghi)",
+        paginate: {
+          first: "Đầu",
+          last: "Cuối",
+          next: "Tiếp",
+          previous: "Trước",
+        },
+      },
+    });
+  }
+  $("#ThangBaoCaoTon").change(function () {
+    var selectedOption = $(this).children("option:selected");
+    var selectedValue = selectedOption.val();
+    if (selectedValue == 6) {
+      fetch("http://localhost:8888/api/statistic/get/inven", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          start_date: "06-30-2023",
+          end_date: "06-01-2023",
+        }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          dataReport = data.DT;
+          console.log(dataReport);
+          renderReportDataTable(dataReport);
+        })
+        .catch((error) => console.log(error));
+    }
+  });
+
   fetch("http://localhost:8888/api/parameter/get/parameters", {
     method: "GET",
     headers: {
@@ -93,8 +165,7 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
   // Lưu file PDF
   doc.save("danh-sach-ton-kho.pdf");
 });
- function getDanhSachTonKho()
- {
+function getDanhSachTonKho() {
   fetch("http://localhost:8888/api/stuff/get/stuffs", {
     method: "GET",
     headers: {
@@ -104,9 +175,8 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
     .then((res) => {
       return res.json();
     })
-    .then((data) => data)
-
- }
+    .then((data) => data);
+}
 
 //item table
 $(document).ready(function () {
@@ -208,11 +278,10 @@ $(document).ready(function () {
       .then((res) => {
         return res.json();
       })
-      .then((data) => { 
-        alert(data.Em)
+      .then((data) => {
+        alert(data.Em);
         location.reload();
       })
       .catch((error) => console.log("ERROR"));
-
   });
 });

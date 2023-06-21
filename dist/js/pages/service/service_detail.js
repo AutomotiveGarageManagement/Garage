@@ -1,95 +1,6 @@
 //table
 var Tile;
-function InPhieuThu() {
-  var doc = new jsPDF();
-  var startY = 20;
-  var margin = 10;
-  var cellWidth = 30;
-  var cellHeight = 10;
 
-  // Lấy danh sách tồn kho từ API
-  var danhSachTonKho = getDanhSachPhieuThu();
-  console.log(getDanhSachPhieuThu());
-
-  // Tạo một bảng để hiển thị danh sách tồn kho trong PDF
-  var headers = [
-    [
-      "Chu Xe",
-      "SDT",
-      "Ngay Tao",
-      "Bien So",
-      "Email",
-      "Nguoi Tao Phieu",
-      "Tong Tien",
-      "So Tien Thu",
-      "Con No",
-    ],
-  ];
-  var data = danhSachTonKho.map(function (hang) {
-    return [
-      hang.ChuXe,
-      hang.SDT,
-      hang.NgayTao,
-      hang.BienSo,
-      hang.Email,
-      hang.NguoiTaoPhieu,
-      hang.TongTien.toString(),
-      hang.SoTienThu.toString(),
-      hang.ConNo.toString(),
-    ];
-  });
-
-  // Tạo một font hỗ trợ tiếng Việt
-  doc.addFont(
-    "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js",
-    "Roboto-Italic.ttf"
-  );
-
-  // Vẽ tiêu đề
-  doc.setFont("Roboto-Italic.ttf"); // Sử dụng font đã được thêm
-  doc.setFontSize(12);
-  doc.setFontStyle("bold");
-  doc.text("Phieu thu", (margin + 9) * 5, startY);
-  startY += cellHeight;
-
-  // Vẽ bảng
-  doc.autoTable({
-    startY: startY,
-    head: headers,
-    body: data,
-    margin: margin,
-    styles: {
-      font: "Times", // Sử dụng font đã được thêm
-      fontSize: 10,
-      cellPadding: 5,
-    },
-  });
-  // Lưu file PDF
-  doc.save("bao-cao-doanh-thu.pdf");
-
-  // function getDanhSachPhieuThu() {
-  //   // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
-  //   // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
-  //   // Ví dụ:
-  //   // return fetch('url-api-danh-sach-ton-kho')
-  //   //   .then(response => response.json())
-  //   //   .then(data => data);
-
-  //   return [
-  //     {
-  //       ChuXe: "H001",
-  //       SDT: "HonDa",
-  //       NgayTao: 10,
-  //       BienSo: 100000,
-  //       Email: "50%",
-  //       NguoiTaoPhieu: "",
-  //       TongTien: 9999999,
-  //       SoTienThu: 100000,
-  //       ConNo: 3000000,
-  //     },
-  //   ];
-  // }
-}
 $(document).ready(function () {
   fetchData();
   var itemData = localStorage.getItem("item");
@@ -348,7 +259,7 @@ $(document).ready(function () {
         return res.json();
       })
       .then((data) => {
-        alert(data.Em)
+        alert(data.Em);
       })
       .catch((error) => console.log("ERROR"));
 
@@ -412,7 +323,7 @@ $(document).ready(function () {
         // Xử lý sự kiện nhấn nút Xoá
         var buttonIdw = $(this).attr("id");
         // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
-       alert("Xoá thành công");
+        alert("Xoá thành công");
       });
       tableBody.append(roww);
     });
@@ -461,7 +372,8 @@ $(document).ready(function () {
     var SoLuong = parseInt($("#InputNum").val());
     console.log("SoLuong: ", SoLuong, typeof SoLuong);
 
-    if (MaPhuTung == NaN ||  MaTiencong == NaN ) alert("Chưa chọn phụ tùng hoặc nội dung sửa chữa")
+    if (MaPhuTung == NaN || MaTiencong == NaN)
+      alert("Chưa chọn phụ tùng hoặc nội dung sửa chữa");
 
     fetch("http://localhost:8888/api/repair/create/form", {
       method: "POST",
@@ -497,19 +409,20 @@ $(document).ready(function () {
   //    "SoTienThu": 600000
   // }
   var phieuThu = document.getElementById("PhieuThu");
-var showHiddenPhieuThu = document.getElementById("showHiddenPhieuThu");
+  var showHiddenPhieuThu = document.getElementById("showHiddenPhieuThu");
 
-function showHiddenDivPhieuThu() {
-  phieuThu.style.display = "block";
+  function showHiddenDivPhieuThu() {
+    phieuThu.style.display = "block";
 
-  var TienThu = parseInt($("#InputTienThu").val());
-  var SDT = $("#InputSDT").val();
-  var Email = $("#InputEmail").val();
-  var NguoiTao = $("#InputNguoiTao").val();
-  console.log("Số tiền thu: ", TienThu, typeof TienThu);
-  console.log("Mã TN: ", item.MaTN, typeof item.MaTN);
-  console.log(SDT, Email);
+    var TienThu = parseInt($("#InputTienThu").val());
+    var SDT = $("#InputSDT").val();
+    var Email = $("#InputEmail").val();
+    var NguoiTao = $("#InputNguoiTao").val();
+    console.log("Số tiền thu: ", TienThu, typeof TienThu);
+    console.log("Mã TN: ", item.MaTN, typeof item.MaTN);
+    console.log(SDT, Email);
 
+<<<<<<< HEAD
   fetch("http://localhost:8888/api/payment/create/form", {
     method: "POST",
     headers: {
@@ -616,4 +529,120 @@ function getDanhSachPhieuThu() {
 
 showHiddenPhieuThu.addEventListener("click", showHiddenDivPhieuThu);
 })
+=======
+    fetch("http://localhost:8888/api/payment/create/form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        MaPhieuTN: item.MaTN,
+        SDT: SDT,
+        Email: Email,
+        SoTienThu: TienThu,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        $("#ShowTenPhieuThu").text(item.TenChuXe);
+        $("#ShowBienSoThu").text(item.BienSoXe);
+        $("#ShowEmailThu").text(Email);
+        $("#ShowSDTThu").text(item.SDT);
+        $("#ShowTongTienThu").text(tongcong);
+        $("#ShowSoTienThu").text(TienThu);
+        $("#ShowNgayTaoThu").text(new Date());
+        $("#ShowNguoiTaoThu").text(NguoiTao);
+        var TienConNoLai = item.TienNo - TienThu;
+        $("#ShowTienConNoLai").text(TienConNoLai);
+        $("#ShowTienNoLaiPT").text(TienConNoLai);
+        console.log(TienConNoLai);
+        alert(data.Em);
+      })
+      .catch((error) => console.log("ERROR"));
 
+    var doc = new jsPDF();
+    var startY = 20;
+    var margin = 10;
+    var cellHeight = 10;
+    var TienConNoLai = item.TienNo - TienThu;
+    var ngayTao = new Date();
+    var ngayThangNam = ngayTao.toLocaleDateString();
+
+    // Lấy danh sách tồn kho từ API
+    var danhSachPhieuThu = getDanhSachPhieuThu();
+    console.log(getDanhSachPhieuThu());
+    doc.addFont("BeVietnamPro-Regular.ttf", "BeVietnamPro", "normal");
+
+    doc.setFont("BeVietnamPro", "normal"); // Sử dụng font "Roboto" đã thêm
+    doc.setFontSize(12);
+
+    // Vẽ tiêu đề
+    doc.text("Phieu thu", margin, startY);
+    startY += cellHeight;
+
+    // Vẽ thông tin của phiếu thu
+    doc.setFontSize(12);
+    doc.text("Chu Xe: " + danhSachPhieuThu[0].ChuXe, margin, startY);
+    startY += cellHeight;
+    doc.text("SDT: " + danhSachPhieuThu[0].SDT, margin, startY);
+    startY += cellHeight;
+    doc.text("Ngay Tao: " + danhSachPhieuThu[0].NgayTao, margin, startY);
+    startY += cellHeight;
+    doc.text("Bien Số: " + danhSachPhieuThu[0].BienSo, margin, startY);
+    startY += cellHeight;
+    doc.text("Email: " + danhSachPhieuThu[0].Email, margin, startY);
+    startY += cellHeight;
+    doc.text(
+      "Nguoi Tao Phieu: " + danhSachPhieuThu[0].NguoiTaoPhieu,
+      margin,
+      startY
+    );
+    startY += cellHeight;
+    doc.text(
+      "Tong Tien: " + danhSachPhieuThu[0].TongTien.toString(),
+      margin,
+      startY
+    );
+    startY += cellHeight;
+    doc.text(
+      "So Tien Thu: " + danhSachPhieuThu[0].SoTienThu.toString(),
+      margin,
+      startY
+    );
+    startY += cellHeight;
+    doc.text("Con No: " + danhSachPhieuThu[0].ConNo.toString(), margin, startY);
+    startY += cellHeight;
+
+    // Lưu file PDF
+    doc.save("bao-cao-doanh-thu.pdf");
+
+    ///////////////////////
+    function getDanhSachPhieuThu() {
+      // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách phiếu thu từ nguồn dữ liệu
+      // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
+      // Ví dụ:
+      // return fetch('url-api-danh-sach-phieu-thu')
+      //   .then(response => response.json())
+      //   .then(data => data);
+
+      return [
+        {
+          ChuXe: item.TenChuXe,
+          SDT: item.BienSoXe,
+          NgayTao: ngayThangNam,
+          BienSo: item.BienSoXe,
+          Email: Email,
+          NguoiTaoPhieu: NguoiTao,
+          TongTien: tongcong,
+          SoTienThu: TienThu,
+          ConNo: TienConNoLai,
+        },
+      ];
+    }
+  }
+>>>>>>> 8ca8a94b878d2e6195476386f7557ec7b39d3994
+
+  showHiddenPhieuThu.addEventListener("click", showHiddenDivPhieuThu);
+});
