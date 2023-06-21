@@ -46,67 +46,12 @@ $(document).ready(function () {
   function renderTableCarBrands(data) {
     var tableBody = $("#CarBrandTable tbody");
     tableBody.empty(); // Xóa dữ liệu cũ trong bảng
-
+    console.log(data);
     $.each(data, function (index, item) {
       var row = $("<tr>");
+      console.log(item.id);
       row.append($("<th>").attr("scope", "row").text(item.id));
       row.append($("<td>").text(item.TenHX));
-
-      var buttons = $("<div>").addClass("row");
-      var col1 = $("<div>").addClass("col");
-      var col2 = $("<div>").addClass("col");
-
-      var btnSua = $("<button>")
-        .attr("id", item.Id)
-        .addClass("btn-info btn text-white")
-        .append($("<span>").addClass("fw-bold").text("Sửa"));
-
-      var btnXoa = $("<button>")
-        .attr("id", item.Id)
-        .addClass("btn-danger btn text-white")
-        .append($("<span>").addClass("fw-bold").text("Xoá"));
-
-      col1.append(btnSua);
-      col2.append(btnXoa);
-      buttons.append(col1, col2);
-
-      row.append($("<td>").append(buttons));
-
-      // var td = $("<td>"); // Tạo thẻ td
-
-      // var divRow = $("<div>").addClass("row"); // Tạo thẻ div với class "row"
-
-      // var divColSua = $("<div>").addClass("col"); // Tạo thẻ div với class "col" cho nút Sửa
-      // var btnSua = $("<button>")
-      //   .attr("id", item.Id)
-      //   .addClass("btn-info btn text-white")
-      //   .append($("<span>").addClass("fw-bold").text("Sửa")); // Tạo nút Sửa và thiết lập các thuộc tính
-      btnSua.click(function () {
-        // Xử lý sự kiện nhấn nút Xoá
-        var buttonId = $(this).attr("id");
-        // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
-        console.log("Đã nhấn nút Sửa với ID: " + buttonId);
-      });
-      // divColSua.append(btnSua); // Thêm nút Sửa vào thẻ div "col"
-      // divRow.append(divColSua); // Thêm thẻ div "col" vào thẻ div "row"
-
-      // var divColXoa = $("<div>").addClass("col"); // Tạo thẻ div với class "col" cho nút Xoá
-      // var btnXoa = $("<button>")
-      //   .attr("id", item.Id)
-      //   .addClass("btn-danger btn text-white")
-      //   .append($("<span>").addClass("fw-bold").text("Xoá")); // Tạo nút Xoá và thiết lập các thuộc tính
-      btnXoa.click(function () {
-        // Xử lý sự kiện nhấn nút Xoá
-        var buttonId = $(this).attr("id");
-        // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
-        console.log("Đã nhấn nút Xoá với ID: " + buttonId);
-      });
-      // divColXoa.append(btnXoa); // Thêm nút Xoá vào thẻ div "col"
-      // divRow.append(divColXoa); // Thêm thẻ div "col" vào thẻ div "row"
-
-      // td.append(divRow); // Thêm thẻ div "row" vào thẻ td
-      // row.append($("<td>").append(link));
-
       tableBody.append(row);
     });
   }
@@ -165,38 +110,39 @@ $(document).ready(function () {
       console.log(item.id, item.LoaiTienCong, item.GiaTriTienCong);
       var roww = $("<tr>");
       roww.append($("<th>").attr("scope", "row").text(item.id));
+      console.log(item.id);
       roww.append($("<td>").text(item.LoaiTienCong));
       roww.append($("<td>").text(item.GiaTriTienCong));
+
       var buttonsw = $("<div>").addClass("row");
-      var colw1 = $("<div>").addClass("col");
+
       var colw2 = $("<div>").addClass("col");
 
-      var btnwSua = $("<button>")
-        .attr("id", item.id)
-        .addClass("btn-info btn text-white")
-        .append($("<span>").addClass("fw-bold").text("Sửa"));
       var btnwXoa = $("<button>")
         .attr("id", item.id)
         .addClass("btn-danger btn text-white")
-        .append($("<span>").addClass("fw-bold").text("Xoá"));
-      colw1.append(btnwSua);
+        .append($("<span>").addClass("fw-bold").text("Xoá"))
+        .click(() => {
+          // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
+          console.log("Đã nhấn nút Xoá với ID: " + item.id);
+          fetch("http://localhost:8888/api/wage/delete/wage/" + item.id, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => {
+              return res.json();
+            })
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((error) => console.log("ERROR"));
+        });
       colw2.append(btnwXoa);
-      buttonsw.append(colw1, colw2);
+      buttonsw.append(colw2);
 
       roww.append($("<td>").append(buttonsw));
-
-      btnwSua.click(function () {
-        // Xử lý sự kiện nhấn nút Xoá
-        var buttonIdw = $(this).attr("id");
-        // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
-        console.log("Đã nhấn nút Sửa với ID: " + buttonIdw);
-      });
-      btnwXoa.click(function () {
-        // Xử lý sự kiện nhấn nút Xoá
-        var buttonIdw = $(this).attr("id");
-        // Thực hiện các thao tác cần thiết khi nhấn nút Xoá
-        console.log("Đã nhấn nút Xoá với ID: " + buttonIdw);
-      });
       tableBody.append(roww);
     });
   }

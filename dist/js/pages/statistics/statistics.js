@@ -115,10 +115,10 @@ $("#BtnXuatDoanhThuThang").click(function (e) {
   // Vẽ tiêu đề
   doc.setFontSize(12);
   doc.setFontStyle("bold");
-  doc.text("Bao cao doanh thu", (margin+9)*5, startY);
+  doc.text("Bao cao doanh thu", (margin + 9) * 5, startY);
   startY += cellHeight;
-  doc.text("Ngay tao", margin, startY);
-  doc.text("GragraOTO", (margin+9)*7, startY);
+  doc.text("Ngay tao: 21/06/2023 ", margin, startY);
+  doc.text("GragraOTO", (margin + 9) * 7, startY);
   startY += cellHeight;
 
   // Vẽ bảng
@@ -149,7 +149,13 @@ function getDanhSachTonKho() {
   //   .then(data => data);
 
   return [
-    { ID: "H001", HieuXe: "HonDa", SoLuot: 10, ThanhTien: 100000, TyLe: "50%" },
-    { ID: "H002", HieuXe: "BMW", SoLuot: 10, ThanhTien: 100000, TyLe: "50%" },
+    {
+      ID: "H001",
+      HieuXe: "HonDa",
+      SoLuot: 10,
+      ThanhTien: 1000000,
+      TyLe: "50%",
+    },
+    { ID: "H002", HieuXe: "BMW", SoLuot: 10, ThanhTien: 1000000, TyLe: "50%" },
   ];
 }
