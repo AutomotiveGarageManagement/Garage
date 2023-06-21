@@ -543,88 +543,75 @@ function showHiddenDivPhieuThu() {
     .catch((error) => console.log("ERROR"));
 
   //////////////////////////
-  var doc = new jsPDF();
-  var startY = 20;
-  var margin = 10;
-  var cellWidth = 30;
-  var cellHeight = 10;
-  var TienConNoLai = item.TienNo - TienThu;
-  var ngayTao = new Date();
-  var ngayThangNam = ngayTao.toLocaleDateString();
-  // Lấy danh sách tồn kho từ API
-  var danhSachTonKho = getDanhSachPhieuThu();
-  console.log(getDanhSachPhieuThu());
 
-  // Tạo một bảng để hiển thị danh sách tồn kho trong PDF
-  var headers = [
-    [
-      "Chu Xe",
-      "SDT",
-      "Ngay Tao",
-      "Bien So",
-      "Email",
-      "Nguoi Tao Phieu",
-      "Tong Tien",
-      "So Tien Thu",
-      "Con No",
-    ],
-  ];
-  var data = danhSachTonKho.map(function (hang) {
-    return [
-      hang.ChuXe,
-      hang.SDT,
-      hang.NgayTao,
-      hang.BienSo,
-      hang.Email,
-      hang.NguoiTaoPhieu,
-      hang.TongTien.toString(),
-      hang.SoTienThu.toString(),
-      hang.ConNo.toString(),
-    ];
-  });
+var doc = new jsPDF();
+var startY = 20;
+var margin = 10;
+var cellHeight = 10;
+var TienConNoLai = item.TienNo - TienThu;
+var ngayTao = new Date();
+var ngayThangNam = ngayTao.toLocaleDateString();
 
-  // Vẽ tiêu đề
-  
-  doc.text("Phieu thu", (margin + 9) * 5, startY);
-  startY += cellHeight;
+// Lấy danh sách tồn kho từ API
+var danhSachPhieuThu = getDanhSachPhieuThu();
+console.log(getDanhSachPhieuThu());
+doc.addFont("BeVietnamPro-Regular.ttf", "BeVietnamPro", "normal");
 
-  // Vẽ bảng
-  doc.autoTable({
-    startY: startY,
-    head: headers,
-    body: data,
-    margin: margin,
-    styles: {
-      font: "Times", // Sử dụng font đã được thêm
-      fontSize: 10,
-      cellPadding: 5,
+doc.setFont("BeVietnamPro","normal"); // Sử dụng font "Roboto" đã thêm
+doc.setFontSize(12);
+
+// Vẽ tiêu đề
+doc.text("Phieu thu", margin, startY);
+startY += cellHeight;
+
+// Vẽ thông tin của phiếu thu
+doc.setFontSize(12);
+doc.text("Chu Xe: " + danhSachPhieuThu[0].ChuXe, margin, startY);
+startY += cellHeight;
+doc.text("SDT: " + danhSachPhieuThu[0].SDT, margin, startY);
+startY += cellHeight;
+doc.text("Ngay Tao: " + danhSachPhieuThu[0].NgayTao, margin, startY);
+startY += cellHeight;
+doc.text("Bien Số: " + danhSachPhieuThu[0].BienSo, margin, startY);
+startY += cellHeight;
+doc.text("Email: " + danhSachPhieuThu[0].Email, margin, startY);
+startY += cellHeight;
+doc.text("Nguoi Tao Phieu: " + danhSachPhieuThu[0].NguoiTaoPhieu, margin, startY);
+startY += cellHeight;
+doc.text("Tong Tien: " + danhSachPhieuThu[0].TongTien.toString(), margin, startY);
+startY += cellHeight;
+doc.text("So Tien Thu: " + danhSachPhieuThu[0].SoTienThu.toString(), margin, startY);
+startY += cellHeight;
+doc.text("Con No: " + danhSachPhieuThu[0].ConNo.toString(), margin, startY);
+startY += cellHeight;
+
+// Lưu file PDF
+doc.save("bao-cao-doanh-thu.pdf");
+
+///////////////////////
+function getDanhSachPhieuThu() {
+  // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách phiếu thu từ nguồn dữ liệu
+  // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
+  // Ví dụ:
+  // return fetch('url-api-danh-sach-phieu-thu')
+  //   .then(response => response.json())
+  //   .then(data => data);
+
+  return [
+    {
+      ChuXe: item.TenChuXe,
+      SDT: item.BienSoXe,
+      NgayTao: ngayThangNam,
+      BienSo: item.BienSoXe,
+      Email: Email,
+      NguoiTaoPhieu: NguoiTao,
+      TongTien: tongcong,
+      SoTienThu: TienThu,
+      ConNo: TienConNoLai,
     },
-  });
-  // Lưu file PDF
-  doc.save("bao-cao-doanh-thu.pdf");
-  ///////////////////////
-  function getDanhSachPhieuThu() {
-    // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
-    // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
-    // Ví dụ:
-    // return fetch('url-api-danh-sach-ton-kho')
-    //   .then(response => response.json())
-    //   .then(data => data);
-  
-    return [
-      {
-        ChuXe: item.TenChuXe,
-        SDT: item.BienSoXe,
-        NgayTao: ngayThangNam,
-        BienSo: item.BienSoXe,
-        Email: Email,
-        NguoiTaoPhieu: NguoiTao,
-        TongTien: tongcong,
-        SoTienThu: TienThu,
-        ConNo: TienConNoLai,
-      },
-    ];
-  }
+  ];
+}
+
 }
 
 showHiddenPhieuThu.addEventListener("click", showHiddenDivPhieuThu);
