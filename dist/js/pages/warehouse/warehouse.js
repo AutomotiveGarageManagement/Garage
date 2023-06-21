@@ -134,7 +134,7 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
   var headers = [["ID", "Vat tu Phu tung", "Ton dau", "Phat Sinh", "Ton cuoi"]];
   var data = danhSachTonKho.map(function (hang) {
     return [
-      hang.id,
+      hang.ID,
       hang.TenVTPT,
       hang.TonDau.toString(),
       hang.PhatSinh.toString(),
@@ -146,7 +146,7 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
   doc.setFontSize(12);
   doc.setFontStyle("bold");
   doc.text("Bao cao Ton Kho", margin, startY);
-  doc.text("Thang 8", startY * 3, startY);
+  doc.text("Thang 1", (startY+9) * 6, startY);
   startY += cellHeight;
 
   // Vẽ bảng
@@ -156,7 +156,7 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
     body: data,
     margin: margin,
     styles: {
-      font: "Times-Roman",
+      font: "Times",
       fontStyle: "normal",
       fontSize: 10,
       cellPadding: 5,
@@ -164,6 +164,26 @@ $("#BtnXuatBaoTonCaoThang").click(function (e) {
   });
   // Lưu file PDF
   doc.save("danh-sach-ton-kho.pdf");
+
+  function getDanhSachTonKho() {
+    // Thay thế đoạn mã dưới đây bằng phương thức thực tế để lấy danh sách tồn kho từ nguồn dữ liệu
+    // và trả về dữ liệu dưới dạng mảng các đối tượng có cấu trúc tương tự.
+    // Ví dụ:
+    // return fetch('url-api-danh-sach-ton-kho')
+    //   .then(response => response.json())
+    //   .then(data => data);
+  
+    return [
+      {
+        ID: "1",
+        TenVTPT: "Buồn nhớt",
+        TonDau: 1,
+        PhatSinh: 0,
+        TonCuoi: "1",
+      },
+    ];
+  }
+
 });
 function getDanhSachTonKho() {
   fetch("http://localhost:8888/api/stuff/get/stuffs", {
